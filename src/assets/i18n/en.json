@@ -1,0 +1,12 @@
+{
+  "BUTTON": {
+    "MENU" : "Menu",
+    "CLEAR" : "Clear",
+    "APPLY" : "Apply"
+  },
+  "TITLE": {},
+
+  "LABEL": {},
+
+  "MESSAGE": {}
+}
