@@ -1,0 +1,37 @@
+<div>
+    <header class="sticky top-0 z-30 w-full px-2 py-4 sm:px-4">
+        <div class="flex items-center justify-between mx-auto max-w-7xl">
+            <div class="relative ">
+                <input type="text" id="simple-search"
+                    class=" w-48 bg-gray-100 text-gray-900 rounded-lg focus:outline-slate-700 block p-2.5"
+                    placeholder="Search">
+            </div>
+            <div class="flex items-center space-x-1">
+                <ul class="hidden space-x-2 md:inline-flex text-black">
+                    <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">Menu</a></li>
+                    <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">profile</a></li>
+                    <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">About Us</a></li>
+                    <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">Contact Us</a></li>
+                </ul>
+
+                <div class="inline-flex w-full md:hidden text-black">
+                    <button *ngIf="!isOpen" class="flex-none px-2 " (click)="isOpen = true">
+                       <img class=" h-6 w-6" [src]="'assets/svg/menu.svg'" alt="menu">
+                    </button>
+                    <div *ngIf="isOpen" class="absolute top-0 left-0 right-0 z-50 flex flex-col p-2 pb-4 m-2 space-y-3 bg-gray-100 rounded shadow-lg"
+                   (click)="isOpen = false">
+                        <button class="self-end text-black flex-none px-2 ml-2" (click)="isOpen = false">
+                            <img class="h-5 w-5" [src]="'assets/svg/close.svg'" alt="close">
+                        </button>
+                        <ul class="space-y-2 text-black">
+                            <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">Home</a></li>
+                            <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">Blogs</a></li>
+                            <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">About Us</a></li>
+                            <li><a href="#" class="px-4 py-2 font-semibold rounded hover:bg-gray-300">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
