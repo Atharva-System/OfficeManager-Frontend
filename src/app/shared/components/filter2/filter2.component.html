@@ -1,0 +1,55 @@
+<div class="w-full sm:w-6/12 md:w-4/12 px-4">
+    <div class="relative inline-flex align-middle w-full">
+        <button class="uppercase text-sm px-6 py-3 rounded shadow-xl bg-gray hover:bg-slate-100" type="button"
+            (click)="toggleDropdown($event)" #btnDropdownRef>
+            <span class="inline-flex justify-center items-center w-6 h-6">
+                <img src="assets/svg/filter.svg" alt="filter">
+            </span>
+        </button>
+    </div>
+</div>
+<div #popoverDropdownRef [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+    class=" dropDownBlock text-sm border-b border-gray-100 border bg-white absolute w-48 lg:w-80 z-20 rounded-lg shadow-xl p-2">
+
+    <div class="flex flex-wrap items-center w-44 lg:w-72 m-2">
+        <div *ngFor="let attribute of attributes; let i = index"
+            class="p-1 bg-slate-300 rounded-lg mr-1 flex items-center mb-1">
+            <span>{{
+                attribute }} </span>
+            <span><img class="mx-2 w-2 h-2" src="assets/svg/close.svg" alt="close-{{i}}" (click)="onCloseAttribute(i)"></span>
+        </div>
+    </div>
+
+    <div *ngIf="isSearch" class="flex items-center">
+        <div class="relative w-full">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 ">
+                <img class="w-5 h-5" src="assets/svg/search.svg" alt="search">
+            </div>
+            <input type="text" id="simple-search"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-slate-700 block w-full pl-10 p-2.5"
+                placeholder="Search" [(ngModel)]="searchAttribute">
+        </div>
+        <img class="mx-2 w-5 h-5" (click)="dropdownPopoverShow = false" src="assets/svg/close.svg" alt="close">
+    </div>
+
+    <div class="overflow-y-auto h-44">
+        <div *ngFor="let attribute of filterAttributes | filter: searchAttribute : ['name']; let i = index "
+            class="block items-center relative cursor-pointer text-black hover:bg-slate-100 py-2"
+            [ngClass]="attribute.isChecked ? 'bg-slate-300' : ''">
+            <div class="flex items-center" (click)="onClick(attribute.name)">
+                <p class="ml-2 w-full text-sm font-medium text-gray-900">{{ attribute?.name ||
+                    "-"
+                    }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="block text-black  py-2 mb-2">
+        <button
+            class="bg-transparent hover:bg-slate-700 text-slate-700 font-semibold hover:text-white p-2 border border-slate-700  mr-1 mb-1 hover:border-transparent rounded float-left  hover:bg-slate-100"
+            (click)="onClear()">{{ 'BUTTON.CLEAR' | translate }}</button>
+        <button
+            class=" bg-transparent hover:bg-slate-700 text-slate-700 font-semibold hover:text-white p-2 border border-slate-700  mr-1 mb-1 hover:border-transparent rounded float-right hover:bg-slate-100"
+            (click)="onApply()">{{ 'BUTTON.APPLY' | translate }}</button>
+    </div>
+</div>
