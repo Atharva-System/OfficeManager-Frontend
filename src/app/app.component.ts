@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IFilter } from './core/shared/interfaces/filter';
-import { IMenuItem } from './core/shared/interfaces/menu-item';
 import { CommonService } from './core/shared/services/common/common.service';
+import { LayOutCommonService } from './core/layout/services/common/common.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +18,9 @@ export class AppComponent {
 
   constructor(
     public translate: TranslateService,
-    public commonService: CommonService
+    public commonService: CommonService,
+    public layoutCommonService: LayOutCommonService,
+    @Inject(DOCUMENT) private document: Document
   ) {
     //Set langulage english
     translate.setDefaultLang('en');
@@ -25,6 +28,16 @@ export class AppComponent {
 
     this.menuItems = this.commonService.menuItems;
     this.filterAttributes = this.commonService.filterAttributes;
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('color-theme')) {
+      if (localStorage.getItem('color-theme') === 'dark') {
+        this.document.body.classList.add('dark');
+        this.layoutCommonService.isDarkTheme = true;
+      }else
+      this.layoutCommonService.isDarkTheme = false;
+    }
   }
 
   //To get item on click DropDown MenuItem
