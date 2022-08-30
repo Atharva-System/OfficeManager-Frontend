@@ -20,6 +20,8 @@ import { ConstantClass } from 'src/app/shared/constants/constants';
 export class MenuComponent implements AfterViewInit {
   @Input()
   menuItems!: IMenuItem[];
+  @Input()
+  isIcon!: string;
   @Output() onItemClick = new EventEmitter<any>();
 
   dropdownPopoverShow = false;
