@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'src/app/core/layout/services/common/common.service';
+import { LayOutCommonService } from 'src/app/core/layout/services/common/common.service';
 
 @Component({
   selector: 'app-layout',
@@ -31,7 +31,7 @@ export class LayoutComponent implements OnInit {
     },
   ];
 
-  constructor(public commonService : CommonService) { }
+  constructor(public layoutCommonService : LayOutCommonService) { }
 
   ngOnInit(): void {
   }
