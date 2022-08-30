@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/core/layout/services/common/common.service';
 
 @Component({
   selector: 'app-layout',
@@ -6,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  isOpen = false;
-  
+
   menuItems: any = [
     {
       name: 'aa',
@@ -31,7 +31,7 @@ export class LayoutComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(public commonService : CommonService) { }
 
   ngOnInit(): void {
   }
