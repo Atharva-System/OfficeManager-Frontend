@@ -3,21 +3,21 @@
         <span *ngIf="isIcon"  #btnDropdownRef><img class="rounded-full h-10 w-10"
                 [src]="isIcon" alt="profile"></span>
         <button
-            class="text-black flex font-bold uppercase text-md px-1 py-3 outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="text-black dark:text-white flex font-bold uppercase text-md px-1 py-3 outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button">
             <span class="mr-1">{{ 'BUTTON.MENU' | translate }}</span>
-            <span class="ml-auto items-center mt-1"> <img [src]="dropdownPopoverShow ? 'assets/svg/arrow-up.svg' : 'assets/svg/arrow-down.svg'" class="h-4 w-4" alt="arrow">
+            <span class="ml-auto items-center mt-1"> <img [src]="dropdownPopoverShow ? 'assets/svg/arrow-up.svg' : 'assets/svg/arrow-down.svg'" class="h-4 w-4 icon-img" alt="arrow">
             </span>
         </button>
     </div>
 </div>
 <div #popoverDropdownRef [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
-    class="dropDownBlock text-sm border-b border-gray-100 border bg-white absolute min-w-48 z-20 rounded-lg shadow-xl">
+    class="dropDownBlock text-sm text-black bg-white dark:text-white dark:bg-gray-800 absolute min-w-48 z-20 rounded-lg shadow-xl">
     <div *ngFor="let item of menuItems; let i = index" (click)="onClick(item, i)"
-        class="block items-center relative cursor-pointer text-black hover:bg-slate-100 py-2 px-3">
+        class="block items-center relative cursor-pointer hover:bg-slate-100 py-2 px-3">
         <div class="flex items-center">
             <span *ngIf="item?.isIcon" class="inline-flex justify-center items-center w-6 h-6">
-                <img [src]="item?.icon || 'assets/svg/info.svg'" [alt]="item?.name">
+                <img class="icon-img" [src]="item?.icon || 'assets/svg/info.svg'" [alt]="item?.name">
             </span>
             <span class="px-2">{{ item?.name || '-'}}</span>
         </div>
