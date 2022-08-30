@@ -4,9 +4,9 @@ import { IMenuItem } from 'src/app/core/shared/interfaces/menu-item';
 @Injectable({
   providedIn: 'root'
 })
-export class CommonService {
+export class LayOutCommonService {
   isOpenSidebar = true;
-  isDarkTheme = false;
+  isDarkTheme = true;
 
   menuItems: IMenuItem[] = [
     {
