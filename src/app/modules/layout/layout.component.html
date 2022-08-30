@@ -1,24 +1,28 @@
-<div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-slate-300">
-	<div [ngClass]="isOpen ? '' : 'inactiveSidebarMenu' " class="fixed flex flex-col top-0 left-0 bg-slate-700 h-full border-r left-menu">
-		<div class="flex text-gray-50 px-3 pt-3 bg-gray-900 rounded ">
-			<div *ngIf="isOpen" class="col-start-1 col-end-3 ">SideBar</div>
-			<div class="ml-auto" (click)="isOpen = !isOpen"><img class=" h-6 w-6" [src]="isOpen ? 'assets/svg/hideMenu.png' : 'assets/svg/openMenu.png'" alt="menu"></div>
+<div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black">
+	<div [ngClass]="commonService.isOpenSidebar ? '' : 'inactiveSidebarMenu' "
+		class="rounded-l-2xl ml-1 fixed flex flex-col top-0 left-0 bg-white shadow-lg h-full left-menu">
+		<div class="flex text-black px-3 pt-3 rounded ">
+			<div class="col-start-1 col-end-3"><img
+				[src]="commonService.isOpenSidebar ? 'assets/svg/fullLogo.jpeg' : 'assets/svg/logo.jpeg' " alt="logo"></div>
 		</div>
-		<div class="overflow-y-auto overflow-x-hidden flex-grow text-gray-50 bg-gray-900 rounded ">
+		<div class="overflow-y-auto overflow-x-hidden flex-grow text-black rounded">
 			<div class="flex flex-col py-4 space-y-1">
 				<div *ngFor="let menuItem of menuItems">
 					<a href="#"
-						class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-700 hover:text-gray-300 border-l-4 border-transparent hover:border-slate-900 px-3">
+						class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-zinc-200 border-l-4 border-transparent hover:border-zinc-500 px-3">
 						<span class="inline-flex justify-center items-center text-slate-50">
-							<img class="h-6 w-6" [src]="menuItem?.icon || 'assets/svg/info.svg'" [alt]="menuItem?.name"></span>
-						<span *ngIf="isOpen" class="ml-3 text-sm tracking-wide truncate">{{ menuItem?.name }}</span>
+							<img class="h-5 w-5" [src]="menuItem?.icon || 'assets/svg/info.svg'"
+								[alt]="menuItem?.name"></span>
+						<span *ngIf="commonService.isOpenSidebar" class="ml-3 text-sm tracking-wide truncate">{{ menuItem?.name }}</span>
 					</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div [ngClass]="isOpen ? 'ml-64' : 'ml-14'">
-		<app-header></app-header>
-		<router-outlet></router-outlet>
+	<div [ngClass]="commonService.isOpenSidebar ? 'ml-64' : 'ml-14 inActiveDashboard'" class="dashboard">
+		<div class="rounded-l-2xl">
+			<app-header></app-header>
+			<router-outlet></router-outlet>
+		</div>
 	</div>
 </div>
