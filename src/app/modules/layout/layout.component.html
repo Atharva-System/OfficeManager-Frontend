@@ -1,25 +1,25 @@
-<div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black">
-	<div [ngClass]="commonService.isOpenSidebar ? '' : 'inactiveSidebarMenu' "
-		class="rounded-l-2xl ml-1 fixed flex flex-col top-0 left-0 bg-white shadow-lg h-full left-menu">
-		<div class="flex text-black px-3 pt-3 rounded ">
+<div class="main-layout-class min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black dark:bg-gray-900 dark:text-white">
+	<div [ngClass]="layoutCommonService.isOpenSidebar ? '' : 'inactiveSidebarMenu' "
+		class="rounded-l-2xl fixed flex flex-col top-0 left-0 text-black bg-white dark:text-white dark:bg-gray-800 shadow-lg h-full left-menu">
+		<div class="flex px-3 pt-3 rounded ">
 			<div class="col-start-1 col-end-3"><img
-				[src]="commonService.isOpenSidebar ? 'assets/svg/fullLogo.jpeg' : 'assets/svg/logo.jpeg' " alt="logo"></div>
+				[src]="!layoutCommonService.isOpenSidebar ? 'assets/svg/atharv-icon.png' : (layoutCommonService.isOpenSidebar && !layoutCommonService.isDarkTheme) ? 'assets/svg/atharva-brand-logo-dark.png' : 'assets/svg/atharva-brand-logo.png'" alt="logo"></div>
 		</div>
-		<div class="overflow-y-auto overflow-x-hidden flex-grow text-black rounded">
+		<div class="overflow-y-auto overflow-x-hidden flex-grow rounded">
 			<div class="flex flex-col py-4 space-y-1">
 				<div *ngFor="let menuItem of menuItems">
 					<a href="#"
 						class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-zinc-200 border-l-4 border-transparent hover:border-zinc-500 px-3">
-						<span class="inline-flex justify-center items-center text-slate-50">
-							<img class="h-5 w-5" [src]="menuItem?.icon || 'assets/svg/info.svg'"
+						<span class="inline-flex justify-center items-center">
+							<img class="h-5 w-5 icon-img" [src]="menuItem?.icon || 'assets/svg/info.svg'"
 								[alt]="menuItem?.name"></span>
-						<span *ngIf="commonService.isOpenSidebar" class="ml-3 text-sm tracking-wide truncate">{{ menuItem?.name }}</span>
+						<span *ngIf="layoutCommonService.isOpenSidebar" class="ml-3 text-sm tracking-wide truncate">{{ menuItem?.name }}</span>
 					</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div [ngClass]="commonService.isOpenSidebar ? 'ml-64' : 'ml-14 inActiveDashboard'" class="dashboard">
+	<div [ngClass]="layoutCommonService.isOpenSidebar ? 'ml-64' : 'ml-14 inActiveDashboard'" class="dashboard">
 		<div class="rounded-l-2xl">
 			<app-header></app-header>
 			<router-outlet></router-outlet>
