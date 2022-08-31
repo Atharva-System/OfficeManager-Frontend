@@ -7,12 +7,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
   declarations: [
     AuthComponent,
-    SignInComponent
+    SignInComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
