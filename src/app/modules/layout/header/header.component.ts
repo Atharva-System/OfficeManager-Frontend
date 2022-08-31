@@ -1,5 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthCommonService } from 'src/app/core/auth/service/common/auth-common.service';
 import { LayOutCommonService } from 'src/app/core/layout/services/common/common.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 
@@ -12,6 +14,8 @@ export class HeaderComponent implements OnInit {
   menuItems;
   constructor(
     public layoutCommonService: LayOutCommonService,
+    public authCommonService: AuthCommonService,
+    private router : Router,
     private _eref: ElementRef,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -22,7 +26,14 @@ export class HeaderComponent implements OnInit {
 
   //To get item on click DropDown MenuItem
   onItemClick(item: any) {
-    console.log(item);
+    console.log(item.item.name);
+
+    if(item.item.name.toLowerCase() === 'log out'){
+      localStorage.removeItem('loggedIn');
+      this.router.navigate(['']);
+      this.authCommonService.isLoggedIn = '';
+      console.log(this.authCommonService.isLoggedIn);
+    }
   }
 
   onThemeChange() {
