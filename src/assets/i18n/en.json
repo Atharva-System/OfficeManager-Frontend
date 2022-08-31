@@ -14,7 +14,18 @@
     "FORGOT_PASSWORD" : "Forgot your password?"
   },
 
-  "LABEL": {},
+  "LABEL": {
+    "EMAIL" : "Email",
+    "PASSWORD" : "Password"
+  },
 
-  "MESSAGE": {}
+  "PLACE_HOLDER" : {
+    "EMAIL" : "Enter your email",
+    "PASSWORD" : "Enter your password"
+  },
+
+  "MESSAGE": {
+    "REQUIRED" : "is required!",
+    "EMAIL_PATTERN" : "is invalid!"
+  }
 }
