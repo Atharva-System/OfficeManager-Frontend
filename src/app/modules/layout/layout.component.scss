@@ -1,20 +1,13 @@
-
-
 .main-layout-class {
   .left-menu {
-    width: 16rem;
     transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.35s;
     &.inactiveSidebarMenu {
-      width: 3.5rem;
     }
   }
 
   .dashboard {
-    margin-left: 16rem;
     transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.35s;
     &.inActiveDashboard {
-      margin-left: 3.5rem;
     }
   }
 }
-
