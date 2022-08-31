@@ -1,3 +1,5 @@
+import { FormGroup, Validators } from "@angular/forms";
+
 export class ConstantClass {
   static escapeKey = 'escape';
   static darkClass = 'dark';
@@ -8,4 +10,11 @@ export class ConstantClass {
     keydown: 'document:keydown',
   };
   static placement: any = 'bottom-start';
+
+  //validators
+  static validators = Validators;
+
+  //forms
+  static signinForm : FormGroup;
+
 }
