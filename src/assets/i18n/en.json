@@ -3,20 +3,22 @@
     "MENU" : "Menu",
     "CLEAR" : "Clear",
     "APPLY" : "Apply",
-    "SIGN_IN" : "Sign In"
+    "SIGN_IN" : "Sign In",
+    "SUBMIT" : "Submit"
   },
   "TITLE": {
-    "SIGN_IN_TITLE" : "Signin to Your Account"
-   
+    "SIGN_IN_TITLE" : "Signin to Your Account",
+    "FORGOT_PASSWORD_TITLE" : "Forgot password?"
   },
 
   "LINK" : {
-    "FORGOT_PASSWORD" : "Forgot your password?"
+    "FORGOT_PASSWORD" : "Forgot password?"
   },
 
   "LABEL": {
     "EMAIL" : "Email",
-    "PASSWORD" : "Password"
+    "PASSWORD" : "Password",
+    "TNC" : "Terms and Conditions"
   },
 
   "PLACE_HOLDER" : {
@@ -26,6 +28,9 @@
 
   "MESSAGE": {
     "REQUIRED" : "is required!",
-    "EMAIL_PATTERN" : "is invalid!"
+    "EMAIL_PATTERN" : "is invalid!",
+    "FORGOT_PASSWORD_1" : "Enter the email address you used when you joined and we'll send you instructions to reset your password.",
+    "FORGOT_PASSWORD_2" : "For security reasons, we do NOT store your password. So rest assured that we will never send your password via email.",
+    "TNC_ACCEPT" : "I accept the"
   }
 }
