@@ -6,11 +6,12 @@ import { Filter2Component } from './components/filter2/filter2.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterPipe } from './pipes/filter/filter.pipe';
 import { MenuComponent } from './components/menu/menu.component';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
-  declarations: [MenuComponent, FilterComponent, FilterPipe, Filter2Component],
+  declarations: [MenuComponent, FilterComponent, FilterPipe, Filter2Component, ButtonComponent],
   imports: [CommonModule, TranslateModule.forChild(), FormsModule],
-  exports: [MenuComponent, FilterComponent, Filter2Component],
+  exports: [MenuComponent, FilterComponent, Filter2Component, ButtonComponent],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
 
 })
