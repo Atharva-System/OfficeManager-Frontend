@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IFilter } from './core/shared/interfaces/filter';
 import { CommonService } from './core/shared/services/common/common.service';
 import { LayOutCommonService } from './core/layout/services/common/common.service';
+import { ConstantClass } from './shared/constants/constants';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,8 +33,8 @@ export class AppComponent {
 
   ngOnInit(): void {
     if (localStorage.getItem('color-theme')) {
-      if (localStorage.getItem('color-theme') === 'dark') {
-        this.document.body.classList.add('dark');
+      if (localStorage.getItem('color-theme') === ConstantClass.darkClass) {
+        this.document.body.classList.add(ConstantClass.darkClass);
         this.layoutCommonService.isDarkTheme = true;
       }else
       this.layoutCommonService.isDarkTheme = false;
