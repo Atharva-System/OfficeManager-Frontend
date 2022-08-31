@@ -2,9 +2,17 @@
   "BUTTON": {
     "MENU" : "Menu",
     "CLEAR" : "Clear",
-    "APPLY" : "Apply"
+    "APPLY" : "Apply",
+    "SIGN_IN" : "Sign In"
   },
-  "TITLE": {},
+  "TITLE": {
+    "SIGN_IN_TITLE" : "Signin to Your Account"
+   
+  },
+
+  "LINK" : {
+    "FORGOT_PASSWORD" : "Forgot your password?"
+  },
 
   "LABEL": {},
 
