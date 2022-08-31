@@ -6,6 +6,7 @@ import { AuthComponent } from './auth.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    ReactiveFormsModule
   ],
   exports : [SignInComponent],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
