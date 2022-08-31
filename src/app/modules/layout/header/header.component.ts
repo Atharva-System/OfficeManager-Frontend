@@ -28,25 +28,25 @@ export class HeaderComponent implements OnInit {
   onThemeChange() {
     // if set via local storage previously
     if (localStorage.getItem('color-theme')) {
-      if (localStorage.getItem('color-theme') === 'light') {
-        this.document.body.classList.add('dark');
-        localStorage.setItem('color-theme', 'dark');
+      if (localStorage.getItem('color-theme') === ConstantClass.lightClass) {
+        this.document.body.classList.add(ConstantClass.darkClass);
+        localStorage.setItem('color-theme', ConstantClass.darkClass);
         this.layoutCommonService.isDarkTheme = true;
       } else {
-        this.document.body.classList.remove('dark');
-        localStorage.setItem('color-theme', 'light');
+        this.document.body.classList.remove( ConstantClass.darkClass);
+        localStorage.setItem('color-theme', ConstantClass.lightClass);
         this.layoutCommonService.isDarkTheme = false;
       }
 
       // if NOT set via local storage previously
     } else {
-      if (this.document.body.classList.contains('dark')) {
-        this.document.body.classList.remove('dark');
-        localStorage.setItem('color-theme', 'light');
+      if (this.document.body.classList.contains( ConstantClass.darkClass)) {
+        this.document.body.classList.remove( ConstantClass.darkClass);
+        localStorage.setItem('color-theme', ConstantClass.lightClass);
         this.layoutCommonService.isDarkTheme = false;
       } else {
-        this.document.body.classList.add('dark');
-        localStorage.setItem('color-theme', 'dark');
+        this.document.body.classList.add( ConstantClass.darkClass);
+        localStorage.setItem('color-theme',  ConstantClass.darkClass);
         this.layoutCommonService.isDarkTheme = true;
       }
     }
