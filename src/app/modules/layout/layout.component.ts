@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LayOutCommonService } from 'src/app/core/layout/services/common/common.service';
+import { ConstantClass } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-layout',
@@ -7,6 +8,8 @@ import { LayOutCommonService } from 'src/app/core/layout/services/common/common.
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
+  public constant;
+  innerWidth;
 
   menuItems: any = [
     {
@@ -31,7 +34,10 @@ export class LayoutComponent implements OnInit {
     },
   ];
 
-  constructor(public layoutCommonService : LayOutCommonService) { }
+  constructor(public layoutCommonService : LayOutCommonService) {
+    this.constant = ConstantClass;
+    this.innerWidth = window.innerWidth;
+   }
 
   ngOnInit(): void {
   }
