@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IMenuItem } from 'src/app/core/shared/interfaces/menu-item';
+import { ConstantClass } from 'src/app/shared/constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class LayOutCommonService {
     },
   ];
   
-  constructor() { }
+  constructor() { 
+    if(window.innerWidth < ConstantClass.innerWidth){
+      this.isOpenSidebar = false;
+    }
+  }
 }
