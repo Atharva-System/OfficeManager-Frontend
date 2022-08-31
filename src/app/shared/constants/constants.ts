@@ -16,5 +16,5 @@ export class ConstantClass {
 
   //forms
   static signinForm : FormGroup;
-
+  static forgotPasswordForm : FormGroup;
 }
