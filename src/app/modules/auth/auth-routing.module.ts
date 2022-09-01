@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { AuthComponent } from './auth.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '', redirectTo: RouterPathClass.auth, pathMatch: 'full' },
   {
-    path: 'auth',
+    path: RouterPathClass.auth,
     component: AuthComponent,
     children : [
       {
@@ -15,7 +16,7 @@ const routes: Routes = [
         component: SignInComponent,
       },
       {
-        path: 'forgot-password',
+        path: RouterPathClass.forgotPassword,
         component: ForgotPasswordComponent,
       },
     ]
