@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { createPopper } from '@popperjs/core';
-import { IMenuItem } from 'src/app/core/shared/interfaces/menu-item';
+import { IMenuItem } from 'src/app/core/shared/models/menu-item';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 
 @Component({

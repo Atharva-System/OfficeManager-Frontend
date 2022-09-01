@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { createPopper } from '@popperjs/core';
 import { ConstantClass } from 'src/app/shared/constants/constants';
-import { IFilter } from 'src/app/core/shared/interfaces/filter';
+import { IFilter } from 'src/app/core/shared/models/filter';
 @Component({
   selector: 'app-filter2',
   templateUrl: './filter2.component.html',
