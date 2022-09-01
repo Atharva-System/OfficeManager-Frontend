@@ -11,10 +11,6 @@
     "FORGOT_PASSWORD_TITLE" : "Forgot password?"
   },
 
-  "LINK" : {
-    "FORGOT_PASSWORD" : "Forgot password?"
-  },
-
   "LABEL": {
     "EMAIL" : "Email",
     "PASSWORD" : "Password",
