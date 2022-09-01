@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IFilter } from './core/shared/interfaces/filter';
+import { IFilter } from './core/shared/models/filter';
 import { CommonService } from './core/shared/services/common/common.service';
 import { LayOutCommonService } from './core/layout/services/common/common.service';
 import { ConstantClass } from './shared/constants/constants';
