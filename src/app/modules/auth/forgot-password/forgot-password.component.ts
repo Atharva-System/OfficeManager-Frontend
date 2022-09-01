@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConstantClass } from 'src/app/shared/constants/constants';
+import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { Regex } from 'src/app/shared/utils/regex';
 
 @Component({
@@ -12,6 +13,7 @@ import { Regex } from 'src/app/shared/utils/regex';
 export class ForgotPasswordComponent implements OnInit {
   public constant;
 
+  //Array of object for showing validation message in loop 
   validationMessages = {
     email: [
       { type: 'required', message: 'MESSAGE.REQUIRED' },
@@ -26,11 +28,15 @@ export class ForgotPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
   ) {
+    //Initialize ForgotPasswordForm form
     this.initialization();
+    //constant
     this.constant = ConstantClass;
   }
+
   ngOnInit(): void {}
 
+  //Initialize ForgotPasswordForm form
   initialization() {
     ConstantClass.forgotPasswordForm = this.formBuilder.group({
       email: [
@@ -38,19 +44,23 @@ export class ForgotPasswordComponent implements OnInit {
         [Validators.required, Validators.pattern(Regex.emailPattern)],
       ],
       tnc: [
-        '',
-        [Validators.required],
+        false,
+        [Validators.requiredTrue],
       ],
     });
   }
 
+  // To get all controls
   get _forgotPasswordForm() {
     return ConstantClass.forgotPasswordForm.controls;
   }
 
+  // Onsubmit forgot-password form
   onSubmit() {
-    this.router.navigate(['auth']);
+    //To navigate to auth route
+    this.router.navigate([RouterPathClass.auth]);
     console.log(ConstantClass.forgotPasswordForm.value);
+    // To clear form
     this.initialization();
   }
 }

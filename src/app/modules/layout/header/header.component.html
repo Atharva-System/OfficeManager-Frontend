@@ -1,21 +1,26 @@
 <div>
     <header class="sticky top-0 z-30 w-full px-1 py-2 ">
         <div class="flex items-center justify-between mx-auto max-w-7xl">
+            <!-- Left side of header -->
             <div class="relative flex items-center">
+                <!-- Menu icon -->
                 <div class="mr-3" (click)="layoutCommonService.isOpenSidebar = !layoutCommonService.isOpenSidebar">
                     <img class="h-6 w-6 icon-img" [src]="'assets/svg/hamburger-menu.svg'" alt="menu">
                 </div>
+                <!-- Atharva Logo -->
                 <div class="flex md:hidden mt-3 h-8 w-8 rounded mr-2">
                     <div class="col-start-1 col-end-3"><img
                         [src]="'assets/svg/atharv-icon.png'" alt="logo"></div>
                 </div>
+                <!-- Search field -->
                 <input type="text" id="simple-search"
                     class="ml-auto w-32 md:w-48 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg focus:outline-black block p-2.5"
                     placeholder="Search">
-
             </div>
+            <!-- Right side of header -->
             <div class="flex items-center space-x-1">
                 <ul class="flex space-x-2 md:inline-flex">
+                    <!-- Icon of sun or moon according to theme -->
                     <li>
                         <div class="mt-3 mr-1">
                             <img class="h-4 w-4 md:h-7 md:w-7 icon-img" (click)="onThemeChange()"
@@ -23,8 +28,10 @@
                                 alt="theme">
                         </div>
                     </li>
+                    <!-- Profile Menu -->
                     <li>
                         <div class="ml-auto h-3 w-13 md:h-7 md:w-32"> 
+                            <!-- custom menu component for dropdown with or without icon-->
                             <app-menu [isIcon]="'assets/svg/profile.jpg'" [menuItems]="menuItems"
                                 (onItemClick)="onItemClick($event)"></app-menu>
                         </div>

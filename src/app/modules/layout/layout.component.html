@@ -1,24 +1,34 @@
 <div class="main-layout-class min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-black dark:bg-gray-900 dark:text-white">
+	
+	<!-- Header and Dashboard screen -->
 	<div [ngClass]="layoutCommonService.isOpenSidebar ? 'md:ml-64' : 'md:ml-14 inActiveDashboard'" class="dashboard">
 		<div class="rounded-l-2xl">
+			<!-- Selector for header -->
 			<app-header></app-header>
+			<!-- For render dashboard and/Or its pages -->
 			<router-outlet></router-outlet>
 		</div>
 	</div>
+
+	<!-- Sidebar -->
 	<div [ngClass]="layoutCommonService.isOpenSidebar ? 'w-48 md:w-64' : '(innerWidth > constant.innerWidth && layoutCommonService.isOpenSidebar)' ? 'inactiveSidebarMenu w-0 md:w-14' : '' "
 		class="mt-14 md:mt-0 fixed flex flex-col top-0 left-0 text-black bg-white dark:text-white dark:bg-gray-800 shadow-lg h-full left-menu">
+		<!-- Atharva Logo -->
 		<div class="hidden md:flex px-3 pt-3 rounded ">
 			<div class="col-start-1 col-end-3"><img
 				[src]="!layoutCommonService.isOpenSidebar ? 'assets/svg/atharv-icon.png' : (layoutCommonService.isOpenSidebar && !layoutCommonService.isDarkTheme) ? 'assets/svg/atharva-brand-logo-dark.png' : 'assets/svg/atharva-brand-logo.png'" alt="logo"></div>
 		</div>
+		<!-- Menu attributes -->
 		<div class="overflow-y-auto overflow-x-hidden flex-grow rounded">
 			<div class="flex flex-col py-4 space-y-1">
 				<div *ngFor="let menuItem of menuItems">
 					<a href="#"
 						class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 border-l-4 border-transparent hover:border-gray-700 px-3">
+						<!-- Icon -->
 						<span class="md:inline-flex justify-center items-center">
 							<img class="h-5 w-5 icon-img" [src]="menuItem?.icon || 'assets/svg/info.svg'"
 								[alt]="menuItem?.name"></span>
+						<!-- Name -->
 						<span *ngIf="layoutCommonService.isOpenSidebar" class="ml-3 text-sm tracking-wide truncate">{{ menuItem?.name }}</span>
 					</a>
 				</div>

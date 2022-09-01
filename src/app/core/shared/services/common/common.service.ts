@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IFilter } from 'src/app/core/shared/interfaces/filter';
-import { IMenuItem } from 'src/app/core/shared/interfaces/menu-item';
+import { IFilter } from 'src/app/core/shared/models/filter';
+import { IMenuItem } from 'src/app/core/shared/models/menu-item';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +64,7 @@ export class CommonService {
 
   constructor(public translateService: TranslateService) {}
 
+  //To get translated data
   getTranslateData(text: string) {
     this.translateService
       .get(text)

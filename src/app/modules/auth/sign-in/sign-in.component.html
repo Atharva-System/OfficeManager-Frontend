@@ -1,18 +1,27 @@
+<!-- Logo -->
 <div class="flex justify-center">
     <img class="w-20 h-20 icon-img" [src]="'assets/svg/login-page-logo.svg'" alt="logo">
 </div>
+
+<!-- Title -->
 <h1 class="mb-4 text-2xl font-bold text-center text-black dark:text-white">
     {{ 'TITLE.SIGN_IN_TITLE' | translate }}
 </h1>
+
+<!-- Sign In form -->
 <form [formGroup]="constant.signinForm" class="text-black dark:text-white">
+   
+    <!-- Email -->
     <div>
         <label class="block text-sm">
             <span *ngIf="_signinForm['email'].hasValidator(constant.validators.required)" class="text-red-500">&nbsp;*</span>
             {{ 'LABEL.EMAIL' | translate }}
         </label>
+        <!-- Input field custom component for icon and box styleing -->
         <app-input-field [icon]="'assets/svg/email.svg'" [error]="_signinForm['email'].invalid && (_signinForm['email'].dirty || _signinForm['email'].touched)">
             <input class="ml-auto focus:outline-none w-full" formControlName="email" placeholder="{{ 'PLACE_HOLDER.EMAIL' | translate }}" type="text" />
         </app-input-field>
+        <!-- Validation Message -->
         <ng-container *ngFor="let validation of validationMessages.email">
             <div class="text-red-500 text-xs italic mt-1"
                 *ngIf="_signinForm['email'].errors?.[validation.type] && (_signinForm['email'].dirty || _signinForm['email'].touched)">
@@ -20,15 +29,18 @@
             </div>
         </ng-container>
     </div>
+    <!-- Password -->
     <div class="mt-4">
         <div>
             <label class="block text-sm">
                 <span *ngIf="_signinForm['password'].hasValidator(constant.validators.required)" class="text-red-500">&nbsp;*</span>
                 {{ 'LABEL.PASSWORD' | translate }}
             </label>
+            <!-- Input field custom component for icon and box styleing -->
             <app-input-field [icon]="'assets/svg/password.svg'" [error]="_signinForm['password'].invalid && (_signinForm['password'].dirty || _signinForm['password'].touched)">
                 <input class="ml-auto focus:outline-none w-full" formControlName="password" placeholder="{{ 'PLACE_HOLDER.PASSWORD' | translate }}" type="password" />
             </app-input-field>
+            <!-- Validation Message --> 
             <ng-container *ngFor="let validation of validationMessages.password">
                 <div class="text-red-500 text-xs italic mt-1"
                     *ngIf="_signinForm['password'].errors?.[validation.type] && (_signinForm['password'].dirty || _signinForm['password'].touched)">
@@ -37,12 +49,15 @@
             </ng-container>
         </div>
     </div>
+
+    <!-- Forgot Password Link -->
     <p class="mt-4">
-        <a class="text-sm text-black dark:text-white underline " href="">
-            {{ 'LINK.FORGOT_PASSWORD' | translate }}
+        <a class="text-sm text-black dark:text-white underline" [routerLink]="routeConstant.forgotPassword">
+            {{ 'TITLE.FORGOT_PASSWORD_TITLE' | translate }}
         </a>
     </p>
 
+    <!-- SignIn Button -->
     <div class="text-center mt-6">
         <app-button (click)="onSubmit()" [isDisabled]="constant.signinForm.invalid" [name]="'BUTTON.SIGN_IN'" text="3/4"></app-button>
     </div>

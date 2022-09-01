@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { createPopper } from '@popperjs/core';
 import { ConstantClass } from 'src/app/shared/constants/constants';
-import { IFilter } from 'src/app/core/shared/interfaces/filter';
+import { IFilter } from 'src/app/core/shared/models/filter';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -38,6 +38,7 @@ export class FilterComponent implements AfterViewInit {
   constructor(private _eref: ElementRef, public translate : TranslateService) {}
 
   ngAfterViewInit() {
+    //For responsive scroll dropdown
     ConstantClass.placement =
       window.innerHeight < 368 ? 'top-start' : 'bottom-start';
 

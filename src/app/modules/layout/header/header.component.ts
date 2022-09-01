@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  //On click on theme icon
   onThemeChange() {
     // if set via local storage previously
     if (localStorage.getItem('color-theme')) {
