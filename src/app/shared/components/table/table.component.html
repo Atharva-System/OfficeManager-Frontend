@@ -1,0 +1,79 @@
+<div class="overflow-x-auto relative shadow-lg rounded-lg bg-white dark:bg-gray-800">
+    <div class="flex justify-between items-center pb-2 m-2">
+        <label for="table-search" class="sr-only">Search</label>
+        <div class="relative">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <img class="h-5 w-4 icon-img" src="assets/svg/search.svg" alt="search">
+            </div>
+            <input type="text" id="table-search"
+                class="block p-2 pl-10 w-36 sm:w-60 text-sm  text-gray-500 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-gray-700"
+                placeholder="Search for items">
+        </div>
+        <div class="flex items-center">
+            <div>
+                <app-filter2 [isSearch]="isSearch" [filterAttributes]="filterAttributes"
+                    (filtredAttributes)="filtredAttributes($event)"></app-filter2>
+            </div>
+            <div class="ml-auto mr-1">
+                <app-button [isDisabled]="false" [name]="'Add'"></app-button>
+            </div>
+        </div>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th *ngIf="isCheckBox" scope="col" class="p-4">
+                    <div class="flex items-center">
+                        <input id="checkbox-all-search" type="checkbox"
+                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded" (change)="onHeaderCheckboxChange(isChecked)" [(ngModel)]="isChecked">
+                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                    </div>
+                </th>
+                <ng-container *ngFor="let column of columns; let i = index">
+                    <th scope="col" class="py-3 px-6" *ngIf="column.show" (click)="onSorting(i)">
+                        <span class="inline-block mr-1">{{ column?.title }}</span>
+                        <span class="inline-block align-bottom">
+                            <img class="h-5 w-4 icon-img" *ngIf="column.sortable && (column.sorting != 'none')"
+                                [src]=" column.sorting === 'asc' ? 'assets/svg/ascending.svg' : column.sorting === 'desc' ? 'assets/svg/descending.svg' : ''"
+                                alt="sorting">
+                        </span>
+                    </th>
+                </ng-container>
+                <th scope="col" class="py-3 px-6">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rowData of rowsData; let i = index"
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td *ngIf="isCheckBox" class="p-4 w-4">
+                    <div class="flex items-center">
+                        <input id="checkbox-table-search-{{i}}" type="checkbox" [(ngModel)]="rowData.isChecked" (change)="onCheckboxChange()"
+                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded">
+                        <label for="checkbox-table-search-{{i}}" class="sr-only">checkbox</label>
+                    </div>
+                </td>
+                <ng-container *ngFor="let column of columns; let i = index">
+                    <td class="py-4 px-6" *ngIf="column.show">
+                        {{ rowData[column?.dataProperty] }}
+                    </td>
+                </ng-container>
+                <td class="py-4 px-6">
+                    <ng-container *ngFor="let action of actions; let i = index">
+                        <div class="inline-block">
+                            <a *ngIf="!action.isIcon; else icon"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ action.title
+                                }}</a>
+                        </div>
+                        <div class="inline-block">
+                            <ng-template class="ml-auto" #icon>
+                                <img class="h-5 w-5 icon-img" [src]="action.icon" [alt]="action.title">
+                            </ng-template>
+                        </div>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
