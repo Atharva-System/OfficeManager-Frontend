@@ -23,7 +23,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     TranslateModule.forChild(),
     ReactiveFormsModule
   ],
-  exports : [SignInComponent],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AuthModule { }
