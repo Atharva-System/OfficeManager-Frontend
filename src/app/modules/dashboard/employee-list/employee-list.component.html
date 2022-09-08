@@ -1,1 +1,6 @@
-<p>employee-list works!</p>
+<div class="m-6">
+    <app-table [isCheckBox]="isCheckBox" [actions]="actions" [columns]="columns" [rowsData]="rowsData"
+        [newRowsData]="newRowsData" (onSortingEvent)="onSortingEvent($event)" [totalCount]="totalCount"
+        [itemsPerPage]="itemsPerPage" [itemsPerPageArr]="itemsPerPageArr"
+        (onPageChangeEvent)="onPageChangeEvent($event)"></app-table>
+</div>
