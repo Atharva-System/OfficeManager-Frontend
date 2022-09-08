@@ -8,11 +8,13 @@ import { FilterPipe } from './pipes/filter/filter.pipe';
 import { MenuComponent } from './components/menu/menu.component';
 import { ButtonComponent } from './components/button/button.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
+import { TableComponent } from './components/table/table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  declarations: [MenuComponent, FilterComponent, FilterPipe, Filter2Component, ButtonComponent, InputFieldComponent],
-  imports: [CommonModule, TranslateModule.forChild(), FormsModule, ReactiveFormsModule],
-  exports: [MenuComponent, FilterComponent, Filter2Component, ButtonComponent, InputFieldComponent],
+  declarations: [MenuComponent, FilterComponent, FilterPipe, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent],
+  imports: [CommonModule, TranslateModule.forChild(), FormsModule, ReactiveFormsModule, NgxPaginationModule],
+  exports: [MenuComponent, FilterComponent, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
 
 })
