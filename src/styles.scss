@@ -9,4 +9,28 @@
     filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
       brightness(102%) contrast(102%);
   }
+
+  .ngx-pagination {
+    a {
+      color: white;
+    }
+    a:hover {
+      background-color: #374151;
+    }
+    .disabled {
+      color: #6b7280;
+    }
+    .current {
+      background-color: white !important;
+      color: black;
+    }
+  }
+}
+
+
+
+.ngx-pagination {
+  .current {
+    background-color: #4b5563 !important;
+  }
 }
