@@ -1,4 +1,5 @@
-<div class="overflow-x-auto relative shadow-lg rounded-lg bg-white dark:bg-gray-800">
+<!-- overflow-x-auto  -->
+<div class=" shadow-lg rounded-lg bg-white p-2 dark:bg-gray-800">
     <div class="flex justify-between items-center pb-2 m-2">
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">
@@ -6,7 +7,7 @@
                 <img class="h-5 w-4 icon-img" src="assets/svg/search.svg" alt="search">
             </div>
             <input type="text" id="table-search"
-                class="block p-2 pl-10 w-36 sm:w-60 text-sm  text-gray-500 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-gray-700"
+                class="block p-2 pl-10 w-32 sm:w-60 text-sm  text-gray-500 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-gray-700"
                 placeholder="Search for items">
         </div>
         <div class="flex items-center">
@@ -25,7 +26,8 @@
                 <th *ngIf="isCheckBox" scope="col" class="p-4">
                     <div class="flex items-center">
                         <input id="checkbox-all-search" type="checkbox"
-                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded" (change)="onHeaderCheckboxChange(isChecked)" [(ngModel)]="isChecked">
+                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded"
+                            (change)="onHeaderCheckboxChange(isChecked)" [(ngModel)]="isChecked">
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
                     </div>
                 </th>
@@ -34,7 +36,7 @@
                         <span class="inline-block mr-1">{{ column?.title }}</span>
                         <span class="inline-block align-bottom">
                             <img class="h-5 w-4 icon-img" *ngIf="column.sortable && (column.sorting != 'none')"
-                                [src]=" column.sorting === 'asc' ? 'assets/svg/ascending.svg' : column.sorting === 'desc' ? 'assets/svg/descending.svg' : ''"
+                                [src]=" column.sorting === 'asc' ? 'assets/svg/ascending.svg' : 'assets/svg/descending.svg'"
                                 alt="sorting">
                         </span>
                     </th>
@@ -45,18 +47,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let rowData of rowsData; let i = index"
+            <tr *ngFor="let rowData of rowsData | paginate: { itemsPerPage: itemsPerPage, currentPage: p , totalItems: totalCount }; let i = index"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td *ngIf="isCheckBox" class="p-4 w-4">
                     <div class="flex items-center">
-                        <input id="checkbox-table-search-{{i}}" type="checkbox" [(ngModel)]="rowData.isChecked" (change)="onCheckboxChange()"
-                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded">
+                        <input id="checkbox-table-search-{{i}}" type="checkbox" [(ngModel)]="rowData.isChecked"
+                            (change)="onCheckboxChange()" class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded">
                         <label for="checkbox-table-search-{{i}}" class="sr-only">checkbox</label>
                     </div>
                 </td>
                 <ng-container *ngFor="let column of columns; let i = index">
                     <td class="py-4 px-6" *ngIf="column.show">
-                        {{ rowData[column?.dataProperty] }}
+                        {{ rowData[column?.dataProperty]}}
                     </td>
                 </ng-container>
                 <td class="py-4 px-6">
@@ -76,4 +78,29 @@
             </tr>
         </tbody>
     </table>
+    <div class="flex justify-center mt-2">
+        <div>
+            <button id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider" data-dropdown-placement="top"
+                (click)="toggleDropdown($event)"
+                class="text-black bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:text-white dark:focus:ring-4 dark:focus:outline-none dark:focus:ring-gray-800"
+                type="button">{{ itemsPerPage }}<svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg></button>
+
+            <!-- Dropdown menu -->
+            <div id="dropdownDivider" [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+                class="absolute dropDownBlock z-10 w-16 bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-800 dark:divide-gray-600">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
+                    <li *ngFor="let page of itemsPerPageArr">
+                        <span class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="onItemClick(page)">{{ page }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <pagination-controls previousLabel="" nextLabel="" [responsive]="true" (pageChange)="onPageChange($event)">
+        </pagination-controls>
+    </div>
 </div>
