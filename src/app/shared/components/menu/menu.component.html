@@ -3,7 +3,7 @@
         <span *ngIf="isIcon"  #btnDropdownRef><img class="rounded-full h-10 w-10"
                 [src]="isIcon" alt="profile"></span>
         <button
-            class="hidden md:flex text-black dark:text-white flex font-bold uppercase text-md px-1 py-3 outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="hidden md:flex text-black dark:text-white flex font-bold uppercase text-sm px-1 py-3 outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button">
             <span class="mr-1">{{ 'BUTTON.MENU' | translate }}</span>
             <span class="ml-auto items-center mt-1"> <img [src]="dropdownPopoverShow ? 'assets/svg/arrow-up.svg' : 'assets/svg/arrow-down.svg'" class="h-4 w-4 icon-img" alt="arrow">
