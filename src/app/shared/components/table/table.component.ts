@@ -20,46 +20,30 @@ export class TableComponent implements OnInit {
   @Input() rowsData: any;
   @Input() isCheckBox: any;
   @Input() actions: any;
-  @Input() url: any;
   @Output() onSortingEvent = new EventEmitter<any>();
   @Input() newRowsData: any;
 
   isChecked = false;
   isSearch = true;
 
+  dropdownPopoverShow = false;
+  p: any = 1;
+  @Input() totalCount: any;
+  @Input() itemsPerPage: any;
+  @Input() itemsPerPageArr: any;
+  @Output() onPageChangeEvent = new EventEmitter<any>();
+
   filterAttributes;
-  // rowActions = [
-  //   {
-  //     label: 'Edit',
-  //     actionIdToReturn: 'edit',
-  //     logoImageUrl: '...',
-  //     showOption: (x) => true,
-  //   },
-  //   {
-  //     label: 'Copy',
-  //     actionIdToReturn: 'copy',
-  //     logoImageUrl: '...',
-  //     showOption: (x) => x.completed,
-  //   },
-  //   {
-  //     label: 'Delete',
-  //     actionIdToReturn: 'delete',
-  //     logoImageUrl: '...',
-  //     showOption: (x) => !x.isActive,
-  //   },
-  //   {
-  //     label: 'Message',
-  //     actionIdToReturn: 'message',
-  //     logoImageUrl: '...',
-  //     showOption: (x) => x.permitsMessaging,
-  //   }
-  // ];
 
   constructor(private commonService: CommonService, private http: HttpClient) {
     this.filterAttributes = this.commonService.filterAttributes;
   }
 
   ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    console.log();
+  }
 
   //To get attribute of filter
   filtredAttributes(item: IFilter[]) {
@@ -69,29 +53,31 @@ export class TableComponent implements OnInit {
 
   //To sort perticular column
   onSorting(index: number) {
-    // this.onSortingEvent.emit(index);
+    // if (!this.newRowsData.length) {
+    //   return;
+    // }
 
     this.columns[index].sorting =
-      this.columns[index].sorting === 'asc'
-        ? 'desc'
-        : this.columns[index].sorting === 'desc'
-        ? 'none'
-        : 'asc';
+      this.columns[index].sorting === 'asc' ? 'desc' : 'asc';
 
-    let sortedArray = (this.rowsData || []).sort((a: any, b: any) => {
-      if (this.columns[index].sorting === 'asc') {
-        return a[this.columns[index].dataProperty] >
-          b[this.columns[index].dataProperty]
-          ? 1
-          : -1;
-      } else if (this.columns[index].sorting === 'desc') {
-        return a[this.columns[index].dataProperty] <
-          b[this.columns[index].dataProperty]
-          ? 1
-          : -1;
-      } else return 0;
-    });
-    this.rowsData = sortedArray;
+    this.onSortingEvent.emit(this.columns[index]);
+
+    // console.log(this.newRowsData);
+
+    // let sortedArray = (this.newRowsData || []).sort((a: any, b: any) => {
+    //   if (this.columns[index].sorting === 'asc') {
+    //     return a[this.columns[index].dataProperty] >
+    //       b[this.columns[index].dataProperty]
+    //       ? 1
+    //       : -1;
+    //   } else if (this.columns[index].sorting === 'desc') {
+    //     return a[this.columns[index].dataProperty] <
+    //       b[this.columns[index].dataProperty]
+    //       ? 1
+    //       : -1;
+    //   } else return 0;
+    // });
+    // this.rowsData = sortedArray;
   }
 
   //To change value according header checkbox
@@ -102,5 +88,25 @@ export class TableComponent implements OnInit {
   //To change value according rows checkbox
   onCheckboxChange() {
     this.isChecked = this.rowsData.every((data: any) => data.isChecked);
+    console.log(this.rowsData);
+    
+  }
+
+  onItemClick(page: number) {
+    this.itemsPerPage = page;
+    // this.url = `page=1&per_page=${this.itemsPerPage}`;
+    // this.showConfig();
+  }
+
+  onPageChange(event: any) {
+    this.p = event;
+    this.onPageChangeEvent.emit(this.p);
+    // this.showConfig();
+  }
+
+  //To toggle DropDown
+  toggleDropdown(event: Event) {
+    event.preventDefault();
+    this.dropdownPopoverShow = !this.dropdownPopoverShow;
   }
 }
