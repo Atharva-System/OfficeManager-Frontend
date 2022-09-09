@@ -8,9 +8,10 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { GuiGridModule } from '@generic-ui/ngx-grid';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddEmployeeComponent } from './employee-list/add-employee/add-employee.component';
 
 @NgModule({
-  declarations: [ DashboardComponent, EmployeeListComponent ],
+  declarations: [ DashboardComponent, EmployeeListComponent, AddEmployeeComponent ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
