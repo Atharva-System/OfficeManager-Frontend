@@ -1,15 +1,21 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   HostListener,
   OnInit,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiCallService } from 'src/app/core/dashboard/services/api-call.service';
-
+import { ConstantClass } from 'src/app/shared/constants/constants';
+import { RouterPathClass } from 'src/app/shared/constants/route-path';
+import { slideInAnimation } from './app.animation';
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [slideInAnimation],
 })
 export class EmployeeListComponent implements OnInit {
   isCheckBox = true;
@@ -83,6 +89,7 @@ export class EmployeeListComponent implements OnInit {
     {
       title: 'Owner_Login',
       dataProperty: 'login',
+      icon: 'avatar_url',
       sortable: true,
       sorting: 'none',
       show: true,
@@ -92,8 +99,10 @@ export class EmployeeListComponent implements OnInit {
   rowsData: any = [];
 
   constructor(
-    private apiCallService: ApiCallService,
-    private readonly cd: ChangeDetectorRef
+    public apiCallService: ApiCallService,
+    private readonly cd: ChangeDetectorRef,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.totalCount = this.apiCallService.totalCount;
   }
@@ -116,6 +125,7 @@ export class EmployeeListComponent implements OnInit {
       this.rowsData = [...data.items];
       this.rowsData.map((item: any) => {
         item['login'] = item.owner.login;
+        item['avatar_url'] = item.owner.avatar_url;
       });
       console.log(this.rowsData);
       // this.totalCount = data.total;
@@ -141,7 +151,7 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
-  @HostListener('window:resize', ['$event.target'])
+  @HostListener(ConstantClass.document.resize, ['$event.target'])
   onResize(event: any) {
     console.log(event.innerWidth);
 
@@ -159,5 +169,19 @@ export class EmployeeListComponent implements OnInit {
     this.getRowsData(
       `q=${this.searchText}&sort=${this.sortingField}&order=${this.sorting}&page=${page}&per_page=${this.itemsPerPage}`
     );
+  }
+
+  onSearchingEvent(searchText: string) {
+    console.log(searchText);
+    this.searchText = searchText;
+    this.getRowsData(
+      `q=${this.searchText}&sort=&order=&page=1&per_page=${this.itemsPerPage}`
+    );
+  }
+
+  onAddEvent(event: any) {
+    this.router.navigate([`./${RouterPathClass.addEmployee}`], {
+      relativeTo: this.activatedRoute,
+    });
   }
 }
