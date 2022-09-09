@@ -6,7 +6,7 @@
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <img class="h-5 w-4 icon-img" src="assets/svg/search.svg" alt="search">
             </div>
-            <input type="text" id="table-search"
+            <input type="text" id="table-search" #searchText (keyup.enter)="onKeyuOnSearch($event)"
                 class="block p-2 pl-10 w-32 sm:w-60 text-sm  text-gray-500 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-gray-700"
                 placeholder="Search for items">
         </div>
@@ -16,7 +16,7 @@
                     (filtredAttributes)="filtredAttributes($event)"></app-filter2>
             </div>
             <div class="ml-auto mr-1">
-                <app-button [isDisabled]="false" [name]="'Add'"></app-button>
+                <app-button [isDisabled]="false" [name]="'Add'" (click)="onAdd()"></app-button>
             </div>
         </div>
     </div>
@@ -36,33 +36,37 @@
                         <span class="inline-block mr-1">{{ column?.title }}</span>
                         <span class="inline-block align-bottom">
                             <img class="h-5 w-4 icon-img" *ngIf="column.sortable && (column.sorting != 'none')"
-                                [src]=" column.sorting === 'asc' ? 'assets/svg/ascending.svg' : 'assets/svg/descending.svg'"
+                                [src]=" column.sorting === constant.asc ? 'assets/svg/ascending.svg' : 'assets/svg/descending.svg'"
                                 alt="sorting">
                         </span>
                     </th>
                 </ng-container>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" *ngIf="actions.length">
                     Action
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let rowData of rowsData | paginate: { itemsPerPage: itemsPerPage, currentPage: p , totalItems: totalCount }; let i = index"
+            <tr *ngFor="let rowData of rowsData | paginate: { itemsPerPage: itemsPerPage, currentPage: p , totalItems: totalCount }; let i1 = index"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td *ngIf="isCheckBox" class="p-4 w-4">
                     <div class="flex items-center">
-                        <input id="checkbox-table-search-{{i}}" type="checkbox" [(ngModel)]="rowData.isChecked"
+                        <input id="checkbox-table-search-{{i1}}" type="checkbox" [(ngModel)]="rowData.isChecked"
                             (change)="onCheckboxChange()" class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded">
-                        <label for="checkbox-table-search-{{i}}" class="sr-only">checkbox</label>
+                        <label for="checkbox-table-search-{{i1}}" class="sr-only">checkbox</label>
                     </div>
                 </td>
-                <ng-container *ngFor="let column of columns; let i = index">
+                <ng-container *ngFor="let column of columns; let i2 = index">
                     <td class="py-4 px-6" *ngIf="column.show">
-                        {{ rowData[column?.dataProperty]}}
+                        <span class="inline-block" *ngIf="!column.icon">{{ rowData[column?.dataProperty]}}</span>
+                        <span class="inline-block" *ngIf="column.icon">
+                            <img class="h-8 w-8 rounded-full" [src]="rowData[column?.icon]" alt="column.title-{{i2}}">
+                            {{ rowData[column?.dataProperty]}}
+                        </span>
                     </td>
                 </ng-container>
-                <td class="py-4 px-6">
-                    <ng-container *ngFor="let action of actions; let i = index">
+                <td class="py-4 px-6" *ngIf="actions.length">
+                    <ng-container *ngFor="let action of actions; let i3 = index">
                         <div class="inline-block">
                             <a *ngIf="!action.isIcon; else icon"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ action.title
