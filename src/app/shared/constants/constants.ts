@@ -8,6 +8,7 @@ export class ConstantClass {
   static document = {
     click: 'document:click',
     keydown: 'document:keydown',
+    resize: 'window:resize',
   };
   static placement: any = 'bottom-start';
 
@@ -17,4 +18,8 @@ export class ConstantClass {
   //forms
   static signinForm : FormGroup;
   static forgotPasswordForm : FormGroup;
+
+  //asc-desc
+  static asc = 'asc';
+  static desc = 'desc';
 }
