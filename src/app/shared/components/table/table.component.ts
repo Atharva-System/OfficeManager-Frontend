@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { IFilter } from 'src/app/core/shared/models/filter';
 import { CommonService } from 'src/app/core/shared/services/common/common.service';
+import { ConstantClass } from '../../constants/constants';
 
 @Component({
   selector: 'app-table',
@@ -21,7 +22,9 @@ export class TableComponent implements OnInit {
   @Input() isCheckBox: any;
   @Input() actions: any;
   @Output() onSortingEvent = new EventEmitter<any>();
+  @Output() onSearchingEvent = new EventEmitter<any>();
   @Input() newRowsData: any;
+  @ViewChild('searchText') searchText: any;
 
   isChecked = false;
   isSearch = true;
@@ -32,11 +35,14 @@ export class TableComponent implements OnInit {
   @Input() itemsPerPage: any;
   @Input() itemsPerPageArr: any;
   @Output() onPageChangeEvent = new EventEmitter<any>();
+  @Output() onAddEvent = new EventEmitter<any>();
 
   filterAttributes;
+  public constant;
 
   constructor(private commonService: CommonService, private http: HttpClient) {
     this.filterAttributes = this.commonService.filterAttributes;
+    this.constant = ConstantClass;
   }
 
   ngOnInit(): void {}
@@ -58,7 +64,9 @@ export class TableComponent implements OnInit {
     // }
 
     this.columns[index].sorting =
-      this.columns[index].sorting === 'asc' ? 'desc' : 'asc';
+      this.columns[index].sorting === ConstantClass.asc
+        ? ConstantClass.desc
+        : ConstantClass.asc;
 
     this.onSortingEvent.emit(this.columns[index]);
 
@@ -89,7 +97,6 @@ export class TableComponent implements OnInit {
   onCheckboxChange() {
     this.isChecked = this.rowsData.every((data: any) => data.isChecked);
     console.log(this.rowsData);
-    
   }
 
   onItemClick(page: number) {
@@ -108,5 +115,15 @@ export class TableComponent implements OnInit {
   toggleDropdown(event: Event) {
     event.preventDefault();
     this.dropdownPopoverShow = !this.dropdownPopoverShow;
+  }
+
+  //On search box Key Enter
+  onKeyuOnSearch(event: any) {
+    this.onSearchingEvent.emit(event.target.value);
+  }
+
+  //To add employee
+  onAdd() {
+    this.onAddEvent.emit();
   }
 }
