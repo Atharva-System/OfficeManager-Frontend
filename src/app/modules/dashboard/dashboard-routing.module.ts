@@ -8,24 +8,30 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 const routes: Routes = [
   {
     path: '',
-    component : DashboardComponent,
-    children : [
+    component: DashboardComponent,
+    children: [
       {
         path: RouterPathClass.employeeList,
         component: EmployeeListComponent,
-        children : [
+        data: {
+          breadcrumb: 'Employee',
+        },
+        children: [
           {
-            path :  RouterPathClass.addEmployee,
-            component : AddEmployeeComponent,
-          }
-        ]
-      }
-    ]
-  }
+            path: RouterPathClass.addEmployee,
+            component: AddEmployeeComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    loadChildren: () => import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+    loadChildren: () =>
+      import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+    data: {
+      breadcrumb: 'Dashboard',
+    },
   },
   // { path: 'dashboard', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'error/404' },
@@ -14,6 +18,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}
