@@ -1,1 +1,16 @@
-<p>dashboard-header works!</p>
+<div class="mb-4 flex justify-between">
+    <div class="inline-block">
+        <h3 class="font-semibold text-gray-900 dark:text-white">Dashboard</h3>
+        <div class="space-x-1 text-xs font-medium text-gray-400 dark:text-night-300">
+            <span>
+                <ol class="breadcrumb">
+                    <li *ngFor="let breadcrumb of breadcrumbs">
+                        <span [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">
+                            {{ breadcrumb.label }}
+                        </span>
+                    </li>
+                </ol>
+            </span>
+        </div>
+    </div>
+</div>
