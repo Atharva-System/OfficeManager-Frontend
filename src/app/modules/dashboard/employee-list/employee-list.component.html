@@ -5,7 +5,6 @@
         (onPageChangeEvent)="onPageChangeEvent($event)" (onSearchingEvent)="onSearchingEvent($event)"
         (onAddEvent)="onAddEvent($event)">
     </app-table>
-    <button (click)="onAddEvent($event)">click</button>
 </div>
 
 <div class="container" [@slideInAnimation]="o.isActivated ? o.activatedRoute : ''">
