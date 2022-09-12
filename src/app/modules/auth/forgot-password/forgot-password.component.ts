@@ -19,9 +19,9 @@ export class ForgotPasswordComponent implements OnInit {
       { type: 'required', message: 'MESSAGE.REQUIRED' },
       { type: 'pattern', message: 'MESSAGE.EMAIL_PATTERN' },
     ],
-    tnc: [
-      { type: 'required', message: 'MESSAGE.REQUIRED' },
-    ],
+    // tnc: [
+    //   { type: 'required', message: 'MESSAGE.REQUIRED' },
+    // ],
   };
 
   constructor(
@@ -43,10 +43,10 @@ export class ForgotPasswordComponent implements OnInit {
         '',
         [Validators.required, Validators.pattern(Regex.emailPattern)],
       ],
-      tnc: [
-        false,
-        [Validators.requiredTrue],
-      ],
+      // tnc: [
+      //   false,
+      //   [Validators.requiredTrue],
+      // ],
     });
   }
 
