@@ -10,11 +10,13 @@ import { ButtonComponent } from './components/button/button.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { TableComponent } from './components/table/table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DashboardHeaderComponent } from './components/dashboard-header/dashboard-header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [MenuComponent, FilterComponent, FilterPipe, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent],
-  imports: [CommonModule, TranslateModule.forChild(), FormsModule, ReactiveFormsModule, NgxPaginationModule],
-  exports: [MenuComponent, FilterComponent, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent],
+  declarations: [MenuComponent, FilterComponent, FilterPipe, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent, DashboardHeaderComponent],
+  imports: [CommonModule, TranslateModule.forChild(), FormsModule, ReactiveFormsModule, NgxPaginationModule, RouterModule],
+  exports: [MenuComponent, FilterComponent, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent, DashboardHeaderComponent],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
 
 })
