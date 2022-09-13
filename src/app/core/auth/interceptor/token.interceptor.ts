@@ -8,43 +8,70 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
+import { CustomToastrService } from '../../shared/services/toastr/custom-toastr.service';
+import { CommonService } from '../../shared/services/common/common.service';
+import { ConstantClass } from 'src/app/shared/constants/constants';
+import { APIs } from 'src/app/shared/constants/apis';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public api: ApiService) {}
+  constructor(
+    public api: ApiService,
+    private commonService: CommonService,
+    private customToastrService: CustomToastrService
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = localStorage.getItem('token');
+    request = request.clone({
+      setHeaders: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    if (token && !request.url.includes('Login')) {
+    const token = localStorage.getItem(ConstantClass.token);
+
+    if (token && !request.url.includes(APIs.loginApi)) {
       request = request.clone({
-        setHeaders: {
-          Authorization: `bearer ${token}`,
-        },
+        headers: request.headers.append('Authorization', `Bearer ${token}`),
       });
     }
 
     return next.handle(request).pipe(
       map((res: any) => {
         if (res.status === 200) {
-          // console.log(res.body);
+          // console.log(res.body, 'Successfully loggedIn!');
         }
+
         return res;
       }),
       catchError((error: any) => {
         if (error.status === 401) {
           // return this.handle401Error(request, next);
+        } else if (error.status === 400) {
+          this.customToastrService.showToastr(
+            ConstantClass.notificationType.error,
+            this.commonService.getTranslateData('MESSAGE.ERROR_LOGIN')
+          );
+          // console.log('Bad Request - Add correct employee no!');
+        } else if (error.status === 404) {
+          this.customToastrService.showToastr(
+            ConstantClass.notificationType.error,
+            this.commonService.getTranslateData('MESSAGE.ERROR_404_LOGIN')
+          );
+        } else {
+          let errorMsg =
+            error.error instanceof ErrorEvent
+              ? `Error: ${error.error.message}`
+              : `Error Code: ${error.status},  Message: ${error.message}`;
+          this.customToastrService.showToastr(
+            ConstantClass.notificationType.error,
+            errorMsg
+          );
         }
-        let errorMsg =
-          error.error instanceof ErrorEvent
-            ? `Error: ${error.error.message}`
-            : `Error Code: ${error.status},  Message: ${error.message}`;
-        console.log(errorMsg);
-
-        return throwError(() => new Error(errorMsg));
+        return throwError(() => new Error(`Error: ${error.error.message}`));
       })
     );
   }
@@ -61,7 +88,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   addTokenHeader(request: HttpRequest<any>, token: string) {
     return request.clone({
-      headers: request.headers.set('Authorization', `bearer ${token}`),
+      headers: request.headers.set('Authorization', `Bearer ${token}`),
     });
   }
 }
