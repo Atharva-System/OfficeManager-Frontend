@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, catchError, throwError, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -7,7 +8,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-
   constructor(public httpClient: HttpClient) {}
 
   public get(
@@ -39,5 +39,9 @@ export class ApiService {
 
   public formatErrors(error: any): Observable<any> {
     return throwError(() => new Error(error.error));
+  }
+
+  public refreshToken() {
+    return this.post('');
   }
 }
