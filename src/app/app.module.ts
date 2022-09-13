@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
     BrowserAnimationsModule,
+    NgxSpinnerModule.forRoot({ type: 'timer' }),
     SharedModule,
     HttpClientModule,
     GuiGridModule,
@@ -40,7 +42,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-      timeOut : 5000,
+      timeOut: 5000,
       // disableTimeOut:true
     }),
   ],
@@ -51,6 +53,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       multi: true,
     },
   ],
+  exports: [NgxSpinnerModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
