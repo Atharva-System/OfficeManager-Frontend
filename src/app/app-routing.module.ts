@@ -6,7 +6,7 @@ import { RouterPathClass } from './shared/constants/route-path';
 const routes: Routes = [
   {
     path: RouterPathClass.dashboard,
-    // canActivate : [AuthGuard],
+    canActivate : [AuthGuard],
     loadChildren: () => import('./modules/layout/layout.module').then((m) => m.LayoutModule),
     data: {
       breadCrump : ''
