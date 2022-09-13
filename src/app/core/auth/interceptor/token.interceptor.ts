@@ -5,20 +5,22 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
 import { CustomToastrService } from '../../shared/services/toastr/custom-toastr.service';
 import { CommonService } from '../../shared/services/common/common.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { APIs } from 'src/app/shared/constants/apis';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
     public api: ApiService,
     private commonService: CommonService,
-    private customToastrService: CustomToastrService
+    private customToastrService: CustomToastrService,
+    private router: Router
   ) {}
 
   intercept(
@@ -49,7 +51,8 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((error: any) => {
         if (error.status === 401) {
-          // return this.handle401Error(request, next);
+          this.handle401Error(request, next);
+        //  return this.handle401Error(request, next);
         } else if (error.status === 400) {
           this.customToastrService.showToastr(
             ConstantClass.notificationType.error,
@@ -78,12 +81,15 @@ export class TokenInterceptor implements HttpInterceptor {
 
   handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     // return this.api.refreshToken().pipe(
-    //     switchMap((response: any) => {
-    //         localStorage['token'] = response.data;
-    //         request = this.addTokenHeader(request, response.data);
-    //         return next.handle(request);
-    //     })
-    // )
+    //   switchMap((response: any) => {
+    //     localStorage[ConstantClass.token] = response.data;
+    //     request = this.addTokenHeader(request, response.data);
+    //     return next.handle(request);
+    //   })
+    // );
+
+    this.router.navigate(['login']);
+    return  false; 
   }
 
   addTokenHeader(request: HttpRequest<any>, token: string) {
