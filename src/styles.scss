@@ -3,13 +3,16 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "~ngx-toastr/toastr";
 
 .dark {
+  //svg icon color white when dark theme
   .icon-img {
     filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
       brightness(102%) contrast(102%);
   }
 
+  //Table pagination color changed
   .ngx-pagination {
     a {
       color: white;
@@ -27,10 +30,41 @@
   }
 }
 
-
-
+//Pagination on current page changed color
 .ngx-pagination {
   .current {
     background-color: #4b5563 !important;
+  }
+}
+
+//Toaster color and images
+.toast-container {
+  .custom-toastr-success-class {
+    background-color: #b1ffce;
+    color: black;
+    border-radius: 6px !important;
+    background-image: url("assets/svg/check-black.svg");
+    border: 2px solid #51a351 !important;
+  }
+  .custom-toastr-error-class {
+    background-color: #f8b9b6;
+    color: black;
+    border-radius: 6px !important;
+    background-image: url("assets/svg/x-circle.svg");
+    border: 2px solid #bd362f !important;
+  }
+  .custom-toastr-info-class {
+    background-color: #b8ebfa;
+    color: black;
+    border-radius: 6px !important;
+    background-image: url("assets/svg/alert-info.svg");
+    border: 2px solid #2f96b4 !important;
+  }
+  .custom-toastr-warning-class {
+    background-color: #fcd8a7;
+    color: black;
+    border-radius: 6px !important;
+    background-image: url("assets/svg/alert-triangle.svg");
+    border: 2px solid #f89406 !important;
   }
 }
