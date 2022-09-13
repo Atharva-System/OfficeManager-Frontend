@@ -22,12 +22,8 @@ export class AddEmployeeComponent implements OnInit {
   ngOnInit(): void {}
 
   onClose() {
-    // this.apiCallService.isOpenSidebar = false;
-    // setTimeout(() => {
     this.router.navigate([`../`], {
       relativeTo: this.activatedRoute,
     });
-    //   this.apiCallService.pageState = 'left';
-    // }, 1000);
   }
 }

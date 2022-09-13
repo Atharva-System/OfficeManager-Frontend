@@ -14,14 +14,14 @@
 	</div>
 
 	<!-- Sidebar -->
-	<div [ngClass]="layoutCommonService.isOpenSidebar ? 'w-48 md:w-64' : '(innerWidth > constant.innerWidth && layoutCommonService.isOpenSidebar)' ? 'inactiveSidebarMenu w-0 md:w-14' : '' "
+	<div [ngClass]="layoutCommonService.isOpenSidebar ? 'w-48 md:w-64' : '(innerWidth > constant.innerWidth.tablet && layoutCommonService.isOpenSidebar)' ? 'inactiveSidebarMenu w-0 md:w-14' : '' "
 		class="mt-14 md:mt-0 fixed flex flex-col top-0 left-0 text-black bg-white dark:text-white dark:bg-gray-800 shadow-lg h-full left-menu">
 
 		<!-- Atharva Logo -->
 		<div class="hidden md:flex px-3 pt-3 rounded justify-center">
 			<div class="col-start-1 col-end-3"><img
 					[ngClass]="!layoutCommonService.isOpenSidebar ? 'h-5 w-6' : 'h-7 w-40'"
-					[src]="!layoutCommonService.isOpenSidebar ? 'assets/svg/atharv-icon.png' : (layoutCommonService.isOpenSidebar && !layoutCommonService.isDarkTheme) ? 'assets/svg/atharva-brand-logo-dark.png' : 'assets/svg/atharva-brand-logo.png'"
+					[src]="!layoutCommonService.isOpenSidebar ? svgs.atharvaLogo : (layoutCommonService.isOpenSidebar && !layoutCommonService.isDarkTheme) ? svgs.atharvaBrandLogoDark : svgs.atharvaBrandLogo"
 					alt="logo"></div>
 		</div>
 		<!-- Menu attributes -->
@@ -32,7 +32,7 @@
 						class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 border-l-4 border-transparent hover:border-gray-700 px-3">
 						<!-- Icon -->
 						<span class="md:inline-flex justify-center items-center">
-							<img class="h-5 w-5 icon-img" [src]="menuItem?.icon || 'assets/svg/info.svg'"
+							<img class="h-5 w-5 icon-img" [src]="menuItem?.icon || svgs.info"
 								[alt]="menuItem?.name"></span>
 						<!-- Name -->
 						<span *ngIf="layoutCommonService.isOpenSidebar" class="ml-3 text-sm tracking-wide truncate">{{

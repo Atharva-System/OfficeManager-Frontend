@@ -1,7 +1,7 @@
 <div class="m-6">
-    <app-table [isCheckBox]="isCheckBox" [actions]="actions" [columns]="columns" [rowsData]="rowsData"
-        [newRowsData]="newRowsData" (onSortingEvent)="onSortingEvent($event)" [totalCount]="totalCount"
-        [itemsPerPage]="itemsPerPage" [itemsPerPageArr]="itemsPerPageArr"
+    <app-table [isCheckBox]="constant.employeeTable.isCheckBox" [actions]="actions" [columns]="columns"
+        [rowsData]="rowsData" (onSortingEvent)="onSortingEvent($event)" [totalCount]="constant.employeeTable.totalCount"
+        [itemsPerPage]="constant.employeeTable.itemsPerPage" [itemsPerPageArr]="constant.employeeTable.itemsPerPageArr"
         (onPageChangeEvent)="onPageChangeEvent($event)" (onSearchingEvent)="onSearchingEvent($event)"
         (onAddEvent)="onAddEvent($event)">
     </app-table>

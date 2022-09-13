@@ -4,6 +4,6 @@
     </span>
     <div class="w-full flex bg-white dark:text-black rounded-lg py-2 pl-10 pr-4 border border-slate-300">
         <ng-content></ng-content>
-        <div *ngIf="error" class="ml-auto pl-1 text-red-500"><img class="w-5 h-5" src="assets/svg/error.svg" alt="error"></div>
+        <div *ngIf="error" class="ml-auto pl-1 text-red-500"><img class="w-5 h-5" [src]="svgs.error" alt="error"></div>
     </div>
 </div>

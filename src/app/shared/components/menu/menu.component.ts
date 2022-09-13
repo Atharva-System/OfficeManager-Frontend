@@ -11,6 +11,7 @@ import {
 import { createPopper } from '@popperjs/core';
 import { IMenuItem } from 'src/app/core/shared/models/menu-item';
 import { ConstantClass } from 'src/app/shared/constants/constants';
+import { SVGs } from '../../constants/svgs';
 
 @Component({
   selector: 'app-menu',
@@ -25,16 +26,19 @@ export class MenuComponent implements AfterViewInit {
   @Output() onItemClick = new EventEmitter<any>();
 
   dropdownPopoverShow = false;
+  public svgs;
 
   @ViewChild('btnDropdownRef', { static: false })
   btnDropdownRef!: ElementRef;
   @ViewChild('popoverDropdownRef', { static: false })
   popoverDropdownRef!: ElementRef;
 
-  constructor(private _eref: ElementRef) {}
+  constructor(private _eref: ElementRef) {
+    this.svgs = SVGs;
+  }
 
   ngAfterViewInit() {
-    ConstantClass.placement = window.innerHeight < 368 ? 'top-start' : 'bottom-start';
+    ConstantClass.placement = window.innerHeight < ConstantClass.innerWidth.sm ? ConstantClass.dropdownPosition.top : ConstantClass.dropdownPosition.bottom;
 
     createPopper(
       this.btnDropdownRef.nativeElement,

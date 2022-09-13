@@ -10,6 +10,7 @@ import {
 import { IFilter } from 'src/app/core/shared/models/filter';
 import { CommonService } from 'src/app/core/shared/services/common/common.service';
 import { ConstantClass } from '../../constants/constants';
+import { SVGs } from '../../constants/svgs';
 
 @Component({
   selector: 'app-table',
@@ -39,10 +40,12 @@ export class TableComponent implements OnInit {
 
   filterAttributes;
   public constant;
+  public svgs;
 
   constructor(private commonService: CommonService, private http: HttpClient) {
     this.filterAttributes = this.commonService.filterAttributes;
     this.constant = ConstantClass;
+    this.svgs = SVGs;
   }
 
   ngOnInit(): void {}
@@ -59,33 +62,12 @@ export class TableComponent implements OnInit {
 
   //To sort perticular column
   onSorting(index: number) {
-    // if (!this.newRowsData.length) {
-    //   return;
-    // }
-
     this.columns[index].sorting =
       this.columns[index].sorting === ConstantClass.asc
         ? ConstantClass.desc
         : ConstantClass.asc;
 
     this.onSortingEvent.emit(this.columns[index]);
-
-    // console.log(this.newRowsData);
-
-    // let sortedArray = (this.newRowsData || []).sort((a: any, b: any) => {
-    //   if (this.columns[index].sorting === 'asc') {
-    //     return a[this.columns[index].dataProperty] >
-    //       b[this.columns[index].dataProperty]
-    //       ? 1
-    //       : -1;
-    //   } else if (this.columns[index].sorting === 'desc') {
-    //     return a[this.columns[index].dataProperty] <
-    //       b[this.columns[index].dataProperty]
-    //       ? 1
-    //       : -1;
-    //   } else return 0;
-    // });
-    // this.rowsData = sortedArray;
   }
 
   //To change value according header checkbox
@@ -102,13 +84,11 @@ export class TableComponent implements OnInit {
   onItemClick(page: number) {
     this.itemsPerPage = page;
     // this.url = `page=1&per_page=${this.itemsPerPage}`;
-    // this.showConfig();
   }
 
   onPageChange(event: any) {
     this.p = event;
     this.onPageChangeEvent.emit(this.p);
-    // this.showConfig();
   }
 
   //To toggle DropDown

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/service/auth/auth.service';
 import { LayOutCommonService } from 'src/app/core/layout/services/common/common.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
+import { SVGs } from 'src/app/shared/constants/svgs';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +13,16 @@ import { ConstantClass } from 'src/app/shared/constants/constants';
 })
 export class HeaderComponent implements OnInit {
   menuItems;
+  public svgs;
+
   constructor(
     public layoutCommonService: LayOutCommonService,
     public authService: AuthService,
-    private router : Router,
-    private _eref: ElementRef,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.menuItems = this.layoutCommonService.menuItems;
+    this.svgs = SVGs;
   }
 
   ngOnInit(): void {}
@@ -28,11 +31,9 @@ export class HeaderComponent implements OnInit {
   onItemClick(item: any) {
     console.log(item.item.name);
 
-    if(item.item.name.toLowerCase() === 'log out'){
-      localStorage.removeItem('loggedIn');
+    if (item.item.name.toLowerCase() === 'log out') {
+      localStorage.removeItem(ConstantClass.token);
       this.router.navigate(['']);
-      this.authService.isLoggedIn = '';
-      console.log(this.authService.isLoggedIn);
     }
   }
 
@@ -45,20 +46,20 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem('color-theme', ConstantClass.darkClass);
         this.layoutCommonService.isDarkTheme = true;
       } else {
-        this.document.body.classList.remove( ConstantClass.darkClass);
+        this.document.body.classList.remove(ConstantClass.darkClass);
         localStorage.setItem('color-theme', ConstantClass.lightClass);
         this.layoutCommonService.isDarkTheme = false;
       }
 
       // if NOT set via local storage previously
     } else {
-      if (this.document.body.classList.contains( ConstantClass.darkClass)) {
-        this.document.body.classList.remove( ConstantClass.darkClass);
+      if (this.document.body.classList.contains(ConstantClass.darkClass)) {
+        this.document.body.classList.remove(ConstantClass.darkClass);
         localStorage.setItem('color-theme', ConstantClass.lightClass);
         this.layoutCommonService.isDarkTheme = false;
       } else {
-        this.document.body.classList.add( ConstantClass.darkClass);
-        localStorage.setItem('color-theme',  ConstantClass.darkClass);
+        this.document.body.classList.add(ConstantClass.darkClass);
+        localStorage.setItem('color-theme', ConstantClass.darkClass);
         this.layoutCommonService.isDarkTheme = true;
       }
     }

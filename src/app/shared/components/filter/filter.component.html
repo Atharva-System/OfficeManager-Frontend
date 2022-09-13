@@ -1,9 +1,9 @@
 <div class="w-full sm:w-6/12 md:w-4/12 px-4">
     <div class="relative inline-flex align-middle w-full">
-        <button class="uppercase text-sm px-6 py-3 rounded shadow-xl bg-gray hover:bg-slate-100"
-            type="button" (click)="toggleDropdown($event)" #btnDropdownRef>
+        <button class="uppercase text-sm px-6 py-3 rounded shadow-xl bg-gray hover:bg-slate-100" type="button"
+            (click)="toggleDropdown($event)" #btnDropdownRef>
             <span class="inline-flex justify-center items-center w-6 h-6">
-            <img src="assets/svg/filter.svg" alt="filter">
+                <img [src]="svgs.filter" alt="filter">
             </span>
         </button>
     </div>
@@ -13,13 +13,13 @@
         <div *ngIf="isSearch" class="flex items-center m-2">
             <div class="relative w-full">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 ">
-                    <img class="w-5 h-5" src="assets/svg/search.svg" alt="close">
+                    <img class="w-5 h-5" [src]="svgs.search" alt="Search">
                 </div>
                 <input type="text" id="simple-search"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-slate-700 block w-full pl-10 p-2.5"
                     placeholder="Search" [(ngModel)]="searchAttribute">
             </div>
-            <img class="mx-2 w-5 h-5" (click)="dropdownPopoverShow = false" src="assets/svg/close.svg" alt="close">
+            <img class="mx-2 w-5 h-5" (click)="dropdownPopoverShow = false" [src]="svgs.close" alt="close">
         </div>
 
         <div *ngFor="let attribute of filterAttributes; let i = index; "
@@ -35,10 +35,10 @@
         <div class="block text-black  py-2 px-3 mb-2">
             <button
                 class="bg-transparent hover:bg-slate-700 text-slate-700 font-semibold hover:text-white p-2 border border-slate-700  mr-1 mb-1 hover:border-transparent rounded float-left  hover:bg-slate-100"
-                (click)="onClear()">{{ 'BUTTON.CLEAR'  }}</button>
+                (click)="onClear()">{{ 'BUTTON.CLEAR' }}</button>
             <button
                 class=" bg-transparent hover:bg-slate-700 text-slate-700 font-semibold hover:text-white p-2 border border-slate-700  mr-1 mb-1 hover:border-transparent rounded float-right hover:bg-slate-100"
-                (click)="onApply()">{{ 'BUTTON.APPLY'  }}</button>
+                (click)="onApply()">{{ 'BUTTON.APPLY' }}</button>
         </div>
     </div>
 </div>

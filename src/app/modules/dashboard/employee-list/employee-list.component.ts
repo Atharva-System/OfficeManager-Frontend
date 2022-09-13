@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiCallService } from 'src/app/core/dashboard/services/api-call.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
+import { SVGs } from 'src/app/shared/constants/svgs';
 import { slideInAnimation } from './app.animation';
 @Component({
   selector: 'app-employee-list',
@@ -18,71 +19,49 @@ import { slideInAnimation } from './app.animation';
   animations: [slideInAnimation],
 })
 export class EmployeeListComponent implements OnInit {
-  isCheckBox = true;
-  totalCount: number;
-  newRowsData: any = [];
-  itemsPerPage = 10;
-  itemsPerPageArr = [10, 20, 25];
-  searchText = 'ta';
-  sorting = '';
-  sortingField = '';
+  // isCheckBox = true;
+  // totalCount: number;
+  // itemsPerPage = 10;
+  // itemsPerPageArr = [10, 20, 25];
+  // searchText = 'ta';
+  // sorting = '';
+  // sortingField = '';
+
+  public constant;
+  rowsData: any = [];
 
   actions = [
     {
-      title: 'Edit',
-      icon: 'assets/svg/delete.svg',
+      title: ConstantClass.actions.edit,
+      icon: SVGs.delete,
       isIcon: true,
     },
     {
-      title: 'Delete',
-      icon: 'assets/svg/delete.svg',
+      title: ConstantClass.actions.delete,
+      icon: SVGs.delete,
       isIcon: true,
     },
   ];
-
-  // columns = [
-  //   {
-  //     title: 'First Name',
-  //     dataProperty: 'first_name',
-  //     sortable: true,
-  //     sorting: 'none',
-  //     show: true,
-  //   },
-  //   {
-  //     title: 'Last Name',
-  //     dataProperty: 'last_name',
-  //     sortable: true,
-  //     sorting: 'none',
-  //     show: false,
-  //   },
-  //   {
-  //     title: 'Email',
-  //     dataProperty: 'email',
-  //     sortable: true,
-  //     sorting: 'none',
-  //     show: true,
-  //   },
-  // ];
 
   columns = [
     {
       title: 'Id',
       dataProperty: 'id',
-      sortable: true,
+      soremployeeTable: true,
       sorting: 'none',
       show: true,
     },
     {
       title: 'Name',
       dataProperty: 'name',
-      sortable: true,
+      soremployeeTable: true,
       sorting: 'none',
       show: true,
     },
     {
       title: 'Full Name',
       dataProperty: 'full_name',
-      sortable: true,
+      soremployeeTable: true,
       sorting: 'none',
       show: true,
     },
@@ -90,13 +69,11 @@ export class EmployeeListComponent implements OnInit {
       title: 'Owner_Login',
       dataProperty: 'login',
       icon: 'avatar_url',
-      sortable: true,
+      soremployeeTable: true,
       sorting: 'none',
       show: true,
     },
   ];
-
-  rowsData: any = [];
 
   constructor(
     public apiCallService: ApiCallService,
@@ -104,50 +81,36 @@ export class EmployeeListComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.totalCount = this.apiCallService.totalCount;
+    ConstantClass.employeeTable.totalCount = this.apiCallService.totalCount;
+    this.constant = ConstantClass;
   }
 
   ngOnInit(): void {
-    // this.getRowsData(`page=1&per_page=${this.itemsPerPage}`);
-    this.getRowsData(`q=a&page=1&per_page=${this.itemsPerPage}`);
+    this.getRowsData(
+      `q=a&page=1&per_page=${ConstantClass.employeeTable.itemsPerPage}`
+    );
     this.onResize(window);
-    // this.apiCallService
-    //   .getConfig(`per_page=${this.totalCount}&page=1`)
-    //   .subscribe((data: any) => {
-    //     this.newRowsData = [...data?.data];
-    //     this.cd.detectChanges();
-    //   });
   }
 
   getRowsData(url: string) {
     this.apiCallService.getConfig(url).subscribe((data: any) => {
-      // this.rowsData = [...data?.data];
       this.rowsData = [...data.items];
       this.rowsData.map((item: any) => {
         item['login'] = item.owner.login;
         item['avatar_url'] = item.owner.avatar_url;
       });
       console.log(this.rowsData);
-      // this.totalCount = data.total;
-      this.totalCount = data.total_count;
+      ConstantClass.employeeTable.totalCount = data.total_count;
       this.cd.detectChanges();
     });
   }
 
   onSortingEvent(column: any) {
-    // this.apiCallService
-    //   .getConfig(`per_page=${this.totalCount}&page=1`)
-    //   .subscribe((data: any) => {
-    //     this.newRowsData = [...data?.data];
-    //     this.cd.detectChanges();
-    //   });
-    // this.getRowsData(`per_page=${this.totalCount}&page=1`);
-
-    this.sorting = column.sorting;
-    this.sortingField = column.dataProperty;
+    ConstantClass.employeeTable.sorting = column.sorting;
+    ConstantClass.employeeTable.sortingField = column.dataProperty;
 
     this.getRowsData(
-      `q=${this.searchText}&sort=${this.sortingField}&order=${this.sorting}&page=1&per_page=${this.itemsPerPage}`
+      `q=${ConstantClass.employeeTable.searchText}&sort=${ConstantClass.employeeTable.sortingField}&order=${ConstantClass.employeeTable.sorting}&page=1&per_page=${ConstantClass.employeeTable.itemsPerPage}`
     );
   }
 
@@ -155,27 +118,28 @@ export class EmployeeListComponent implements OnInit {
   onResize(event: any) {
     console.log(event.innerWidth);
 
-    this.columns[2].show = event.innerWidth > 850 ? true : false;
-    this.columns[3].show = event.innerWidth > 500 ? true : false;
-    this.columns[0].show = event.innerWidth > 500 ? true : false;
+    this.columns[2].show =
+      event.innerWidth > ConstantClass.innerWidth.tablet ? true : false;
+    this.columns[3].show =
+      event.innerWidth > ConstantClass.innerWidth.mobile ? true : false;
+    this.columns[0].show =
+      event.innerWidth > ConstantClass.innerWidth.mobile ? true : false;
   }
 
-  ngDoCheck(): void {
-    // console.log(this.rowsData);
-  }
+  ngDoCheck(): void {}
 
   onPageChangeEvent(page: number) {
     // this.getRowsData(`per_page=${this.itemsPerPage}&page=${page}`);
     this.getRowsData(
-      `q=${this.searchText}&sort=${this.sortingField}&order=${this.sorting}&page=${page}&per_page=${this.itemsPerPage}`
+      `q=${ConstantClass.employeeTable.searchText}&sort=${ConstantClass.employeeTable.sortingField}&order=${ConstantClass.employeeTable.sorting}&page=${page}&per_page=${ConstantClass.employeeTable.itemsPerPage}`
     );
   }
 
   onSearchingEvent(searchText: string) {
     console.log(searchText);
-    this.searchText = searchText;
+    ConstantClass.employeeTable.searchText = searchText;
     this.getRowsData(
-      `q=${this.searchText}&sort=&order=&page=1&per_page=${this.itemsPerPage}`
+      `q=${ConstantClass.employeeTable.searchText}&sort=&order=&page=1&per_page=${ConstantClass.employeeTable.itemsPerPage}`
     );
   }
 

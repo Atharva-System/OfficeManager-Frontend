@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
+import { SVGs } from '../../constants/svgs';
 
 @Component({
   selector: 'app-input-field',
@@ -7,9 +8,12 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 })
 export class InputFieldComponent implements OnInit {
   @Input() error = false;
-  @Input() icon : string = 'assets/svg/info.svg';
+  @Input() icon : string = SVGs.info;
+  public svgs;
   
-  constructor() {}
+  constructor() {
+    this.svgs = SVGs;
+  }
 
   ngOnInit(): void {}
 }

@@ -12,6 +12,7 @@ import { createPopper } from '@popperjs/core';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { IFilter } from 'src/app/core/shared/models/filter';
 import { TranslateService } from '@ngx-translate/core';
+import { SVGs } from '../../constants/svgs';
 
 @Component({
   selector: 'app-filter',
@@ -29,18 +30,21 @@ export class FilterComponent implements AfterViewInit {
   attributes: any[] = [];
   dropdownPopoverShow = false;
   searchAttribute!: string;
+  public svgs;
 
   @ViewChild('btnDropdownRef', { static: false })
   btnDropdownRef!: ElementRef;
   @ViewChild('popoverDropdownRef', { static: false })
   popoverDropdownRef!: ElementRef;
 
-  constructor(private _eref: ElementRef, public translate : TranslateService) {}
+  constructor(private _eref: ElementRef, public translate : TranslateService) {
+    this.svgs = SVGs;
+  }
 
   ngAfterViewInit() {
     //For responsive scroll dropdown
     ConstantClass.placement =
-      window.innerHeight < 368 ? 'top-start' : 'bottom-start';
+      window.innerHeight < ConstantClass.innerWidth.sm ? ConstantClass.dropdownPosition.top : ConstantClass.dropdownPosition.bottom;
 
     createPopper(
       this.btnDropdownRef.nativeElement,

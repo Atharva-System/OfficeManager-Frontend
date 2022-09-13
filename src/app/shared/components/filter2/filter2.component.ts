@@ -11,6 +11,7 @@ import {
 import { createPopper } from '@popperjs/core';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { IFilter } from 'src/app/core/shared/models/filter';
+import { SVGs } from '../../constants/svgs';
 @Component({
   selector: 'app-filter2',
   templateUrl: './filter2.component.html',
@@ -26,17 +27,20 @@ export class Filter2Component implements AfterViewInit {
   attributes: any[] = [];
   dropdownPopoverShow = false;
   searchAttribute!: string;
+  public svgs;
 
   @ViewChild('btnDropdownRef', { static: false })
   btnDropdownRef!: ElementRef;
   @ViewChild('popoverDropdownRef', { static: false })
   popoverDropdownRef!: ElementRef;
 
-  constructor(private _eref: ElementRef) {}
+  constructor(private _eref: ElementRef) {
+    this.svgs = SVGs;
+  }
 
   ngAfterViewInit() {
     ConstantClass.placement =
-      window.innerHeight < 368 ? 'top-start' : 'bottom-start';
+      window.innerHeight < ConstantClass.innerWidth.sm ? ConstantClass.dropdownPosition.top : ConstantClass.dropdownPosition.bottom;
 
     createPopper(
       this.btnDropdownRef.nativeElement,

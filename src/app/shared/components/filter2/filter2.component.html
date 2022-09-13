@@ -3,7 +3,7 @@
         <button class="uppercase text-sm" type="button"
             (click)="toggleDropdown($event)" #btnDropdownRef>
             <span class="inline-flex justify-center items-center w-6 h-6">
-                <img class="icon-img" src="assets/svg/filter.svg" alt="filter">
+                <img class="icon-img" [src]="svgs.filter" alt="filter">
             </span>
         </button>
     </div>
@@ -16,20 +16,20 @@
             class="p-1 bg-slate-300 rounded-lg mr-1 flex items-center mb-1">
             <span>{{
                 attribute }} </span>
-            <span><img class="mx-2 w-2 h-2" src="assets/svg/close.svg" alt="close-{{i}}" (click)="onCloseAttribute(i)"></span>
+            <span><img class="mx-2 w-2 h-2" [src]="svgs.close" alt="close-{{i}}" (click)="onCloseAttribute(i)"></span>
         </div>
     </div>
 
     <div *ngIf="isSearch" class="flex items-center">
         <div class="relative w-full">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 ">
-                <img class="w-5 h-5" src="assets/svg/search.svg" alt="search">
+                <img class="w-5 h-5" [src]="svgs.search" alt="search">
             </div>
             <input type="text" id="simple-search"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-slate-700 block w-full pl-10 p-2.5"
                 placeholder="Search" [(ngModel)]="searchAttribute">
         </div>
-        <img class="mx-2 w-5 h-5" (click)="dropdownPopoverShow = false" src="assets/svg/close.svg" alt="close">
+        <img class="mx-2 w-5 h-5" (click)="dropdownPopoverShow = false" [src]="svgs.close" alt="close">
     </div>
 
     <div class="overflow-y-auto h-44">

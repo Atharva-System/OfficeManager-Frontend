@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/core/auth/models/user';
-import { AuthCommonService } from 'src/app/core/auth/service/common/auth-common.service';
+import { IUser, LoginResponse } from 'src/app/core/auth/models/user';
+import { AuthService } from 'src/app/core/auth/service/auth/auth.service';
+import { CommonService } from 'src/app/core/shared/services/common/common.service';
+import { CustomToastrService } from 'src/app/core/shared/services/toastr/custom-toastr.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
-import { Regex } from 'src/app/shared/utils/regex';
+import { SVGs } from 'src/app/shared/constants/svgs';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,31 +17,28 @@ import { Regex } from 'src/app/shared/utils/regex';
 export class SignInComponent implements OnInit {
   public constant;
   public routeConstant;
-
+  public svgs;
   users: IUser[] = [];
 
-  //Array of object for showing validation message in loop 
+  //Array of object for showing validation message in loop
   validationMessages = {
-    email: [
-      { type: 'required', message: 'MESSAGE.REQUIRED' },
-      { type: 'pattern', message: 'MESSAGE.EMAIL_PATTERN' },
-    ],
-    password: [
-      { type: 'required', message: 'MESSAGE.REQUIRED' },
-      { type: 'pattern', message: 'MESSAGE.EMAIL_PATTERN' },
-    ],
+    employeeNo: [{ type: ConstantClass.required, message: 'MESSAGE.REQUIRED' }],
+    password: [{ type: ConstantClass.required, message: 'MESSAGE.REQUIRED' }],
   };
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authCommonService: AuthCommonService
+    private authService: AuthService,
+    private customToastrService: CustomToastrService,
+    private commonService: CommonService
   ) {
     //Initialize signin form
     this.initialization();
-    //constants 
+    //constants
     this.constant = ConstantClass;
     this.routeConstant = RouterPathClass;
+    this.svgs = SVGs;
   }
 
   ngOnInit(): void {}
@@ -47,14 +46,8 @@ export class SignInComponent implements OnInit {
   //Initialize signin form
   initialization() {
     ConstantClass.signinForm = this.formBuilder.group({
-      email: [
-        '',
-        [Validators.required, Validators.pattern(Regex.emailPattern)],
-      ],
-      password: [
-        '',
-        [Validators.required, Validators.pattern(Regex.passwordPattern)],
-      ],
+      employeeNo: ['', [ConstantClass.validators.required]],
+      password: ['', [ConstantClass.validators.required]],
     });
   }
 
@@ -64,27 +57,23 @@ export class SignInComponent implements OnInit {
   }
 
   //On submit signin form
-  onSubmit() {
-    localStorage.setItem(
-      'loggedIn',
-      btoa(this.constant.signinForm.value.email)
-    );
-    this.authCommonService.isLoggedIn = atob(
-      localStorage.getItem('loggedIn') || ''
-    );
+  onSubmit(val: any) {
+    this.authService.login(val).subscribe({
+      next: (response: LoginResponse) => {
+        localStorage.setItem(ConstantClass.token, response?.data);
 
-    //To navigate to dashboard route
-    this.router.navigate([RouterPathClass.dashboard]);
-    
-    //User details object
-    let user = {
-      email : this._signinForm['email'].value,
-      password : this._signinForm['password'].value
-    }
-    this.users.push(user);
+        //Toastr notification on success
+        this.customToastrService.showToastr(
+          ConstantClass.notificationType.success,
+          this.commonService.getTranslateData('MESSAGE.SUCCESS_LOGIN')
+        );
 
-    console.log(this.users);
-    //To clear form data
+        //To navigate to dashboard route
+        this.router.navigate([RouterPathClass.dashboard]);
+      },
+      error: (e) => console.error(e),
+    });
+    //To clear data on form
     this.initialization();
   }
 }

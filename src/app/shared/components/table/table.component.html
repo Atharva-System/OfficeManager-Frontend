@@ -4,7 +4,7 @@
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <img class="h-5 w-4 icon-img" src="assets/svg/search.svg" alt="search">
+                <img class="h-5 w-4 icon-img" [src]="svgs.search" alt="search">
             </div>
             <input type="text" id="table-search" #searchText (keyup.enter)="onKeyuOnSearch($event)"
                 class="block p-2 pl-10 w-32 sm:w-60 text-sm  text-gray-500 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-gray-700"
@@ -36,7 +36,7 @@
                         <span class="inline-block mr-1">{{ column?.title }}</span>
                         <span class="inline-block align-bottom">
                             <img class="h-5 w-4 icon-img" *ngIf="column.sortable && (column.sorting != 'none')"
-                                [src]=" column.sorting === constant.asc ? 'assets/svg/ascending.svg' : 'assets/svg/descending.svg'"
+                                [src]=" column.sorting === constant.asc ? svgs.ascending : svgs.descending"
                                 alt="sorting">
                         </span>
                     </th>
