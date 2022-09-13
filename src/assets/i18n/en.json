@@ -1,32 +1,37 @@
 {
   "BUTTON": {
-    "MENU" : "Menu",
-    "CLEAR" : "Clear",
-    "APPLY" : "Apply",
-    "SIGN_IN" : "Sign In",
-    "SUBMIT" : "Submit"
+    "MENU": "Menu",
+    "CLEAR": "Clear",
+    "APPLY": "Apply",
+    "SIGN_IN": "Sign In",
+    "SUBMIT": "Submit"
   },
   "TITLE": {
-    "SIGN_IN_TITLE" : "Signin",
-    "FORGOT_PASSWORD_TITLE" : "Forgot password?"
+    "SIGN_IN_TITLE": "Signin",
+    "FORGOT_PASSWORD_TITLE": "Forgot password?"
   },
 
   "LABEL": {
-    "EMAIL" : "Email",
-    "PASSWORD" : "Password",
-    "TNC" : "Terms and Conditions"
+    "EMPLOYEE_NO": "Employee No.",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "TNC": "Terms and Conditions"
   },
 
-  "PLACE_HOLDER" : {
-    "EMAIL" : "Enter your email",
-    "PASSWORD" : "Enter your password"
+  "PLACE_HOLDER": {
+    "EMPLOYEE_NO": "Enter your employee no.",
+    "EMAIL": "Enter your email",
+    "PASSWORD": "Enter your password"
   },
 
   "MESSAGE": {
-    "REQUIRED" : "is required!",
-    "EMAIL_PATTERN" : "is invalid!",
-    "FORGOT_PASSWORD_1" : "Enter the email address you used when you joined and we'll send you instructions to reset your password.",
-    "FORGOT_PASSWORD_2" : "For security reasons, we do NOT store your password. So rest assured that we will never send your password via email.",
-    "TNC_ACCEPT" : "I accept the"
+    "REQUIRED": "is required!",
+    "EMAIL_PATTERN": "is invalid!",
+    "FORGOT_PASSWORD_1": "Enter the email address you used when you joined and we'll send you instructions to reset your password.",
+    "FORGOT_PASSWORD_2": "For security reasons, we do NOT store your password. So rest assured that we will never send your password via email.",
+    "TNC_ACCEPT": "I accept the",
+    "SUCCESS_LOGIN": "Congratulations! You've successfully logged!",
+    "ERROR_LOGIN": "Please check login credentials!",
+    "ERROR_404_LOGIN": "Server side error!"
   }
 }
