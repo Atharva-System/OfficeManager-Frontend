@@ -12,11 +12,6 @@ import { ConstantClass } from './shared/constants/constants';
 })
 export class AppComponent {
   title = 'OfficeManager';
-  isSearch = true;
-
-  menuItems;
-  filterAttributes;
-
   constructor(
     public translate: TranslateService,
     public commonService: CommonService,
@@ -26,9 +21,6 @@ export class AppComponent {
     //Set langulage english
     translate.setDefaultLang('en');
     translate.use('en');
-
-    this.menuItems = this.commonService.menuItems;
-    this.filterAttributes = this.commonService.filterAttributes;
   }
 
   ngOnInit(): void {
@@ -39,16 +31,5 @@ export class AppComponent {
       }else
       this.layoutCommonService.isDarkTheme = false;
     }
-  }
-
-  //To get item on click DropDown MenuItem
-  onItemClick(item: any) {
-    console.log(item);
-  }
-
-  //To get attribute of filter
-  filtredAttributes(item: IFilter[]) {
-    this.filterAttributes = item;
-    console.log(this.filterAttributes);
   }
 }
