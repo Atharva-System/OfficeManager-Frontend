@@ -7,11 +7,16 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { GuiGridModule } from '@generic-ui/ngx-grid';
 import { TokenInterceptor } from './core/auth/interceptor/token.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
@@ -32,6 +37,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     GuiGridModule,
     NgxPaginationModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      timeOut : 5000,
+      // disableTimeOut:true
+    }),
   ],
   providers: [
     {
