@@ -51,10 +51,9 @@ export class ConstantClass {
   };
   static employeeTable = {
     isCheckBox: true,
-    totalCount: 0,
-    itemsPerPage: 10,
+    itemsPerPage: 20,
     itemsPerPageArr: [10, 20, 25],
-    searchText: 'ta',
+    searchText: '',
     sorting: '',
     sortingField: '',
   };
