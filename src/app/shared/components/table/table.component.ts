@@ -17,7 +17,7 @@ import { SVGs } from '../../constants/svgs';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
   @Input() columns: any;
   @Input() rowsData: any;
   @Input() isCheckBox: any;
@@ -31,7 +31,7 @@ export class TableComponent implements OnInit {
   isSearch = true;
 
   dropdownPopoverShow = false;
-  p: any = 1;
+  @Input() p: number | undefined;
   @Input() totalCount: any;
   @Input() itemsPerPage: any;
   @Input() itemsPerPageArr: any;
@@ -46,12 +46,6 @@ export class TableComponent implements OnInit {
     this.filterAttributes = this.commonService.filterAttributes;
     this.constant = ConstantClass;
     this.svgs = SVGs;
-  }
-
-  ngOnInit(): void {}
-
-  ngOnChanges(): void {
-    console.log();
   }
 
   //To get attribute of filter
@@ -99,6 +93,7 @@ export class TableComponent implements OnInit {
 
   //On search box Key Enter
   onKeyuOnSearch(event: any) {
+    this.p = 1;
     this.onSearchingEvent.emit(event.target.value);
   }
 
