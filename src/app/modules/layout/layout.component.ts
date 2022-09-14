@@ -15,23 +15,27 @@ export class LayoutComponent implements OnInit {
 
   menuItems: any = [
     {
-      name: 'aa',
+      name: 'Employee',
       icon: SVGs.home,
+      routerLink: 'employee-list',
       isIcon: true,
     },
     {
       name: 'gfg',
       icon: SVGs.message,
+      routerLink: '',
       isIcon: true,
     },
     {
       name: 'fffdettttttttttt',
       icon: SVGs.inbox,
+      routerLink: '',
       isIcon: true,
     },
     {
       name: 'bb',
       icon: SVGs.notifications,
+      routerLink: '',
       isIcon: true,
     },
   ];
