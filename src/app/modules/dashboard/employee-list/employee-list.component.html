@@ -1,9 +1,10 @@
 <div class="m-6">
-    <app-table [isCheckBox]="constant.employeeTable.isCheckBox" [actions]="actions" [columns]="columns"
-        [rowsData]="rowsData" (onSortingEvent)="onSortingEvent($event)" [totalCount]="constant.employeeTable.totalCount"
+    <app-table [isCheckBox]="constant.employeeTable.isCheckBox" [actions]="employeeService.actions"
+        [columns]="employeeService.columns" [rowsData]="(employeeService.state$ | async)?.items"
+        (onSortingEvent)="onSortingEvent($event)" [totalCount]="(employeeService.state$ | async)?.totalCount"
         [itemsPerPage]="constant.employeeTable.itemsPerPage" [itemsPerPageArr]="constant.employeeTable.itemsPerPageArr"
-        (onPageChangeEvent)="onPageChangeEvent($event)" (onSearchingEvent)="onSearchingEvent($event)"
-        (onAddEvent)="onAddEvent($event)">
+        [p]="(employeeService.state$ | async)?.pageNumber" (onPageChangeEvent)="onPageChangeEvent($event)"
+        (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)">
     </app-table>
 </div>
 
