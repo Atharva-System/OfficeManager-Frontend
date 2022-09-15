@@ -120,7 +120,7 @@ export class EmployeeService extends Store<EmployeeState> {
     return this.apiCall
       .get(`${APIs.employeeApi}${url}`)
       .subscribe((data: any) => {
-        this.setState(data.data);
+        this.state = data.data;
       });
   }
 }
