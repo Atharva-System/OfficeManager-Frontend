@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     console.log(item.item.name);
 
     if (item.item.name.toLowerCase() === 'log out') {
-      localStorage.removeItem(ConstantClass.token);
+      this.authService.logout();
       this.router.navigate(['']);
     }
   }
