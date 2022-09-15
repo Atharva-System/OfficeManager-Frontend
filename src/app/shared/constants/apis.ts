@@ -1,5 +1,6 @@
 export class APIs {
   static loginApi = 'User/Login';
+  static refreshTokenApi = 'User/RefreshToken';
   static departmentApi = 'Department/All';
   static employeeApi = 'Employee';
   static employeeId = 'Employee/2';
