@@ -60,8 +60,6 @@ export class SignInComponent implements OnInit {
   onSubmit(val: any) {
     this.authService.login(val).subscribe({
       next: (response: LoginResponse) => {
-        localStorage.setItem(ConstantClass.token, response?.data?.accessToken);
-
         //Toastr notification on success
         this.customToastrService.showToastr(
           ConstantClass.notificationType.success,
