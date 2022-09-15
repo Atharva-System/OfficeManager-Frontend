@@ -43,6 +43,7 @@ export class ConstantClass {
 
   //token on localstorage
   static token = 'token';
+  static refreshToken = 'refreshToken';
 
   //Table Related
   static actions = {
