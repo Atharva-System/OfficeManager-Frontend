@@ -13,11 +13,12 @@ import { CommonService } from '../../shared/services/common/common.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { APIs } from 'src/app/shared/constants/apis';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    public api: ApiService,
+    public authService: AuthService,
     private commonService: CommonService,
     private customToastrService: CustomToastrService,
     private router: Router
@@ -44,21 +45,19 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((res: any) => {
         if (res.status === 200) {
-          // console.log(res.body, 'Successfully loggedIn!');
+          console.log(res.body, 'Successfully loggedIn!');
         }
 
         return res;
       }),
       catchError((error: any) => {
         if (error.status === 401) {
-          this.handle401Error(request, next);
-        //  return this.handle401Error(request, next);
+          return this.handle401Error(request, next);
         } else if (error.status === 400) {
           this.customToastrService.showToastr(
             ConstantClass.notificationType.error,
             this.commonService.getTranslateData('MESSAGE.ERROR_LOGIN')
           );
-          // console.log('Bad Request - Add correct employee no!');
         } else if (error.status === 404) {
           this.customToastrService.showToastr(
             ConstantClass.notificationType.error,
@@ -80,16 +79,13 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    // return this.api.refreshToken().pipe(
-    //   switchMap((response: any) => {
-    //     localStorage[ConstantClass.token] = response.data;
-    //     request = this.addTokenHeader(request, response.data);
-    //     return next.handle(request);
-    //   })
-    // );
-
-    this.router.navigate(['login']);
-    return  false; 
+    return this.authService.refreshToken().pipe(
+      switchMap((response: any) => {
+        console.log('RefreshToken', response);
+        request = this.addTokenHeader(request, response.data);
+        return next.handle(request);
+      })
+    );
   }
 
   addTokenHeader(request: HttpRequest<any>, token: string) {
