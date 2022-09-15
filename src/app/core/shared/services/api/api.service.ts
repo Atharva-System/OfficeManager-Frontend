@@ -40,8 +40,4 @@ export class ApiService {
   public formatErrors(error: any): Observable<any> {
     return throwError(() => new Error(error.error));
   }
-
-  public refreshToken() {
-    return this.post('');
-  }
 }
