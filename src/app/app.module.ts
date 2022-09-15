@@ -40,10 +40,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     GuiGridModule,
     NgxPaginationModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-top-center',
       preventDuplicates: true,
-      timeOut: 5000,
-      // disableTimeOut:true
+      timeOut: 3000,
+      // disableTimeOut:true,
+      closeButton : true,
     }),
   ],
   providers: [
