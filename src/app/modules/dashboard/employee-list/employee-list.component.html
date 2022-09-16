@@ -1,13 +1,19 @@
+<!-- <div class="m-6" *ngIf="!activatedRoute.snapshot.children.length"> -->
 <div class="m-6">
     <app-table [isCheckBox]="constant.employeeTable.isCheckBox" [actions]="employeeService.actions"
         [columns]="employeeService.columns" [rowsData]="(employeeService.state$ | async)?.items"
         (onSortingEvent)="onSortingEvent($event)" [totalCount]="(employeeService.state$ | async)?.totalCount"
         [itemsPerPage]="constant.employeeTable.itemsPerPage" [itemsPerPageArr]="constant.employeeTable.itemsPerPageArr"
         [p]="(employeeService.state$ | async)?.pageNumber" (onPageChangeEvent)="onPageChangeEvent($event)"
-        (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)">
+        (onPageSizeChangeEvent)="onPageSizeChangeEvent($event)" (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)">
     </app-table>
 </div>
 
 <div class="container" [@slideInAnimation]="o.isActivated ? o.activatedRoute : ''">
     <router-outlet #o="outlet"></router-outlet>
 </div>
+
+<!-- <div class="m-6 bg-white shadow-xl rounded-lg dark:bg-gray-800">
+    <router-outlet></router-outlet>
+</div>
+{{ activatedRoute.url | async}} -->
