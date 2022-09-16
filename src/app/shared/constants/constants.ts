@@ -58,4 +58,12 @@ export class ConstantClass {
     sorting: '',
     sortingField: '',
   };
+  static departmentTable = {
+    isCheckBox: true,
+    itemsPerPage: 5,
+    itemsPerPageArr: [5, 10, 15],
+    searchText: '',
+    sorting: '',
+    sortingField: '',
+  };
 }
