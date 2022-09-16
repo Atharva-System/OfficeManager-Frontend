@@ -33,11 +33,12 @@ export class AuthService {
     return this.apiCall
       .post(APIs.refreshTokenApi, {
         refreshToken: this.getRefreshToken(),
+        currentToken: this.getToken(),
       })
       .pipe(
-        tap((tokens: LoginResponse) =>
-          this.storeJwtToken(tokens.data.accessToken)
-        )
+        tap((tokens: LoginResponse) => {
+          this.storeTokens(tokens.data);
+        })
       );
   }
 
@@ -50,11 +51,15 @@ export class AuthService {
   }
 
   private getRefreshToken() {
+    console.log('tpken', localStorage.getItem(ConstantClass.refreshToken));
+
     return localStorage.getItem(ConstantClass.refreshToken);
   }
 
-  private storeJwtToken(jwt: string) {
-    localStorage.setItem(ConstantClass.token, jwt);
+  private getToken() {
+    console.log('tpken', localStorage.getItem(ConstantClass.token));
+
+    return localStorage.getItem(ConstantClass.token);
   }
 
   private storeTokens(tokens: LoginResponse['data']) {
