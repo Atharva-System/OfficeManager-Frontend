@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayOutCommonService } from 'src/app/core/layout/services/common/common.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
+import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { SVGs } from 'src/app/shared/constants/svgs';
 
 @Component({
@@ -17,13 +18,13 @@ export class LayoutComponent implements OnInit {
     {
       name: 'Employee',
       icon: SVGs.home,
-      routerLink: 'employee-list',
+      routerLink: RouterPathClass.employeeList,
       isIcon: true,
     },
     {
-      name: 'gfg',
+      name: 'Department',
       icon: SVGs.message,
-      routerLink: '',
+      routerLink: RouterPathClass.departmentList,
       isIcon: true,
     },
     {
