@@ -40,32 +40,71 @@
 
 //Toaster color and images
 .toast-container {
+  .ngx-toastr {
+    box-shadow: none;
+  }
+
   .custom-toastr-success-class {
-    background-color: #b1ffce;
+    margin-left: 50px;
+    background-color: #d6f5e8;
     color: black;
-    border-radius: 6px !important;
-    background-image: url("assets/svg/check-black.svg");
-    border: 2px solid #51a351 !important;
+    background-image: url("assets/svg/check-circle.svg");
+    width: 425px !important;
+    box-sizing: content-box !important;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
   }
   .custom-toastr-error-class {
-    background-color: #f8b9b6;
+    background-color: #fcdee4;
     color: black;
-    border-radius: 6px !important;
-    background-image: url("assets/svg/x-circle.svg");
-    border: 2px solid #bd362f !important;
+    background-image: url("assets/svg/x-circle-color.svg");
+    width: 425px !important;
+    box-sizing: content-box !important;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
   }
   .custom-toastr-info-class {
-    background-color: #b8ebfa;
+    background-color: #d8eefe;
     color: black;
-    border-radius: 6px !important;
-    background-image: url("assets/svg/alert-info.svg");
-    border: 2px solid #2f96b4 !important;
+    background-image: url("assets/svg/info-color.svg");
+    width: 425px !important;
+    box-sizing: content-box !important;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
   }
   .custom-toastr-warning-class {
-    background-color: #fcd8a7;
+    background-color: #ffe7d6;
     color: black;
-    border-radius: 6px !important;
-    background-image: url("assets/svg/alert-triangle.svg");
-    border: 2px solid #f89406 !important;
+    background-image: url("assets/svg/alert-triangle-color.svg");
+    width: 425px !important;
+    box-sizing: content-box !important;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+  .toast-close-button {
+    color: black;
+    font-size: 28px !important;
+    font-weight: normal;
+    top: auto;
+  }
+  .toast-message {
+    margin-right: auto;
+    margin-left: 10px;
+  }
+}
+
+
+//SweetAlert colorof shadow
+.swal2-container {
+  .swal2-popup {
+    .swal2-actions {
+      .swal2-confirm:focus {
+        box-shadow: 0 0 5px rgb(27, 27, 27);
+      }
+    }
   }
 }
