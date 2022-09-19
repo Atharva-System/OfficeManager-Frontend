@@ -6,7 +6,7 @@
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <img class="h-5 w-4 icon-img" [src]="svgs.search" alt="search">
             </div>
-            <input type="text" id="table-search" #searchText (keyup.enter)="onKeyuOnSearch($event)"
+            <input type="text" id="table-search" #searchText (keyup.enter)="onKeyupOnSearch($event)"
                 class="block p-2 pl-10 w-32 sm:w-60 text-sm  text-gray-500 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-gray-700"
                 placeholder="Search for items">
         </div>
@@ -52,12 +52,13 @@
                 <td *ngIf="isCheckBox" class="p-4 w-4">
                     <div class="flex items-center">
                         <input id="checkbox-table-search-{{i1}}" type="checkbox" [(ngModel)]="rowData.isChecked"
-                            (change)="onCheckboxChange()" class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded">
+                            (change)="onCheckboxChange(i1)"
+                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded">
                         <label for="checkbox-table-search-{{i1}}" class="sr-only">checkbox</label>
                     </div>
                 </td>
                 <ng-container *ngFor="let column of columns; let i2 = index">
-                    <td class="py-4 px-6" *ngIf="column.show">
+                    <td class="py-4 px-6" *ngIf="column.show" (click)="onEdit(column, i1)">
                         <span class="inline-block" *ngIf="!column.icon && !column.date">{{
                             rowData[column?.dataProperty]}}</span>
                         <span class="inline-block" *ngIf="column.icon">
@@ -71,12 +72,12 @@
                 </ng-container>
                 <td class="py-4 px-6" *ngIf="actions.length">
                     <ng-container *ngFor="let action of actions; let i3 = index">
-                        <div class="inline-block">
+                        <div class="inline-block" (click)="onAction(action.title, i1)">
                             <a *ngIf="!action.isIcon; else icon"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ action.title
                                 }}</a>
                         </div>
-                        <div class="inline-block">
+                        <div class="inline-block" (click)="onAction(action.title, i1)">
                             <ng-template class="ml-auto" #icon>
                                 <img class="h-5 w-5 icon-img" [src]="action.icon" [alt]="action.title">
                             </ng-template>
@@ -110,5 +111,20 @@
         </div>
         <pagination-controls previousLabel="" nextLabel="" [responsive]="true" (pageChange)="onPageChange($event)">
         </pagination-controls>
+    </div>
+</div>
+
+
+<div class="flex w-full justify-evenly">
+    <div [ngClass]="selectedIds.length ? 'showBulkbar' : 'hideBulkbar' "
+        class="fixed bottom-8 z-50 flex gap-1 md:gap-2 justify-between items-center lg:w-6/12  md:w-8/12 w-full lg:text-lg md:text-md text-sm m-5 py-4 px-6 rounded-full bg-white dark:bg-gray-800 shadow-xl">
+        <div class="mr-1">Selected <strong class="mr-1">{{selectedIds.length}}</strong>record
+            <button type="button" class=""><span
+                    class="md:ml-2 border border-gray-800 font-medium rounded-lg px-1 md:px-5 py-1 md:py-2 md:mr-2 mb-2 dark:border-gray-400"
+                    (click)="onReset()">Reset</span></button>
+        </div>
+        <div>
+            <button type="button" class="text-red-500"><span (click)="onDelete()">Delete selected</span></button>
+        </div>
     </div>
 </div>
