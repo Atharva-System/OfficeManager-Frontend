@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from 'src/app/core/shared/models/store';
 import { ApiService } from 'src/app/core/shared/services/api/api.service';
@@ -40,6 +41,7 @@ export class DepartmentService extends Store<DepartmentState> {
     {
       title: 'Name',
       dataProperty: 'name',
+      isEdit : true,
       sortable: true,
       sorting: 'none',
       show: true,
@@ -47,13 +49,6 @@ export class DepartmentService extends Store<DepartmentState> {
     {
       title: 'Description',
       dataProperty: 'description',
-      sortable: true,
-      sorting: 'none',
-      show: true,
-    },
-    {
-      title: 'Active',
-      dataProperty: 'isActive',
       sortable: true,
       sorting: 'none',
       show: true,
@@ -79,26 +74,33 @@ export class DepartmentService extends Store<DepartmentState> {
   }
 
   createDepartment(url: string, body: IDepartment) {
-    return this.apiCall
-      .post(`${APIs.departmentAdd}${url}`, body)
-      .subscribe((data: IResponseDepartment) => {
-        this.state = data.data;
-      });
+    return this.apiCall.post(`${APIs.departmentAdd}${url}`, body).subscribe({
+      next: (response: any) => {
+        this.getAllDepartment(
+          `?Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
+        );
+      },
+      error: (e) => console.log(e),
+    });
   }
 
   updateDepartment(url: string, body: IDepartment) {
     return this.apiCall
-      .put(`${APIs.departmentEdit}${url}`, body)
+      .put(`${APIs.departmentUpdate}${url}`, body)
       .subscribe((data: IResponseDepartment) => {
-        this.state = data.data;
+        this.getAllDepartment(
+          `?Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
+        );
       });
   }
 
   deleteDepartment(url: string) {
     return this.apiCall
-      .delete(`${APIs.departmentId}${url}`)
+      .delete(`${APIs.departmentDelete}${url}`)
       .subscribe((data: IResponseDepartment) => {
-        this.state = data.data;
+        this.getAllDepartment(
+          `?Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
+        );
       });
   }
 }
