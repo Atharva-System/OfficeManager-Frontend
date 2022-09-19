@@ -19,11 +19,6 @@ export class DepartmentState {
 export class DepartmentService extends Store<DepartmentState> {
   actions = [
     {
-      title: ConstantClass.actions.edit,
-      icon: SVGs.delete,
-      isIcon: false,
-    },
-    {
       title: ConstantClass.actions.delete,
       icon: SVGs.delete,
       isIcon: true,
@@ -41,7 +36,7 @@ export class DepartmentService extends Store<DepartmentState> {
     {
       title: 'Name',
       dataProperty: 'name',
-      isEdit : true,
+      isEdit: true,
       sortable: true,
       sorting: 'none',
       show: true,
