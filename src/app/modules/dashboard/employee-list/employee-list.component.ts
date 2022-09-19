@@ -1,17 +1,14 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   HostListener,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { EmployeeService } from 'src/app/core/dashboard/Employee/service/employee.service';
-import { ApiCallService } from 'src/app/core/dashboard/services/api-call.service';
-import { ApiService } from 'src/app/core/shared/services/api/api.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
-import { SVGs } from 'src/app/shared/constants/svgs';
 import { slideInAnimation } from './app.animation';
 @Component({
   selector: 'app-employee-list',
@@ -22,17 +19,22 @@ import { slideInAnimation } from './app.animation';
 })
 export class EmployeeListComponent implements OnInit {
   public constant;
-  rowsData = [];
+  public employeeSubscription!: Subscription;
+  // rowsData = [];
   constructor(
     public employeeService: EmployeeService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute
   ) {
     this.constant = ConstantClass;
   }
 
   ngOnInit(): void {
     this.onResize(window);
+    this.employeeService.getAllEmployee(
+      `?Page_No=1&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
+    );
+    this.employeeSubscription = this.employeeService.state$.subscribe();
   }
 
   // getRowsData(url: string) {
@@ -91,5 +93,20 @@ export class EmployeeListComponent implements OnInit {
     this.router.navigate([`./${RouterPathClass.addEmployee}`], {
       relativeTo: this.activatedRoute,
     });
+  }
+
+  onPageSizeChangeEvent(pageSize: number) {
+    ConstantClass.employeeTable.itemsPerPage = pageSize;
+    this.employeeService.getAllEmployee(
+      `?Search=${ConstantClass.employeeTable.searchText}&Page_No=1&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
+    );
+  }
+
+  onDelete(ids : any){
+  
+  }
+
+  ngOnDestroy(): void {
+    this.employeeSubscription.unsubscribe();
   }
 }
