@@ -16,11 +16,11 @@ export class EmployeeState {
 })
 export class EmployeeService extends Store<EmployeeState> {
   actions = [
-    {
-      title: ConstantClass.actions.edit,
-      icon: SVGs.delete,
-      isIcon: false,
-    },
+    // {
+    //   title: ConstantClass.actions.edit,
+    //   icon: SVGs.delete,
+    //   isIcon: false,
+    // },
     {
       title: ConstantClass.actions.delete,
       icon: SVGs.delete,
