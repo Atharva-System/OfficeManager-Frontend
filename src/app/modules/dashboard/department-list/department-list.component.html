@@ -6,10 +6,11 @@
         [itemsPerPageArr]="constant.departmentTable.itemsPerPageArr"
         [p]="(departmentService.state$ | async)?.pageNumber" (onPageChangeEvent)="onPageChangeEvent($event)"
         (onPageSizeChangeEvent)="onPageSizeChangeEvent($event)" (onDeleteEvent)="onDelete($event)"
-        (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)" (onEditEvent)="onEditEvent($event)">
+        (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)"
+        (onEditEvent)="onEditEvent($event)">
     </app-table>
 </div>
-
 <div class="container" [@slideInAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <div [ngClass]="o.isActivated ? 'overlay' : ''"></div>
     <router-outlet #o="outlet"></router-outlet>
 </div>
