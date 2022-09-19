@@ -30,8 +30,8 @@ export class ConstantClass {
   static forgotPasswordForm: FormGroup;
 
   //asc-desc
-  static asc = 'asc';
-  static desc = 'desc';
+  static asc = 'Asc';
+  static desc = 'Desc';
 
   //toastr
   static notificationType = {
