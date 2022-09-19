@@ -9,3 +9,14 @@
   }
 }
 
+.showBulkbar {
+  transition: 0.5s;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.hideBulkbar {
+  transition: 0.5s;
+  transform: translateY(100%);
+  opacity: 0;
+}
