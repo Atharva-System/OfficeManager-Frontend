@@ -4,9 +4,9 @@ export class APIs {
   static refreshTokenApi = 'User/RefreshToken';
 
   //Department
-  static departmentApi = 'Department/All';
-  static departmentId = 'Department/2';
-  static departmentEdit = 'Department/Edit';
+  static departmentApi = 'Department';
+  static departmentDelete = 'Department/Delete/';
+  static departmentUpdate = 'Department/Update';
   static departmentAdd = 'Department/Add';
 
   //Employee
