@@ -7,13 +7,13 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { ApiService } from '../../shared/services/api/api.service';
 import { CustomToastrService } from '../../shared/services/toastr/custom-toastr.service';
 import { CommonService } from '../../shared/services/common/common.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { APIs } from 'src/app/shared/constants/apis';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth/auth.service';
+import { LoginResponse } from '../models/user';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -44,45 +44,54 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       map((res: any) => {
-        if (res.status === 200) {
-          console.log(res.body, 'Successfully loggedIn!');
-        }
-
         return res;
       }),
       catchError((error: any) => {
+        let errorMessage = '';
         if (error.status === 401) {
           return this.handle401Error(request, next);
         } else if (error.status === 400) {
+          if (error.error && error.error.errors.length > 0) {
+            errorMessage = error.error.errors[0];
+            if (errorMessage.includes(':')) {
+              errorMessage = errorMessage.split(':')[1];
+            }
+          } else {
+            errorMessage = error.error.message || error.message;
+            if (errorMessage.includes(':')) {
+              errorMessage = errorMessage.split(':')[1];
+            }
+          }
           this.customToastrService.showToastr(
             ConstantClass.notificationType.error,
-            this.commonService.getTranslateData('MESSAGE.ERROR_LOGIN')
+            errorMessage
           );
+          return throwError(() => error);
         } else if (error.status === 404) {
           this.customToastrService.showToastr(
             ConstantClass.notificationType.error,
             this.commonService.getTranslateData('MESSAGE.ERROR_404_LOGIN')
           );
+          return throwError(() => error);
         } else {
-          let errorMsg =
+          errorMessage =
             error.error instanceof ErrorEvent
               ? `Error: ${error.error.message}`
               : `Error Code: ${error.status},  Message: ${error.message}`;
           this.customToastrService.showToastr(
             ConstantClass.notificationType.error,
-            errorMsg
+            errorMessage
           );
+          return throwError(() => new Error(`Error: ${errorMessage}`));
         }
-        return throwError(() => new Error(`Error: ${error.error.message}`));
       })
     );
   }
 
   handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     return this.authService.refreshToken().pipe(
-      switchMap((response: any) => {
-        console.log('RefreshToken', response);
-        request = this.addTokenHeader(request, response.data);
+      switchMap((response: LoginResponse) => {
+        request = this.addTokenHeader(request, response.data.accessToken);
         return next.handle(request);
       })
     );
