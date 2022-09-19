@@ -11,4 +11,8 @@ export interface IResponseDepartment {
     totalCount: number;
     pageNumber: number;
   };
+  message: string;
+  statusCode: string;
+  errors: any[];
+  isSuccess: boolean;
 }
