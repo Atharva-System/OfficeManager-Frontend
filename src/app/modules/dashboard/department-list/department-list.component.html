@@ -1,1 +1,15 @@
-<p>department-list works!</p>
+<div class="m-6">
+    <app-table [isCheckBox]="constant.departmentTable.isCheckBox" [actions]="departmentService.actions"
+        [columns]="departmentService.columns" [rowsData]="(departmentService.state$ | async)?.items"
+        (onSortingEvent)="onSortingEvent($event)" [totalCount]="(departmentService.state$ | async)?.totalCount"
+        [itemsPerPage]="constant.departmentTable.itemsPerPage"
+        [itemsPerPageArr]="constant.departmentTable.itemsPerPageArr"
+        [p]="(departmentService.state$ | async)?.pageNumber" (onPageChangeEvent)="onPageChangeEvent($event)"
+        (onPageSizeChangeEvent)="onPageSizeChangeEvent($event)" (onDeleteEvent)="onDelete($event)"
+        (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)" (onEditEvent)="onEditEvent($event)">
+    </app-table>
+</div>
+
+<div class="container" [@slideInAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <router-outlet #o="outlet"></router-outlet>
+</div>
