@@ -5,7 +5,7 @@
         (onSortingEvent)="onSortingEvent($event)" [totalCount]="(employeeService.state$ | async)?.totalCount"
         [itemsPerPage]="constant.employeeTable.itemsPerPage" [itemsPerPageArr]="constant.employeeTable.itemsPerPageArr"
         [p]="(employeeService.state$ | async)?.pageNumber" (onPageChangeEvent)="onPageChangeEvent($event)"
-        (onPageSizeChangeEvent)="onPageSizeChangeEvent($event)" (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)">
+        (onPageSizeChangeEvent)="onPageSizeChangeEvent($event)" (onDeleteEvent)="onDelete($event)" (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)">
     </app-table>
 </div>
 
