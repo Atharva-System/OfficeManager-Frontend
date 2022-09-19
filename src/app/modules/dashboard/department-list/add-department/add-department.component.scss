@@ -1,0 +1,11 @@
+.overlay-close {
+  position: absolute;
+  right: 100%;
+  border-radius: 50% 0 0 50%;
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
