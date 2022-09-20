@@ -4,24 +4,36 @@
     "CLEAR": "Clear",
     "APPLY": "Apply",
     "SIGN_IN": "Sign In",
+    "ADD": "Add",
+    "EDIT": "Edit",
     "SUBMIT": "Submit"
   },
+
   "TITLE": {
     "SIGN_IN_TITLE": "Signin",
-    "FORGOT_PASSWORD_TITLE": "Forgot password?"
+    "FORGOT_PASSWORD_TITLE": "Forgot password?",
+    "ADD_DEPARTMENT": "Add Department",
+    "EDIT_DEPARTMENT" : "Edit Department",
+    "BACK_LOGIN" : "Back to login"
   },
 
   "LABEL": {
     "EMPLOYEE_NO": "Employee No.",
     "EMAIL": "Email",
     "PASSWORD": "Password",
-    "TNC": "Terms and Conditions"
+    "TNC": "Terms and Conditions",
+    "ID": "Id",
+    "NAME": "Name",
+    "DESCRIPTION": "Description"
   },
 
   "PLACE_HOLDER": {
     "EMPLOYEE_NO": "Enter your employee no.",
     "EMAIL": "Enter your email",
-    "PASSWORD": "Enter your password"
+    "PASSWORD": "Enter your password",
+    "ID": "Enter departmnet id",
+    "NAME": "Enter departmnet name",
+    "DESCRIPTION": "Enter departmnet description"
   },
 
   "MESSAGE": {
