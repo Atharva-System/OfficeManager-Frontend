@@ -98,11 +98,9 @@ export class DepartmentListComponent implements OnInit {
   onEditEvent(index: number) {
     console.log(index);
 
-    this.departmentService.updateDepartment('', {
-      id: 1023,
-      name: 'HR',
-      description: 'HR1',
-      isActive: true,
+    this.router.navigate([`./${RouterPathClass.addDepartment}`], {
+      relativeTo: this.activatedRoute,
+      queryParams: { i: index },
     });
   }
 
