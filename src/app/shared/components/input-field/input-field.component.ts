@@ -8,6 +8,7 @@ import { SVGs } from '../../constants/svgs';
 })
 export class InputFieldComponent implements OnInit {
   @Input() error = false;
+  @Input() class : any;
   @Input() icon : string = SVGs.info;
   public svgs;
   
