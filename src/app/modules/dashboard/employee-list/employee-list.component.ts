@@ -59,11 +59,13 @@ export class EmployeeListComponent implements OnInit {
 
   @HostListener(ConstantClass.document.resize, ['$event.target'])
   onResize(event: any) {
-    console.log(event.innerWidth);
-
-    this.employeeService.columns[2].show =
+    this.employeeService.columns[5].show =
+      event.innerWidth > ConstantClass.innerWidth.tablet ? true : false;
+    this.employeeService.columns[4].show =
       event.innerWidth > ConstantClass.innerWidth.tablet ? true : false;
     this.employeeService.columns[3].show =
+      event.innerWidth > ConstantClass.innerWidth.mobile ? true : false;
+    this.employeeService.columns[2].show =
       event.innerWidth > ConstantClass.innerWidth.mobile ? true : false;
     this.employeeService.columns[0].show =
       event.innerWidth > ConstantClass.innerWidth.mobile ? true : false;
