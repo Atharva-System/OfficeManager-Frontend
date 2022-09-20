@@ -18,8 +18,6 @@ export class DepartmentState {
   providedIn: 'root',
 })
 export class DepartmentService extends Store<DepartmentState> {
-  isFormSubmitted = false;
-
   actions = [
     {
       title: ConstantClass.actions.delete,
