@@ -9,6 +9,8 @@ import { IUser, LoginResponse } from '../../models/user';
   providedIn: 'root',
 })
 export class AuthService {
+  isFormSubmitted = false;
+
   constructor(public apiCall: ApiService) {}
 
   login(params: IUser) {
