@@ -2,7 +2,7 @@ export interface IDepartment {
   id?: number;
   name: string;
   description: string;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export interface IResponseDepartment {
