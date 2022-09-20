@@ -58,7 +58,8 @@
                     </div>
                 </td>
                 <ng-container *ngFor="let column of columns; let i2 = index">
-                    <td class="py-4 px-6" *ngIf="column.show" (click)="onEdit(column, i1)">
+                    <td class="py-4 px-6" *ngIf="column.show" [ngClass]="column.isEdit ? 'cursor-pointer' : ''"
+                        (click)="onEdit(column, i1)">
                         <span class="inline-block" *ngIf="!column.icon && !column.date">{{
                             rowData[column?.dataProperty]}}</span>
                         <span class="inline-block" *ngIf="column.icon">
