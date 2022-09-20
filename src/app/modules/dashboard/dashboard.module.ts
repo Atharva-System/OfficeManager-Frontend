@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddEmployeeComponent } from './employee-list/add-employee/add-employee.component';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { AddDepartmentComponent } from './department-list/add-department/add-department.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ DashboardComponent, EmployeeListComponent, AddEmployeeComponent, DepartmentListComponent, AddDepartmentComponent ],
@@ -22,6 +24,8 @@ import { AddDepartmentComponent } from './department-list/add-department/add-dep
     GuiGridModule,
     NgxPaginationModule,
     SharedModule,
+    AngularSvgIconModule,
+    TranslateModule.forChild(),
   ],
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
 })
