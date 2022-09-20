@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/service/auth/auth.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { SVGs } from 'src/app/shared/constants/svgs';
@@ -14,6 +15,7 @@ import { Regex } from 'src/app/shared/utils/regex';
 export class ForgotPasswordComponent implements OnInit {
   public constant;
   public svgs;
+  isFormSubmitted = false;
 
   //Array of object for showing validation message in loop
   validationMessages = {
@@ -26,7 +28,11 @@ export class ForgotPasswordComponent implements OnInit {
     // ],
   };
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    public authService: AuthService
+  ) {
     //Initialize ForgotPasswordForm form
     this.initialization();
     //constant
@@ -60,10 +66,17 @@ export class ForgotPasswordComponent implements OnInit {
 
   // Onsubmit forgot-password form
   onSubmit() {
+    this.isFormSubmitted = true;
+
+    if (ConstantClass.forgotPasswordForm.invalid) {
+      return;
+    }
+
     //To navigate to auth route
     this.router.navigate([RouterPathClass.auth]);
     console.log(ConstantClass.forgotPasswordForm.value);
     // To clear form
     this.initialization();
+    this.isFormSubmitted = false;
   }
 }
