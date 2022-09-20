@@ -24,6 +24,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@popperjs/core": "^2.11.6",
+    "angular-svg-icon": "^14.0.0",
     "ngx-pagination": "^6.0.2",
     "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.0.0",
