@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {
@@ -42,10 +43,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       preventDuplicates: true,
-      timeOut: 3000,
+      timeOut: 1500,
       // disableTimeOut:true,
-      closeButton : true,
+      closeButton: true,
     }),
+    AngularSvgIconModule.forRoot(),
   ],
   providers: [
     {
