@@ -1,8 +1,93 @@
-<div
-    class="fixed top-0 right-0 z-50 flex flex-col">
+<div class="fixed top-0 right-0 z-50 w-full md:w-1/2 flex flex-col">
     <div class="min-h-screen text-black bg-white dark:text-white dark:bg-gray-800 shadow-lg">
-        <p>add-employee works!</p>
+        <div class="m-4 mb-4">
+            <div class="flex">
+                <div class="overlay-close  bg-gray-900 dark:bg-gray-100" (click)="onClose()">
+                    <svg-icon [src]="svgs.x"
+                        [svgClass]="'h-6 w-6 fill-white dark:fill-black stroke-white dark:stroke-black'"></svg-icon>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mb-4 text-2xl font-bold text-center text-black dark:text-white">{{ (constant.editDepartmentIndex
+                ? 'TITLE.EDIT_DEPARTMENT' : 'TITLE.ADD_DEPARTMENT') |
+                translate }}</div>
+        </div>
 
-    <button class="mt-16" (click)="onClose()">close</button>
+        <!-- Add department form -->
+        <form [formGroup]="constant.addDepartment" class="text-black dark:text-white m-6 lg:m-10">
+
+            <!-- ID -->
+            <div class="mt-6" *ngIf="constant.editDepartmentIndex">
+                <label class="block text-sm">
+                    <span *ngIf="_addDepartment['id'].hasValidator(constant.validators.required)"
+                        class="text-red-500">&nbsp;*</span>
+                    {{ 'LABEL.ID' | translate }}
+                </label>
+                <!-- Input field custom component for icon and box styleing -->
+                <app-input-field [icon]="svgs.key" [class]="'bg-gray-200 dark:text-black'"
+                    [error]="_addDepartment['id'].invalid && (_addDepartment['id'].dirty || _addDepartment['id'].touched || departmentService.isFormSubmitted)">
+                    <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="id"
+                        placeholder="{{ 'PLACE_HOLDER.ID' | translate }}" type="text" />
+                </app-input-field>
+                <!-- Validation Message -->
+                <ng-container *ngFor="let validation of validationMessages.id">
+                    <div class="text-red-500 text-xs italic mt-1"
+                        *ngIf="_addDepartment['id'].errors?.[validation.type] && (_addDepartment['id'].dirty || _addDepartment['id'].touched || departmentService.isFormSubmitted)">
+                        {{ 'LABEL.ID' | translate }} {{ validation.message | translate }}
+                    </div>
+                </ng-container>
+            </div>
+
+            <!-- Name -->
+            <div class="mt-6">
+                <label class="block text-sm">
+                    <span *ngIf="_addDepartment['name'].hasValidator(constant.validators.required)"
+                        class="text-red-500">&nbsp;*</span>
+                    {{ 'LABEL.NAME' | translate }}
+                </label>
+                <!-- Input field custom component for icon and box styleing -->
+                <app-input-field [icon]="svgs.type" [class]="'bg-gray-200 dark:text-black'"
+                    [error]="_addDepartment['name'].invalid && (_addDepartment['name'].dirty || _addDepartment['name'].touched || departmentService.isFormSubmitted)">
+                    <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="name"
+                        placeholder="{{ 'PLACE_HOLDER.NAME' | translate }}" type="text" />
+                </app-input-field>
+                <!-- Validation Message -->
+                <ng-container *ngFor="let validation of validationMessages.name">
+                    <div class="text-red-500 text-xs italic mt-1"
+                        *ngIf="_addDepartment['name'].errors?.[validation.type] && (_addDepartment['name'].dirty || _addDepartment['name'].touched || departmentService.isFormSubmitted)">
+                        {{ 'LABEL.NAME' | translate }} {{ validation.message | translate }}
+                    </div>
+                </ng-container>
+            </div>
+
+            <!-- Description -->
+            <div class="mt-6">
+                <label class="block text-sm">
+                    <span *ngIf="_addDepartment['description'].hasValidator(constant.validators.required)"
+                        class="text-red-500">&nbsp;*</span>
+                    {{ 'LABEL.DESCRIPTION' | translate }}
+                </label>
+                <!-- Input field custom component for icon and box styleing -->
+                <app-input-field [icon]="svgs.description" [class]="'bg-gray-200 dark:text-black'"
+                    [error]="_addDepartment['description'].invalid && (_addDepartment['description'].dirty || _addDepartment['description'].touched || departmentService.isFormSubmitted)">
+                    <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="description"
+                        placeholder="{{ 'PLACE_HOLDER.DESCRIPTION' | translate }}" type="text" />
+                </app-input-field>
+                <!-- Validation Message -->
+                <ng-container *ngFor="let validation of validationMessages.description">
+                    <div class="text-red-500 text-xs italic mt-1"
+                        *ngIf="_addDepartment['description'].errors?.[validation.type] && (_addDepartment['description'].dirty || _addDepartment['description'].touched || departmentService.isFormSubmitted)">
+                        {{ 'LABEL.DESCRIPTION' | translate }} {{ validation.message | translate }}
+                    </div>
+                </ng-container>
+            </div>
+
+            <!-- Add/Edit Button -->
+            <div class="text-center mt-10">
+                <app-button (click)="onSubmit(constant.addDepartment.value)"
+                    [name]="constant.editDepartmentIndex ? 'BUTTON.EDIT' : 'BUTTON.ADD'" text="3/4">
+                </app-button>
+            </div>
+        </form>
     </div>
 </div>
