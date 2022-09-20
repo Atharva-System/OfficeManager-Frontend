@@ -14,29 +14,8 @@
         </div>
 
         <!-- Add department form -->
-        <form [formGroup]="constant.addDepartment" class="text-black dark:text-white m-6 lg:m-10">
-
-            <!-- ID -->
-            <div class="mt-6" *ngIf="constant.editDepartmentIndex">
-                <label class="block text-sm">
-                    <span *ngIf="_addDepartment['id'].hasValidator(constant.validators.required)"
-                        class="text-red-500">&nbsp;*</span>
-                    {{ 'LABEL.ID' | translate }}
-                </label>
-                <!-- Input field custom component for icon and box styleing -->
-                <app-input-field [icon]="svgs.key" [class]="'bg-gray-200 dark:text-black'"
-                    [error]="_addDepartment['id'].invalid && (_addDepartment['id'].dirty || _addDepartment['id'].touched || departmentService.isFormSubmitted)">
-                    <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="id"
-                        placeholder="{{ 'PLACE_HOLDER.ID' | translate }}" type="text" />
-                </app-input-field>
-                <!-- Validation Message -->
-                <ng-container *ngFor="let validation of validationMessages.id">
-                    <div class="text-red-500 text-xs italic mt-1"
-                        *ngIf="_addDepartment['id'].errors?.[validation.type] && (_addDepartment['id'].dirty || _addDepartment['id'].touched || departmentService.isFormSubmitted)">
-                        {{ 'LABEL.ID' | translate }} {{ validation.message | translate }}
-                    </div>
-                </ng-container>
-            </div>
+        <form [formGroup]="constant.addDepartmentForm" (ngSubmit)="onSubmit(constant.addDepartmentForm.value)"
+            class="text-black dark:text-white m-6 lg:m-10">
 
             <!-- Name -->
             <div class="mt-6">
@@ -47,14 +26,14 @@
                 </label>
                 <!-- Input field custom component for icon and box styleing -->
                 <app-input-field [icon]="svgs.type" [class]="'bg-gray-200 dark:text-black'"
-                    [error]="_addDepartment['name'].invalid && (_addDepartment['name'].dirty || _addDepartment['name'].touched || departmentService.isFormSubmitted)">
+                    [error]="_addDepartment['name'].invalid && (isFormSubmitted)">
                     <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="name"
                         placeholder="{{ 'PLACE_HOLDER.NAME' | translate }}" type="text" />
                 </app-input-field>
                 <!-- Validation Message -->
                 <ng-container *ngFor="let validation of validationMessages.name">
                     <div class="text-red-500 text-xs italic mt-1"
-                        *ngIf="_addDepartment['name'].errors?.[validation.type] && (_addDepartment['name'].dirty || _addDepartment['name'].touched || departmentService.isFormSubmitted)">
+                        *ngIf="_addDepartment['name'].errors?.[validation.type] && (isFormSubmitted)">
                         {{ 'LABEL.NAME' | translate }} {{ validation.message | translate }}
                     </div>
                 </ng-container>
@@ -69,14 +48,14 @@
                 </label>
                 <!-- Input field custom component for icon and box styleing -->
                 <app-input-field [icon]="svgs.description" [class]="'bg-gray-200 dark:text-black'"
-                    [error]="_addDepartment['description'].invalid && (_addDepartment['description'].dirty || _addDepartment['description'].touched || departmentService.isFormSubmitted)">
+                    [error]="_addDepartment['description'].invalid && (isFormSubmitted)">
                     <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="description"
                         placeholder="{{ 'PLACE_HOLDER.DESCRIPTION' | translate }}" type="text" />
                 </app-input-field>
                 <!-- Validation Message -->
                 <ng-container *ngFor="let validation of validationMessages.description">
                     <div class="text-red-500 text-xs italic mt-1"
-                        *ngIf="_addDepartment['description'].errors?.[validation.type] && (_addDepartment['description'].dirty || _addDepartment['description'].touched || departmentService.isFormSubmitted)">
+                        *ngIf="_addDepartment['description'].errors?.[validation.type] && (isFormSubmitted)">
                         {{ 'LABEL.DESCRIPTION' | translate }} {{ validation.message | translate }}
                     </div>
                 </ng-container>
@@ -84,8 +63,7 @@
 
             <!-- Add/Edit Button -->
             <div class="text-center mt-10">
-                <app-button (click)="onSubmit(constant.addDepartment.value)"
-                    [name]="constant.editDepartmentIndex ? 'BUTTON.EDIT' : 'BUTTON.ADD'" text="3/4">
+                <app-button [name]="constant.editDepartmentIndex ? 'BUTTON.EDIT' : 'BUTTON.ADD'" text="3/4">
                 </app-button>
             </div>
         </form>
