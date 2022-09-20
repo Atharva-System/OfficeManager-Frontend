@@ -29,7 +29,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private customToastrService: CustomToastrService,
     private commonService: CommonService
   ) {
@@ -58,6 +58,12 @@ export class SignInComponent implements OnInit {
 
   //On submit signin form
   onSubmit(val: any) {
+    this.authService.isFormSubmitted = true;
+
+    if (ConstantClass.signinForm.invalid) {
+      return;
+    }
+
     this.authService.login(val).subscribe({
       next: (response: LoginResponse) => {
         //Toastr notification on success
@@ -71,7 +77,9 @@ export class SignInComponent implements OnInit {
       },
       error: (e) => console.error(e),
     });
+
     //To clear data on form
     this.initialization();
+    this.authService.isFormSubmitted = false;
   }
 }
