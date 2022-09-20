@@ -50,10 +50,8 @@ export class DepartmentListComponent implements OnInit {
 
   @HostListener(ConstantClass.document.resize, ['$event.target'])
   onResize(event: any) {
-    this.departmentService.columns[2].show =
+    this.departmentService.columns[1].show =
       event.innerWidth > ConstantClass.innerWidth.tablet ? true : false;
-    this.departmentService.columns[0].show =
-      event.innerWidth > ConstantClass.innerWidth.mobile ? true : false;
   }
 
   onPageChangeEvent(page: number) {

@@ -28,13 +28,6 @@ export class DepartmentService extends Store<DepartmentState> {
 
   columns = [
     {
-      title: 'Id',
-      dataProperty: 'id',
-      sortable: true,
-      sorting: 'none',
-      show: true,
-    },
-    {
       title: 'Name',
       dataProperty: 'name',
       isEdit: true,

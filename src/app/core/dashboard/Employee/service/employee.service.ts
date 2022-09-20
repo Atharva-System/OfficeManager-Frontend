@@ -62,13 +62,6 @@ export class EmployeeService extends Store<EmployeeState> {
 
   columns = [
     {
-      title: 'Id',
-      dataProperty: 'employeeId',
-      sortable: true,
-      sorting: 'none',
-      show: true,
-    },
-    {
       title: 'Name',
       dataProperty: 'employeeName',
       sortable: true,
