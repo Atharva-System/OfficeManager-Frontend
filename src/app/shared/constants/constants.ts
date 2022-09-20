@@ -28,7 +28,7 @@ export class ConstantClass {
   //forms
   static signinForm: FormGroup;
   static forgotPasswordForm: FormGroup;
-  static addDepartment: FormGroup;
+  static addDepartmentForm: FormGroup;
 
   //asc-desc
   static asc = 'Asc';
