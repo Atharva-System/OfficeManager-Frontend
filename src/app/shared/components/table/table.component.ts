@@ -176,6 +176,7 @@ export class TableComponent {
       confirmButtonText: 'Yes',
       confirmButtonColor: 'gray',
       denyButtonText: `No`,
+      reverseButtons : true
     }).then((result) => {
       if (result.isConfirmed) {
         this.onDeleteEvent.emit(ids);
