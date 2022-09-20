@@ -19,6 +19,7 @@ export class SignInComponent implements OnInit {
   public routeConstant;
   public svgs;
   users: IUser[] = [];
+  isFormSubmitted = false;
 
   //Array of object for showing validation message in loop
   validationMessages = {
@@ -29,7 +30,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    public authService: AuthService,
+    private authService: AuthService,
     private customToastrService: CustomToastrService,
     private commonService: CommonService
   ) {
@@ -58,28 +59,29 @@ export class SignInComponent implements OnInit {
 
   //On submit signin form
   onSubmit(val: any) {
-    this.authService.isFormSubmitted = true;
-
     if (ConstantClass.signinForm.invalid) {
+      this.isFormSubmitted = true;
       return;
     }
 
     this.authService.login(val).subscribe({
       next: (response: LoginResponse) => {
         //Toastr notification on success
-        this.customToastrService.showToastr(
-          ConstantClass.notificationType.success,
-          this.commonService.getTranslateData('MESSAGE.SUCCESS_LOGIN')
-        );
+        if (response.isSuccess) {
+          this.customToastrService.showToastr(
+            ConstantClass.notificationType.success,
+            this.commonService.getTranslateData('MESSAGE.SUCCESS_LOGIN')
+          );
 
-        //To navigate to dashboard route
-        this.router.navigate([RouterPathClass.dashboard]);
+          //To navigate to dashboard route
+          this.router.navigate([RouterPathClass.dashboard]);
+        }
       },
       error: (e) => console.error(e),
     });
 
     //To clear data on form
-    this.initialization();
-    this.authService.isFormSubmitted = false;
+    ConstantClass.signinForm.reset();
+    this.isFormSubmitted = false;
   }
 }

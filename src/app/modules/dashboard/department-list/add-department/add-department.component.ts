@@ -18,6 +18,7 @@ export class AddDepartmentComponent implements OnInit {
   public svgs;
   public constant;
   public routeConstant;
+  isFormSubmitted = false;
   departments: IDepartment[] = [];
 
   //Array of object for showing validation message in loop
@@ -49,23 +50,18 @@ export class AddDepartmentComponent implements OnInit {
 
   ngOnInit(): void {
     if (ConstantClass.editDepartmentIndex) {
-      this._addDepartment['id'].addValidators(
-        ConstantClass.validators.required
-      );
-
       const editDepartmentIndex = ConstantClass.editDepartmentIndex;
       setTimeout(() => {
-        ConstantClass.addDepartment.patchValue(
+        ConstantClass.addDepartmentForm.patchValue(
           this.departmentService.state.items[editDepartmentIndex]
         );
-        this._addDepartment['id'].updateValueAndValidity();
       }, 1000);
     }
   }
 
   //Initialize signin form
   initialization() {
-    ConstantClass.addDepartment = this.formBuilder.group({
+    ConstantClass.addDepartmentForm = this.formBuilder.group({
       id: [''],
       name: ['', [ConstantClass.validators.required]],
       description: ['', [ConstantClass.validators.required]],
@@ -74,14 +70,13 @@ export class AddDepartmentComponent implements OnInit {
 
   //Get all controls
   get _addDepartment() {
-    return ConstantClass.addDepartment.controls;
+    return ConstantClass.addDepartmentForm.controls;
   }
 
   //On submit signin form
   onSubmit(val: any) {
-    this.departmentService.isFormSubmitted = true;
-
-    if (ConstantClass.addDepartment.invalid) {
+    if (ConstantClass.addDepartmentForm.invalid) {
+      this.isFormSubmitted = true;
       return;
     }
 
@@ -94,8 +89,6 @@ export class AddDepartmentComponent implements OnInit {
     if (ConstantClass.editDepartmentIndex) {
       this.departmentService.updateDepartment('', department);
       ConstantClass.editDepartmentIndex = null;
-      this._addDepartment['id'].clearValidators();
-      // this._addDepartment['id'].updateValueAndValidity();
     } else this.departmentService.createDepartment('', department);
 
     //To navigate to back
@@ -104,8 +97,8 @@ export class AddDepartmentComponent implements OnInit {
     });
 
     //To clear data on form
-    this.initialization();
-    this.departmentService.isFormSubmitted = false;
+    ConstantClass.addDepartmentForm.reset();
+    this.isFormSubmitted = false;
   }
 
   onClose() {
