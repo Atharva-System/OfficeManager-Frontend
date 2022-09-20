@@ -10,9 +10,6 @@ export class Store<T> {
   }
 
   get state(): T {
-    this.state$.subscribe((data) => {
-    });
-
     return this._state$.getValue();
   }
 
