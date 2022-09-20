@@ -25,6 +25,12 @@ export class SVGs {
   //Used in employee list
   static delete = 'assets/svg/delete.svg';
 
+
+  //Used in department list
+  static description = 'assets/svg/description.svg';
+  static key = 'assets/svg/key.svg';
+  static type = 'assets/svg/type.svg';
+
   //Used in layout
   static atharvaLogo = 'assets/svg/atharv-icon.png';
   static atharvaBrandLogoDark = 'assets/svg/atharva-brand-logo-dark.png';
@@ -49,4 +55,5 @@ export class SVGs {
   //table component
   static ascending = 'assets/svg/ascending.svg';
   static descending = 'assets/svg/descending.svg';
+  static x = 'assets/svg/x.svg';
 }
