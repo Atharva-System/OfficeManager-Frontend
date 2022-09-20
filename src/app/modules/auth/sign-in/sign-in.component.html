@@ -9,7 +9,8 @@
 </h1>
 
 <!-- Sign In form -->
-<form [formGroup]="constant.signinForm" class="text-black dark:text-white">
+<form [formGroup]="constant.signinForm" class="text-black dark:text-white"
+    (ngSubmit)="onSubmit(constant.signinForm.value)">
 
     <!-- Email -->
     <div>
@@ -20,14 +21,14 @@
         </label>
         <!-- Input field custom component for icon and box styleing -->
         <app-input-field [icon]="svgs.email" [class]="'bg-white dark:text-black'"
-            [error]="_signinForm['employeeNo'].invalid && (_signinForm['employeeNo'].dirty || _signinForm['employeeNo'].touched || authService.isFormSubmitted)">
+            [error]="_signinForm['employeeNo'].invalid && (isFormSubmitted)">
             <input class="ml-auto focus:outline-none w-full bg-white" formControlName="employeeNo"
                 placeholder="{{ 'PLACE_HOLDER.EMPLOYEE_NO' | translate }}" type="text" />
         </app-input-field>
         <!-- Validation Message -->
         <ng-container *ngFor="let validation of validationMessages.employeeNo">
             <div class="text-red-500 text-xs italic mt-1"
-                *ngIf="_signinForm['employeeNo'].errors?.[validation.type] && (_signinForm['employeeNo'].dirty || _signinForm['employeeNo'].touched || authService.isFormSubmitted)">
+                *ngIf="_signinForm['employeeNo'].errors?.[validation.type] && (isFormSubmitted)">
                 {{ 'LABEL.EMPLOYEE_NO' | translate }} {{ validation.message | translate }}
             </div>
         </ng-container>
@@ -42,14 +43,15 @@
             </label>
             <!-- Input field custom component for icon and box styleing -->
             <app-input-field [icon]="svgs.password" [class]="'bg-white dark:text-black'"
-                [error]="_signinForm['password'].invalid && (_signinForm['password'].dirty || _signinForm['password'].touched || authService.isFormSubmitted)">
+                [error]="_signinForm['password'].invalid && (isFormSubmitted)">
                 <input class="ml-auto focus:outline-none w-full bg-white" formControlName="password"
                     placeholder="{{ 'PLACE_HOLDER.PASSWORD' | translate }}" type="password" />
             </app-input-field>
             <!-- Validation Message -->
+
             <ng-container *ngFor="let validation of validationMessages.password">
                 <div class="text-red-500 text-xs italic mt-1"
-                    *ngIf="_signinForm['password'].errors?.[validation.type] && (_signinForm['password'].dirty || _signinForm['password'].touched || authService.isFormSubmitted)">
+                    *ngIf="_signinForm['password'].errors?.[validation.type] && (isFormSubmitted)">
                     {{ 'LABEL.PASSWORD' | translate }} {{ validation.message | translate }}
                 </div>
             </ng-container>
@@ -65,6 +67,6 @@
 
     <!-- SignIn Button -->
     <div class="text-center mt-6">
-        <app-button (click)="onSubmit(constant.signinForm.value)" [name]="'BUTTON.SIGN_IN'" text="3/4"></app-button>
+        <app-button [name]="'BUTTON.SIGN_IN'" text="3/4"></app-button>
     </div>
 </form>
