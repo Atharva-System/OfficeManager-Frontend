@@ -28,6 +28,7 @@ export class ConstantClass {
   //forms
   static signinForm: FormGroup;
   static forgotPasswordForm: FormGroup;
+  static addDepartment: FormGroup;
 
   //asc-desc
   static asc = 'Asc';
@@ -66,4 +67,6 @@ export class ConstantClass {
     sorting: '',
     sortingField: '',
   };
+
+  static editDepartmentIndex : number | null;
 }
