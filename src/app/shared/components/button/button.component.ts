@@ -3,20 +3,19 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+  styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent implements OnInit {
+  @Input() text!: string;
+  @Input() type: string = 'button';
+  @Input() name!: string;
+  @Input() isDisabled!: boolean;
 
-  @Input() text! : string;
-  @Input() name! : string;
-  @Input() isDisabled! : boolean;
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  getStyles(){
+  getStyles() {
     return `w-${this.text}`;
   }
 }
