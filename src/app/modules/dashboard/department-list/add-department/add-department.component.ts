@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IDepartment } from 'src/app/core/dashboard/Department/model/department';
 import { DepartmentService } from 'src/app/core/dashboard/Department/service/department.service';
-import { CommonService } from 'src/app/core/shared/services/common/common.service';
-import { CustomToastrService } from 'src/app/core/shared/services/toastr/custom-toastr.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { SVGs } from 'src/app/shared/constants/svgs';
@@ -34,7 +32,8 @@ export class AddDepartmentComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    public departmentService: DepartmentService
+    public departmentService: DepartmentService,
+    private _eref: ElementRef
   ) {
     //Initialize signin form
     this.initialization();
@@ -57,6 +56,8 @@ export class AddDepartmentComponent implements OnInit {
         );
       }, 1000);
     }
+
+    document.body.classList.add('noScroll');
   }
 
   //Initialize signin form
@@ -66,6 +67,33 @@ export class AddDepartmentComponent implements OnInit {
       name: ['', [ConstantClass.validators.required]],
       description: ['', [ConstantClass.validators.required]],
     });
+  }
+
+  //To hide DropDown on click on outside this component
+  @HostListener(ConstantClass.document.click, ['$event'])
+  public closeSideBar(event: any) {
+    if (
+      !this._eref.nativeElement.contains(event.target) &&
+      !event.target.innerText
+    ) {
+      if (ConstantClass.addDepartmentForm.dirty) {
+        Swal.fire({
+          title:
+            'You have unsaved changes. Do you really want to close the panel?',
+          showDenyButton: true,
+          confirmButtonText: 'Yes',
+          confirmButtonColor: 'white',
+          denyButtonText: `No`,
+          reverseButtons: true,
+          focusDeny: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.onClose();
+          }
+          return;
+        });
+      } else this.onClose();
+    }
   }
 
   //Get all controls
@@ -105,5 +133,28 @@ export class AddDepartmentComponent implements OnInit {
     this.router.navigate([`../`], {
       relativeTo: this.activatedRoute,
     });
+  }
+
+  onDelete() {
+    Swal.fire({
+      title: 'Do you really want to delete the selected record?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      confirmButtonColor: 'white',
+      denyButtonText: `No`,
+      reverseButtons: true,
+      focusDeny: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.departmentService.deleteDepartment(
+          this._addDepartment['id'].value
+        );
+        this.onClose();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    document.body.classList.remove('noScroll');
   }
 }
