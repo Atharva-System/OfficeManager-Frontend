@@ -2,15 +2,21 @@
     <div class="min-h-screen text-black bg-white dark:text-white dark:bg-gray-800 shadow-lg">
         <div class="m-4 mb-4">
             <div class="flex">
-                <div class="overlay-close  bg-gray-900 dark:bg-gray-100" (click)="onClose()">
+                <div class="overlay-close bg-gray-900 dark:bg-gray-100" (click)="onClose()">
                     <svg-icon [src]="svgs.x"
                         [svgClass]="'h-4 w-4 fill-white dark:fill-black stroke-white dark:stroke-black'"></svg-icon>
                 </div>
             </div>
             <!-- Title -->
-            <div class="mb-4 text-2xl font-bold text-center text-black dark:text-white">{{ (constant.editDepartmentIndex
-                ? 'TITLE.EDIT_DEPARTMENT' : 'TITLE.ADD_DEPARTMENT') |
-                translate }}</div>
+            <div class="flex">
+                <div class="text-xl font-bold text-black dark:text-white">{{ (constant.editDepartmentIndex
+                    ? 'TITLE.EDIT_DEPARTMENT' : 'TITLE.ADD_DEPARTMENT') |
+                    translate }}
+                </div>
+                <div class="ml-auto" *ngIf="constant.editDepartmentIndex">
+                    <svg-icon [src]="svgs.delete" (click)="onDelete()" [svgClass]="'h-6 w-6'"></svg-icon>
+                </div>
+            </div>
         </div>
 
         <!-- Add department form -->
