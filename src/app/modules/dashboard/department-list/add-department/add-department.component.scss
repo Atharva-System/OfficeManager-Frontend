@@ -13,3 +13,15 @@
   cursor: pointer;
 }
 
+.section-add-department {
+  overflow-y: auto;
+  height: calc(100vh - 147px);
+}
+
+.top-shadow {
+  box-shadow: 0 -7px 5px #0000000d;
+}
+
+.bottom-shadow {
+  box-shadow: 0 7px 5px #0000000d;
+}
