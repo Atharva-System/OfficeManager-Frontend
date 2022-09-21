@@ -19,6 +19,10 @@ export class AddDepartmentComponent implements OnInit {
   isFormSubmitted = false;
   departments: IDepartment[] = [];
 
+  scrollTop: any;
+  scrollHeight: any;
+  offsetHeight: any;
+
   //Array of object for showing validation message in loop
   validationMessages = {
     id: [{ type: ConstantClass.required, message: 'MESSAGE.REQUIRED' }],
@@ -94,6 +98,13 @@ export class AddDepartmentComponent implements OnInit {
         });
       } else this.onClose();
     }
+  }
+
+  @HostListener('scroll', ['$event'])
+  scrollHandler(event: any) {
+    this.scrollTop = event.target.scrollTop;
+    this.scrollHeight = event.target.scrollHeight;
+    this.offsetHeight = event.target.offsetHeight;
   }
 
   //Get all controls
