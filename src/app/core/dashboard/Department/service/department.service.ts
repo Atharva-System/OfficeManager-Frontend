@@ -42,6 +42,13 @@ export class DepartmentService extends Store<DepartmentState> {
       sorting: 'none',
       show: true,
     },
+    {
+      title: ConstantClass.idColumnTitle,
+      dataProperty: 'description',
+      sortable: true,
+      sorting: 'none',
+      show: false,
+    },
   ];
 
   constructor(
