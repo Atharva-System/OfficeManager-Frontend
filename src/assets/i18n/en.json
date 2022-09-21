@@ -4,17 +4,18 @@
     "CLEAR": "Clear",
     "APPLY": "Apply",
     "SIGN_IN": "Sign In",
-    "ADD": "Add",
-    "EDIT": "Edit",
+    "ADD": "Create",
+    "EDIT": "Save Changes",
+    "CANCEL": "Cancel",
     "SUBMIT": "Submit"
   },
 
   "TITLE": {
     "SIGN_IN_TITLE": "Signin",
     "FORGOT_PASSWORD_TITLE": "Forgot password?",
-    "ADD_DEPARTMENT": "Add Department",
-    "EDIT_DEPARTMENT" : "Edit Department",
-    "BACK_LOGIN" : "Back to login"
+    "ADD_DEPARTMENT": "New departments record",
+    "EDIT_DEPARTMENT": "Edit departments record",
+    "BACK_LOGIN": "Back to login"
   },
 
   "LABEL": {
