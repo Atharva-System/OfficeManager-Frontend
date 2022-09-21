@@ -68,5 +68,6 @@ export class ConstantClass {
     sortingField: '',
   };
 
-  static editDepartmentIndex : number | null;
+  static editDepartmentIndex: number | null;
+  static idColumnTitle = 'Id';
 }
