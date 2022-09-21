@@ -97,14 +97,25 @@
   }
 }
 
-
 //SweetAlert colorof shadow
 .swal2-container {
   .swal2-popup {
     .swal2-actions {
+      .swal2-confirm {
+        color: black !important;
+      }
       .swal2-confirm:focus {
-        box-shadow: 0 0 5px rgb(27, 27, 27);
+        box-shadow: 0 0 5px rgb(255, 255, 255);
+        background-color: rgba(184, 186, 189, 0.25) !important;
       }
     }
+    .swal2-title {
+      font-size: 1.375em !important;
+    }
   }
+}
+
+//For stop scroll
+.noScroll {
+  overflow: hidden;
 }
