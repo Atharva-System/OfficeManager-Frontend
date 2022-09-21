@@ -29,6 +29,19 @@
       color: black;
     }
   }
+
+  //For change color of custom button in add-department component
+  .button-bottom {
+    .bg-gray-600 {
+      background-color: #1f2937 !important;
+      color: white !important;
+      box-shadow: none;
+    }
+    .bg-gray-600:hover {
+      box-shadow: none;
+      background-color: #4b5563 !important;
+    }
+  }
 }
 
 //Pagination on current page changed color
@@ -118,4 +131,17 @@
 //For stop scroll
 .noScroll {
   overflow: hidden;
+}
+
+//For change color of custom button in add-department component
+.button-bottom {
+  .bg-gray-600 {
+    background-color: white !important;
+    color: black !important;
+    box-shadow: none;
+  }
+  .bg-gray-600:hover {
+    box-shadow: none;
+    background-color: rgba(184, 186, 189, 0.25) !important;
+  }
 }
