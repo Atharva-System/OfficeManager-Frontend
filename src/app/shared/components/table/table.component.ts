@@ -122,8 +122,7 @@ export class TableComponent {
   onItemClick(page: number) {
     this.itemsPerPage = page;
     this.onPageSizeChangeEvent.emit(this.itemsPerPage);
-    // ConstantClass.employeeTable.itemsPerPage = this.itemsPerPage;
-    // this.url = `page=1&per_page=${this.itemsPerPage}`;
+    this.dropdownPopoverShow = false;
   }
 
   onPageChange(event: any) {
@@ -171,12 +170,13 @@ export class TableComponent {
     }
 
     Swal.fire({
-      title: 'Do you want delete selected departments?',
+      title: 'Do you really want to delete the selected record?',
       showDenyButton: true,
       confirmButtonText: 'Yes',
-      confirmButtonColor: 'gray',
+      confirmButtonColor: 'white',
       denyButtonText: `No`,
-      reverseButtons : true
+      reverseButtons: true,
+      focusDeny: true,
     }).then((result) => {
       if (result.isConfirmed) {
         this.onDeleteEvent.emit(ids);
@@ -194,11 +194,13 @@ export class TableComponent {
     }
   }
 
-  onAction(action: string, index: number) {    
-    let idTitle = this.columns.find((data: any) => data.title === 'Id');
+  onAction(action: string, index: number) {
+    let idTitle = this.columns.find(
+      (data: any) => data.title === ConstantClass.idColumnTitle
+    );
 
     if (action === ConstantClass.actions.delete) {
-      this.onDelete([{id : this.rowsData[index][idTitle.dataProperty]}]);
+      this.onDelete([{ id: this.rowsData[index][idTitle.dataProperty] }]);
     }
   }
 }
