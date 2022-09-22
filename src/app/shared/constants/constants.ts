@@ -55,7 +55,7 @@ export class ConstantClass {
     isCheckBox: true,
     itemsPerPage: 20,
     itemsPerPageArr: [10, 20, 25],
-    searchText: '',
+    // searchText: '',
     sorting: '',
     sortingField: '',
   };
@@ -63,9 +63,12 @@ export class ConstantClass {
     isCheckBox: true,
     itemsPerPage: 5,
     itemsPerPageArr: [5, 10, 15],
-    searchText: '',
+    // searchText: '',
     sorting: '',
     sortingField: '',
+  };
+  static table = {
+    searchText: '',
   };
 
   static editDepartmentIndex: number | null;
