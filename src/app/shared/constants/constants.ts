@@ -67,8 +67,13 @@ export class ConstantClass {
     sorting: '',
     sortingField: '',
   };
-  static table = {
+  
+  static table: {
+    searchText: string;
+    selectedIds: any[];
+  } = {
     searchText: '',
+    selectedIds: [],
   };
 
   static editDepartmentIndex: number | null;
