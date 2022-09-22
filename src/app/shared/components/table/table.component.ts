@@ -10,7 +10,7 @@ import { IFilter } from 'src/app/core/shared/models/filter';
 import { CommonService } from 'src/app/core/shared/services/common/common.service';
 import { ConstantClass } from '../../constants/constants';
 import { SVGs } from '../../constants/svgs';
-import Swal from 'sweetalert2';
+import { CustomSweetalertService } from 'src/app/core/shared/services/sweetalert/custom-sweetalert.service';
 
 @Component({
   selector: 'app-table',
@@ -30,7 +30,6 @@ export class TableComponent {
   @Input() newRowsData: any;
   @Input() colspan!: number;
 
-  selectedIds: any = [];
   isChecked = false;
   isSearch = true;
 
@@ -48,7 +47,11 @@ export class TableComponent {
   public constant;
   public svgs;
 
-  constructor(private commonService: CommonService, private _eref: ElementRef) {
+  constructor(
+    private commonService: CommonService,
+    private _eref: ElementRef,
+    private customSweetalertService: CustomSweetalertService
+  ) {
     this.filterAttributes = this.commonService.filterAttributes;
     this.constant = ConstantClass;
     this.svgs = SVGs;
@@ -68,19 +71,24 @@ export class TableComponent {
         : ConstantClass.asc;
 
     this.onSortingEvent.emit(this.columns[index]);
+    ConstantClass.table.selectedIds = [];
   }
 
   //To change value according header checkbox
   onHeaderCheckboxChange(val: any) {
-    this.selectedIds = [];
-    let idTitle = this.columns.find((data: any) => data.title === 'Id');
+    ConstantClass.table.selectedIds = [];
+    let idTitle = this.columns.find(
+      (data: any) => data.title === ConstantClass.idColumnTitle
+    );
 
     this.rowsData.map((data: any) => {
       data['isChecked'] = val;
       if (data.isChecked) {
-        this.selectedIds.push({ id: data[idTitle.dataProperty] });
+        ConstantClass.table.selectedIds.push({
+          id: data[idTitle.dataProperty],
+        });
       } else {
-        this.selectedIds = [];
+        ConstantClass.table.selectedIds = [];
       }
     });
   }
@@ -92,25 +100,25 @@ export class TableComponent {
     let idTitle = this.columns.find((data: any) => data.title === 'Id');
 
     if (
-      this.selectedIds.some(
+      ConstantClass.table.selectedIds.some(
         (data: any) => data.id === this.rowsData[index][idTitle.dataProperty]
       )
     ) {
       if (!this.rowsData[index].isChecked) {
-        let findedIndex = this.selectedIds.findIndex(
+        let findedIndex = ConstantClass.table.selectedIds.findIndex(
           (data: any) => data.id === this.rowsData[index][idTitle.dataProperty]
         );
-        this.selectedIds.splice(findedIndex, 1);
+        ConstantClass.table.selectedIds.splice(findedIndex, 1);
       }
     } else if (this.rowsData[index].isChecked) {
-      this.selectedIds.push({
+      ConstantClass.table.selectedIds.push({
         id: this.rowsData[index][idTitle.dataProperty],
       });
     }
   }
 
   onReset() {
-    this.selectedIds = [];
+    ConstantClass.table.selectedIds = [];
     this.rowsData.forEach((element: any) => (element.isChecked = false));
     this.isChecked = false;
   }
@@ -119,12 +127,13 @@ export class TableComponent {
     this.itemsPerPage = page;
     this.onPageSizeChangeEvent.emit(this.itemsPerPage);
     this.dropdownPopoverShow = false;
+    ConstantClass.table.selectedIds = [];
   }
 
   onPageChange(event: any) {
     this.p = event;
     this.onPageChangeEvent.emit(this.p);
-    this.selectedIds = [];
+    ConstantClass.table.selectedIds = [];
   }
 
   //To toggle DropDown
@@ -153,6 +162,7 @@ export class TableComponent {
   onKeyupOnSearch(event?: any) {
     this.p = 1;
     this.onSearchingEvent.emit(ConstantClass.table.searchText);
+    ConstantClass.table.selectedIds = [];
   }
 
   onClearFilter() {
@@ -167,26 +177,18 @@ export class TableComponent {
 
   onDelete(ids?: any[]) {
     if (!ids?.length) {
-      ids = this.selectedIds;
+      ids = ConstantClass.table.selectedIds;
+      console.log(ids);
     }
 
-    Swal.fire({
-      title: 'Do you really want to delete the selected record?',
-      showDenyButton: true,
-      confirmButtonText: 'Yes',
-      confirmButtonColor: 'white',
-      denyButtonText: `No`,
-      reverseButtons: true,
-      focusDeny: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
+    this.customSweetalertService.sweetAlertMethod(
+      'Do you really want to delete the selected record?',
+      () => {
         this.onDeleteEvent.emit(ids);
-        if (!ids?.length) {
-          this.selectedIds = [];
-          this.isChecked = false;
-        }
+        ConstantClass.table.selectedIds = [];
+        this.isChecked = false;
       }
-    });
+    );
   }
 
   onEdit(column: any, index: number) {
