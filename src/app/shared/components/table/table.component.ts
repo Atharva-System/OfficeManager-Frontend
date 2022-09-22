@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import {
   Component,
   ElementRef,
@@ -6,7 +5,6 @@ import {
   HostListener,
   Input,
   Output,
-  ViewChild,
 } from '@angular/core';
 import { IFilter } from 'src/app/core/shared/models/filter';
 import { CommonService } from 'src/app/core/shared/services/common/common.service';
@@ -30,7 +28,7 @@ export class TableComponent {
   @Output() onEditEvent = new EventEmitter<any>();
   @Output() onDeleteEvent = new EventEmitter<any>();
   @Input() newRowsData: any;
-  @ViewChild('searchText') searchText: any;
+  @Input() colspan!: number;
 
   selectedIds: any = [];
   isChecked = false;
@@ -45,14 +43,12 @@ export class TableComponent {
   @Output() onPageSizeChangeEvent = new EventEmitter<any>();
 
   filterAttributes;
+
+  //Constants
   public constant;
   public svgs;
 
-  constructor(
-    private commonService: CommonService,
-    private http: HttpClient,
-    private _eref: ElementRef
-  ) {
+  constructor(private commonService: CommonService, private _eref: ElementRef) {
     this.filterAttributes = this.commonService.filterAttributes;
     this.constant = ConstantClass;
     this.svgs = SVGs;
@@ -154,9 +150,14 @@ export class TableComponent {
   }
 
   //On search box Key Enter
-  onKeyupOnSearch(event: any) {
+  onKeyupOnSearch(event?: any) {
     this.p = 1;
-    this.onSearchingEvent.emit(event.target.value);
+    this.onSearchingEvent.emit(ConstantClass.table.searchText);
+  }
+
+  onClearFilter() {
+    ConstantClass.table.searchText = '';
+    this.onKeyupOnSearch();
   }
 
   //To add employee
