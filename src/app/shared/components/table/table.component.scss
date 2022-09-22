@@ -1,3 +1,4 @@
+//Dropdown transition show open and close
 .dropDownBlock {
   transition: all 0.5s ease;
   display: block;
@@ -9,12 +10,14 @@
   }
 }
 
+//Show blukbar bottom to top with transition
 .showBulkbar {
   transition: 0.5s;
   transform: translateY(0);
   opacity: 1;
 }
 
+//Hide blukbar top to bottom with transition
 .hideBulkbar {
   transition: 0.5s;
   transform: translateY(100%);
