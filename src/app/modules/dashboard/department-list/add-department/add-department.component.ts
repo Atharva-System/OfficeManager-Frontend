@@ -80,23 +80,7 @@ export class AddDepartmentComponent implements OnInit {
       !this._eref.nativeElement.contains(event.target) &&
       !event.target.innerText
     ) {
-      if (ConstantClass.addDepartmentForm.dirty) {
-        Swal.fire({
-          title:
-            'You have unsaved changes. Do you really want to close the panel?',
-          showDenyButton: true,
-          confirmButtonText: 'Yes',
-          confirmButtonColor: 'white',
-          denyButtonText: `No`,
-          reverseButtons: true,
-          focusDeny: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.onClose();
-          }
-          return;
-        });
-      } else this.onClose();
+      this.onClose();
     }
   }
 
@@ -141,9 +125,29 @@ export class AddDepartmentComponent implements OnInit {
   }
 
   onClose() {
-    this.router.navigate([`../`], {
-      relativeTo: this.activatedRoute,
-    });
+    if (ConstantClass.addDepartmentForm.dirty) {
+      Swal.fire({
+        title:
+          'You have unsaved changes. Do you really want to close the panel?',
+        showDenyButton: true,
+        confirmButtonText: 'Yes',
+        confirmButtonColor: 'white',
+        denyButtonText: `No`,
+        reverseButtons: true,
+        focusDeny: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate([`../`], {
+            relativeTo: this.activatedRoute,
+          });
+        }
+        return;
+      });
+    } else {
+      this.router.navigate([`../`], {
+        relativeTo: this.activatedRoute,
+      });
+    }
   }
 
   onDelete() {
