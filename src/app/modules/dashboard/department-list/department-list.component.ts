@@ -10,7 +10,6 @@ import { DepartmentService } from 'src/app/core/dashboard/Department/service/dep
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { slideInAnimation } from '../employee-list/app.animation';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-department-list',
@@ -74,12 +73,6 @@ export class DepartmentListComponent implements OnInit {
   }
 
   onAddEvent(event: any) {
-    // this.departmentService.createDepartment('', {
-    //   name: 'HR',
-    //   description: 'HR',
-    //   isActive: true,
-    // });
-
     this.router.navigate([`./${RouterPathClass.addDepartment}`], {
       relativeTo: this.activatedRoute,
     });
@@ -110,5 +103,6 @@ export class DepartmentListComponent implements OnInit {
   ngOnDestroy(): void {
     this.departmentSubscription.unsubscribe();
     ConstantClass.table.searchText = '';
+    ConstantClass.table.selectedIds = [];
   }
 }
