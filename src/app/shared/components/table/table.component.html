@@ -1,28 +1,38 @@
 <!-- overflow-x-auto  -->
 <div class=" shadow-lg rounded-lg bg-white p-2 dark:bg-gray-800">
+
+    <!-- Component Header -->
     <div class="flex justify-between items-center pb-2 m-2">
+        <!-- Search -->
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <img class="h-5 w-4 icon-img" [src]="svgs.search" alt="search">
             </div>
-            <input type="text" id="table-search" #searchText (keyup.enter)="onKeyupOnSearch($event)"
+            <input type="text" id="table-search" [(ngModel)]="constant.table.searchText"
+                (keyup.enter)="onKeyupOnSearch($event)"
                 class="block p-2 pl-10 w-32 sm:w-60 text-sm  text-gray-500 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-400  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 focus:outline-gray-700"
                 placeholder="Search for items">
         </div>
         <div class="flex items-center">
+            <!-- Filter -->
             <div>
                 <app-filter2 [isSearch]="isSearch" [filterAttributes]="filterAttributes"
                     (filtredAttributes)="filtredAttributes($event)"></app-filter2>
             </div>
+            <!-- Add button -->
             <div class="ml-auto mr-1">
-                <app-button [isDisabled]="false" [name]="'Add'" (click)="onAdd()"></app-button>
+                <app-button [isDisabled]="false" [name]="'BUTTON.ADD'" (click)="onAdd()"></app-button>
             </div>
         </div>
     </div>
+
+    <!-- Table -->
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <!-- Header -->
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
+                <!-- CheckBox -->
                 <th *ngIf="isCheckBox" scope="col" class="p-4">
                     <div class="flex items-center">
                         <input id="checkbox-all-search" type="checkbox"
@@ -31,6 +41,7 @@
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
                     </div>
                 </th>
+                <!-- All columns -->
                 <ng-container *ngFor="let column of columns; let i = index">
                     <th scope="col" class="py-3 px-6" *ngIf="column.show" (click)="onSorting(i)">
                         <span class="inline-block mr-1">{{ column?.title }}</span>
@@ -41,14 +52,18 @@
                         </span>
                     </th>
                 </ng-container>
+                <!-- Actions -->
                 <th scope="col" class="py-3 px-6" *ngIf="actions.length">
-                    Action
+                    {{ 'TITLE.ACTION' | translate }}
                 </th>
             </tr>
         </thead>
+        <!-- Body -->
         <tbody>
+            <!-- All rows with respective cloumns -->
             <tr *ngFor="let rowData of rowsData | paginate: { itemsPerPage: itemsPerPage, currentPage: p , totalItems: totalCount }; let i1 = index"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <!-- CheckBox -->
                 <td *ngIf="isCheckBox" class="p-4 w-4">
                     <div class="flex items-center">
                         <input id="checkbox-table-search-{{i1}}" type="checkbox" [(ngModel)]="rowData.isChecked"
@@ -57,27 +72,34 @@
                         <label for="checkbox-table-search-{{i1}}" class="sr-only">checkbox</label>
                     </div>
                 </td>
+                <!-- All Colmns -->
                 <ng-container *ngFor="let column of columns; let i2 = index">
                     <td class="py-4 px-6" *ngIf="column.show" [ngClass]="column.isEdit ? 'cursor-pointer' : ''"
                         (click)="onEdit(column, i1)">
+                        <!-- Normal Text-->
                         <span class="inline-block" *ngIf="!column.icon && !column.date">{{
                             rowData[column?.dataProperty]}}</span>
+                        <!-- Icon -->
                         <span class="inline-block" *ngIf="column.icon">
                             <img class="h-8 w-8 rounded-full" [src]="rowData[column?.icon]" alt="column.title-{{i2}}">
                             {{ rowData[column?.dataProperty]}}
                         </span>
+                        <!-- Date -->
                         <span class="inline-block" *ngIf="column.date">
                             {{ rowData[column?.dataProperty] | date:'shortDate'}}
                         </span>
                     </td>
-                </ng-container>
+                </ng-container> 
+                <!-- Actions -->
                 <td class="py-4 px-6" *ngIf="actions.length">
                     <ng-container *ngFor="let action of actions; let i3 = index">
+                        <!-- Text -->
                         <div class="inline-block" (click)="onAction(action.title, i1)">
                             <a *ngIf="!action.isIcon; else icon"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ action.title
                                 }}</a>
                         </div>
+                        <!-- Icon -->
                         <div class="inline-block" (click)="onAction(action.title, i1)">
                             <ng-template class="ml-auto" #icon>
                                 <img class="h-5 w-5 icon-img" [src]="action.icon" [alt]="action.title">
@@ -86,10 +108,25 @@
                     </ng-container>
                 </td>
             </tr>
+            <!-- No record found -->
+            <tr *ngIf="!rowsData?.length" class="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td [attr.colspan]="colspan">
+                    <div class="my-4">{{ 'MESSAGE.No_RECORDS' | translate }}</div>
+                    <!-- Search text found then clear filter button -->
+                    <div class="mb-4" *ngIf="constant.table.searchText">
+                        <app-button class="button-clear-filter" [type]="'button'" (click)="onClearFilter()"
+                            [name]="'BUTTON.CLEAR_FILTER'" text="w-1/3">
+                        </app-button>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
-    <div class="flex justify-center mt-2">
+
+    <!-- Pagination -->
+    <div class="flex justify-center mt-2" *ngIf="rowsData?.length">
         <div>
+            <!-- Dropdown Button -->
             <button id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider" data-dropdown-placement="top"
                 (click)="toggleDropdown($event)"
                 class="text-black bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:text-white dark:focus:ring-4 dark:focus:outline-none dark:focus:ring-gray-800"
@@ -98,7 +135,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg></button>
 
-            <!-- Dropdown menu -->
+            <!-- Dropdown Items Per Pages -->
             <div id="dropdownDivider" [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
                 class="absolute dropDownBlock z-10 w-16 bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-800 dark:divide-gray-600">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
@@ -110,22 +147,27 @@
                 </ul>
             </div>
         </div>
+        <!-- Pagination controls -->
         <pagination-controls previousLabel="" nextLabel="" [responsive]="true" (pageChange)="onPageChange($event)">
         </pagination-controls>
     </div>
 </div>
 
-
+<!-- BulkBar -->
 <div class="flex w-full justify-evenly">
     <div [ngClass]="selectedIds.length ? 'showBulkbar' : 'hideBulkbar' "
         class="fixed bottom-8 z-50 flex gap-1 md:gap-2 justify-between items-center lg:w-6/12 md:w-8/12 w-10/12 md:text-sm text-xs md:m-5 m-2 py-4 md:px-6 px-3 rounded-full border border-gray-300 bg-white dark:bg-gray-800 shadow-xl">
-        <div class="mr-1">Selected <strong class="mr-1">{{selectedIds.length}}</strong>record
+        <!-- Show selected records and reset button -->
+        <div class="mr-1">{{ 'MESSAGE.SELECTED' | translate }} <strong class="mr-1">{{selectedIds.length}}</strong>{{
+            'MESSAGE.RECORD' | translate }}
             <button type="button" class=""><span
                     class="md:ml-2 border border-gray-800 font-medium rounded-lg px-1 md:px-5 py-1 md:py-2 md:mr-2 mb-2 dark:border-gray-400"
-                    (click)="onReset()">Reset</span></button>
+                    (click)="onReset()">{{ 'BUTTON.RESET' | translate }}</span></button>
         </div>
+        <!-- Button for delete selected records -->
         <div>
-            <button type="button" class="text-red-500"><span (click)="onDelete()">Delete selected</span></button>
+            <button type="button" class="text-red-500"><span (click)="onDelete()">{{ 'MESSAGE.DELETE_SELECTED' |
+                    translate }} </span></button>
         </div>
     </div>
 </div>
