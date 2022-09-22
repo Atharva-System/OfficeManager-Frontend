@@ -7,7 +7,7 @@
         [p]="(departmentService.state$ | async)?.pageNumber" (onPageChangeEvent)="onPageChangeEvent($event)"
         (onPageSizeChangeEvent)="onPageSizeChangeEvent($event)" (onDeleteEvent)="onDelete($event)"
         (onSearchingEvent)="onSearchingEvent($event)" (onAddEvent)="onAddEvent($event)"
-        (onEditEvent)="onEditEvent($event)">
+        (onEditEvent)="onEditEvent($event)" [colspan]="colspan">
     </app-table>
 </div>
 <div class="container" [@slideInAnimation]="o.isActivated ? o.activatedRoute : ''">
