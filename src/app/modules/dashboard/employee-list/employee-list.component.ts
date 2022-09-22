@@ -74,15 +74,15 @@ export class EmployeeListComponent implements OnInit {
     //   `q=${ConstantClass.employeeTable.searchText}&sort=${ConstantClass.employeeTable.sortingField}&order=${ConstantClass.employeeTable.sorting}&page=${page}&per_page=${ConstantClass.employeeTable.itemsPerPage}`
     // );
     this.employeeService.getAllEmployee(
-      `?Search=${ConstantClass.employeeTable.searchText}&Page_No=${page}&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
+      `?Search=${ConstantClass.table.searchText}&Page_No=${page}&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
     );
     this.employeeService.state;
   }
 
   onSearchingEvent(searchText: string) {
-    ConstantClass.employeeTable.searchText = searchText;
+    ConstantClass.table.searchText = searchText;
     this.employeeService.getAllEmployee(
-      `?Search=${ConstantClass.employeeTable.searchText}&Page_No=1&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
+      `?Search=${ConstantClass.table.searchText}&Page_No=1&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
     );
     // this.getRowsData(
     //   `q=${ConstantClass.employeeTable.searchText}&sort=&order=&page=1&per_page=${ConstantClass.employeeTable.itemsPerPage}`
@@ -98,7 +98,7 @@ export class EmployeeListComponent implements OnInit {
   onPageSizeChangeEvent(pageSize: number) {
     ConstantClass.employeeTable.itemsPerPage = pageSize;
     this.employeeService.getAllEmployee(
-      `?Search=${ConstantClass.employeeTable.searchText}&Page_No=1&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
+      `?Search=${ConstantClass.table.searchText}&Page_No=1&Page_Size=${ConstantClass.employeeTable.itemsPerPage}`
     );
   }
 
@@ -106,5 +106,6 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.employeeSubscription.unsubscribe();
+    ConstantClass.table.searchText = '';
   }
 }
