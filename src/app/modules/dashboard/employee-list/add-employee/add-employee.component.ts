@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiCallService } from 'src/app/core/dashboard/services/api-call.service';
-import { LayOutCommonService } from 'src/app/core/layout/services/common/common.service';
-import { RouterPathClass } from 'src/app/shared/constants/route-path';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-employee',
@@ -13,12 +11,8 @@ import { RouterPathClass } from 'src/app/shared/constants/route-path';
   // },
 })
 export class AddEmployeeComponent implements OnInit {
-  constructor(
-    private router: Router,
-    public layoutCommonService: LayOutCommonService,
-    private activatedRoute: ActivatedRoute,
-    public apiCallService: ApiCallService
-  ) {}
+  constructor(private router: Router, public activatedRoute: ActivatedRoute) {}
+
   ngOnInit(): void {}
 
   onClose() {
