@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IDepartment } from 'src/app/core/dashboard/Department/model/department';
 import { DepartmentService } from 'src/app/core/dashboard/Department/service/department.service';
+import { CustomSweetalertService } from 'src/app/core/shared/services/sweetalert/custom-sweetalert.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { SVGs } from 'src/app/shared/constants/svgs';
@@ -37,7 +38,8 @@ export class AddDepartmentComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public departmentService: DepartmentService,
-    private _eref: ElementRef
+    private _eref: ElementRef,
+    private customSweetalertService: CustomSweetalertService
   ) {
     //Initialize signin form
     this.initialization();
@@ -58,7 +60,7 @@ export class AddDepartmentComponent implements OnInit {
         ConstantClass.addDepartmentForm.patchValue(
           this.departmentService.state.items[editDepartmentIndex]
         );
-      }, 1000);
+      }, 1500);
     }
 
     document.body.classList.add('noScroll');
@@ -122,27 +124,22 @@ export class AddDepartmentComponent implements OnInit {
     //To clear data on form
     ConstantClass.addDepartmentForm.reset();
     this.isFormSubmitted = false;
+    ConstantClass.table.selectedIds = [];
   }
 
   onClose() {
     if (ConstantClass.addDepartmentForm.dirty) {
-      Swal.fire({
-        title:
-          'You have unsaved changes. Do you really want to close the panel?',
-        showDenyButton: true,
-        confirmButtonText: 'Yes',
-        confirmButtonColor: 'white',
-        denyButtonText: `No`,
-        reverseButtons: true,
-        focusDeny: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
+      this.customSweetalertService.sweetAlertMethod(
+        'You have unsaved changes. Do you really want to close the panel?',
+        () => {
           this.router.navigate([`../`], {
             relativeTo: this.activatedRoute,
           });
+        },
+        () => {
+          return;
         }
-        return;
-      });
+      );
     } else {
       this.router.navigate([`../`], {
         relativeTo: this.activatedRoute,
@@ -151,22 +148,15 @@ export class AddDepartmentComponent implements OnInit {
   }
 
   onDelete() {
-    Swal.fire({
-      title: 'Do you really want to delete the selected record?',
-      showDenyButton: true,
-      confirmButtonText: 'Yes',
-      confirmButtonColor: 'white',
-      denyButtonText: `No`,
-      reverseButtons: true,
-      focusDeny: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
+    this.customSweetalertService.sweetAlertMethod(
+      'Do you really want to delete the selected record?',
+      () => {
         this.departmentService.deleteDepartment(
           this._addDepartment['id'].value
         );
         this.onClose();
       }
-    });
+    );
   }
 
   ngOnDestroy(): void {
