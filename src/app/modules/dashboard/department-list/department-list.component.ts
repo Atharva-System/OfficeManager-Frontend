@@ -22,6 +22,7 @@ import Swal from 'sweetalert2';
 export class DepartmentListComponent implements OnInit {
   public constant;
   public departmentSubscription!: Subscription;
+  colspan!: number;
 
   constructor(
     public departmentService: DepartmentService,
@@ -44,7 +45,7 @@ export class DepartmentListComponent implements OnInit {
     ConstantClass.departmentTable.sortingField = column.dataProperty;
 
     this.departmentService.getAllDepartment(
-      `?Search=${ConstantClass.departmentTable.searchText}&Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}&SortingColumn=${ConstantClass.departmentTable.sortingField}&SortingDirection=${ConstantClass.departmentTable.sorting}`
+      `?Search=${ConstantClass.table.searchText}&Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}&SortingColumn=${ConstantClass.departmentTable.sortingField}&SortingDirection=${ConstantClass.departmentTable.sorting}`
     );
   }
 
@@ -52,19 +53,23 @@ export class DepartmentListComponent implements OnInit {
   onResize(event: any) {
     this.departmentService.columns[1].show =
       event.innerWidth > ConstantClass.innerWidth.tablet ? true : false;
+    let shownColumns = this.departmentService.columns.filter(
+      (data) => data.show
+    );
+    this.colspan = shownColumns.length + 2;
   }
 
   onPageChangeEvent(page: number) {
     this.departmentService.getAllDepartment(
-      `?Search=${ConstantClass.departmentTable.searchText}&Page_No=${page}&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
+      `?Search=${ConstantClass.table.searchText}&Page_No=${page}&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
     );
     this.departmentService.state;
   }
 
   onSearchingEvent(searchText: string) {
-    ConstantClass.departmentTable.searchText = searchText;
+    ConstantClass.table.searchText = searchText;
     this.departmentService.getAllDepartment(
-      `?Search=${ConstantClass.departmentTable.searchText}&Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
+      `?Search=${ConstantClass.table.searchText}&Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
     );
   }
 
@@ -83,7 +88,7 @@ export class DepartmentListComponent implements OnInit {
   onPageSizeChangeEvent(pageSize: number) {
     ConstantClass.departmentTable.itemsPerPage = pageSize;
     this.departmentService.getAllDepartment(
-      `?Search=${ConstantClass.departmentTable.searchText}&Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
+      `?Search=${ConstantClass.table.searchText}&Page_No=1&Page_Size=${ConstantClass.departmentTable.itemsPerPage}`
     );
   }
 
@@ -104,5 +109,6 @@ export class DepartmentListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.departmentSubscription.unsubscribe();
+    ConstantClass.table.searchText = '';
   }
 }
