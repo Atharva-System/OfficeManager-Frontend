@@ -7,22 +7,19 @@ import { CustomSweetalertService } from 'src/app/core/shared/services/sweetalert
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { RouterPathClass } from 'src/app/shared/constants/route-path';
 import { SVGs } from 'src/app/shared/constants/svgs';
-import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-department',
   templateUrl: './add-department.component.html',
   styleUrls: ['./add-department.component.scss'],
 })
 export class AddDepartmentComponent implements OnInit {
+  //Constants
   public svgs;
   public constant;
   public routeConstant;
+  //To validate on click on submit
   isFormSubmitted = false;
-  departments: IDepartment[] = [];
-
-  scrollTop: any;
-  scrollHeight: any;
-  offsetHeight: any;
+  isSpin = false;
 
   //Array of object for showing validation message in loop
   validationMessages = {
@@ -48,12 +45,14 @@ export class AddDepartmentComponent implements OnInit {
     this.routeConstant = RouterPathClass;
     this.svgs = SVGs;
 
+    //To check isEditForm (By get queryParams)
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      ConstantClass.editDepartmentIndex = params['i'];
+      ConstantClass.editDepartmentIndex = params[ConstantClass.indexEditUrl];
     });
   }
 
   ngOnInit(): void {
+    //If edit form then patch value and setTimeout bcz data got on little bit of delay
     if (ConstantClass.editDepartmentIndex) {
       const editDepartmentIndex = ConstantClass.editDepartmentIndex;
       setTimeout(() => {
@@ -63,10 +62,11 @@ export class AddDepartmentComponent implements OnInit {
       }, 1500);
     }
 
-    document.body.classList.add('noScroll');
+    //Add noScroll class on open sidebar
+    document.body.classList.add(ConstantClass.bodyNoScrollClass);
   }
 
-  //Initialize signin form
+  //Initialize addDepartmentForm
   initialization() {
     ConstantClass.addDepartmentForm = this.formBuilder.group({
       id: [''],
@@ -75,7 +75,7 @@ export class AddDepartmentComponent implements OnInit {
     });
   }
 
-  //To hide DropDown on click on outside this component
+  //To close sidebar on click on backdrop
   @HostListener(ConstantClass.document.click, ['$event'])
   public closeSideBar(event: any) {
     if (
@@ -86,11 +86,13 @@ export class AddDepartmentComponent implements OnInit {
     }
   }
 
-  @HostListener('scroll', ['$event'])
+  //On scroll addDepartmentForm
+  @HostListener(ConstantClass.document.scroll, ['$event'])
   scrollHandler(event: any) {
-    this.scrollTop = event.target.scrollTop;
-    this.scrollHeight = event.target.scrollHeight;
-    this.offsetHeight = event.target.offsetHeight;
+    //Store numbers for show shadow in top (In footer) and botton (In header)
+    ConstantClass.sideBar.scrollTop = event.target.scrollTop;
+    ConstantClass.sideBar.scrollHeight = event.target.scrollHeight;
+    ConstantClass.sideBar.offsetHeight = event.target.offsetHeight;
   }
 
   //Get all controls
@@ -98,59 +100,83 @@ export class AddDepartmentComponent implements OnInit {
     return ConstantClass.addDepartmentForm.controls;
   }
 
-  //On submit signin form
+  //On submit addDepartmentForm form
   onSubmit(val: any) {
+    //If invalid
     if (ConstantClass.addDepartmentForm.invalid) {
+      //To show error msg
       this.isFormSubmitted = true;
       return;
     }
 
+    this.isSpin = true;
+
+    //To store data in object
     let department: IDepartment = {
       id: this._addDepartment['id']?.value,
       name: this._addDepartment['name']?.value,
       description: this._addDepartment['description']?.value,
     };
 
-    if (ConstantClass.editDepartmentIndex) {
-      this.departmentService.updateDepartment('', department);
-      ConstantClass.editDepartmentIndex = null;
-    } else this.departmentService.createDepartment('', department);
+    setTimeout(() => {
+      //Condition for edit or add
+      if (ConstantClass.editDepartmentIndex) {
+        //To update department
+        this.departmentService.updateDepartment('', department);
+        //To clear edit id
+        ConstantClass.editDepartmentIndex = null;
+      }
+      //To add department
+      else this.departmentService.createDepartment('', department);
 
-    //To navigate to back
-    this.router.navigate([`../`], {
-      relativeTo: this.activatedRoute,
-    });
+      //To navigate to back
+      this.router.navigate([`../`], {
+        relativeTo: this.activatedRoute,
+      });
+    }, 400);
 
     //To clear data on form
     ConstantClass.addDepartmentForm.reset();
     this.isFormSubmitted = false;
+    //To close bulkbar
     ConstantClass.table.selectedIds = [];
+    //To uncheck header checkbox
+    ConstantClass.table.isHeaderChecked = false;
   }
 
+  //To close sidebar (or component)
   onClose() {
+    //Condition for done any changes in form
     if (ConstantClass.addDepartmentForm.dirty) {
+      //To take confirmation on close
       this.customSweetalertService.sweetAlertMethod(
-        'You have unsaved changes. Do you really want to close the panel?',
+        'MESSAGE.ON_CLOSE_SIDEBAR',
         () => {
+          //If yes
           this.router.navigate([`../`], {
             relativeTo: this.activatedRoute,
           });
         },
         () => {
+          //If no
           return;
         }
       );
     } else {
+      //If not then directly back
       this.router.navigate([`../`], {
         relativeTo: this.activatedRoute,
       });
     }
   }
 
+  //To delete record
   onDelete() {
+    //To take confirmation on delete
     this.customSweetalertService.sweetAlertMethod(
-      'Do you really want to delete the selected record?',
+      'MESSAGE.ON_DELETE_RECORD',
       () => {
+        //If yes
         this.departmentService.deleteDepartment(
           this._addDepartment['id'].value
         );
@@ -160,6 +186,7 @@ export class AddDepartmentComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    document.body.classList.remove('noScroll');
+    //Remove noScroll class on close sidebar
+    document.body.classList.remove(ConstantClass.bodyNoScrollClass);
   }
 }
