@@ -106,6 +106,6 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.employeeSubscription.unsubscribe();
-    ConstantClass.table.searchText = '';
+    // ConstantClass.table.searchText = '';
   }
 }
