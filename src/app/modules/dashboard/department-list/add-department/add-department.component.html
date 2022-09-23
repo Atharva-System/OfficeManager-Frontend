@@ -1,76 +1,94 @@
 <div class="fixed top-0 right-0 z-50 w-full md:w-1/2 flex flex-col">
     <div class="min-h-screen text-black bg-white dark:text-white dark:bg-gray-800 shadow-lg">
-        <div class="m-4 mb-4">
-            <div class="flex">
-                <div class="overlay-close bg-gray-900 dark:bg-gray-100" (click)="onClose()">
-                    <svg-icon [src]="svgs.x"
-                        [svgClass]="'h-4 w-4 fill-white dark:fill-black stroke-white dark:stroke-black'"></svg-icon>
-                </div>
-            </div>
-            <!-- Title -->
-            <div class="flex">
-                <div class="text-xl font-bold text-black dark:text-white">{{ (constant.editDepartmentIndex
-                    ? 'TITLE.EDIT_DEPARTMENT' : 'TITLE.ADD_DEPARTMENT') |
-                    translate }}
-                </div>
-                <div class="ml-auto" *ngIf="constant.editDepartmentIndex">
-                    <svg-icon [src]="svgs.delete" (click)="onDelete()" [svgClass]="'h-6 w-6'"></svg-icon>
-                </div>
-            </div>
-        </div>
 
         <!-- Add department form -->
         <form [formGroup]="constant.addDepartmentForm" (ngSubmit)="onSubmit(constant.addDepartmentForm.value)"
-            class="text-black dark:text-white m-6 lg:m-10">
+            class="text-black dark:text-white">
 
+            <!-- Header -->
+            <div class="z-10 p-5" [ngClass]="constant.sideBar.scrollTop ? 'bottom-shadow' : ''">
+                <div class="flex">
+                    <div class="overlay-close bg-gray-900 dark:bg-gray-100 hover:bg-gray-800 hover:dark:bg-gray-200"
+                        (click)="onClose()">
+                        <svg-icon [src]="svgs.x"
+                            [svgClass]="'h-4 w-4 fill-white dark:fill-black stroke-white dark:stroke-black'">
+                        </svg-icon>
+                    </div>
+                </div>
+                <!-- Title -->
+                <div class="flex">
+                    <div class="text-xl font-bold text-black dark:text-white">{{ (constant.editDepartmentIndex
+                        ? 'TITLE.EDIT_DEPARTMENT' : 'TITLE.ADD_DEPARTMENT') |
+                        translate }}
+                    </div>
+                    <div class="ml-auto" *ngIf="constant.editDepartmentIndex">
+                        <svg-icon [src]="svgs.delete" (click)="onDelete()"
+                            [svgClass]="'h-5 w-5 icon-img animate-bounce cursor-pointer'"></svg-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section -->
             <!-- Name -->
-            <div class="mt-6">
-                <label class="block text-sm">
-                    <span *ngIf="_addDepartment['name'].hasValidator(constant.validators.required)"
-                        class="text-red-500">&nbsp;*</span>
-                    {{ 'LABEL.NAME' | translate }}
-                </label>
-                <!-- Input field custom component for icon and box styleing -->
-                <app-input-field [icon]="svgs.type" [class]="'bg-gray-200 dark:text-black'"
-                    [error]="_addDepartment['name'].invalid && (isFormSubmitted)">
-                    <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="name"
-                        placeholder="{{ 'PLACE_HOLDER.NAME' | translate }}" type="text" />
-                </app-input-field>
-                <!-- Validation Message -->
-                <ng-container *ngFor="let validation of validationMessages.name">
-                    <div class="text-red-500 text-xs italic mt-1"
-                        *ngIf="_addDepartment['name'].errors?.[validation.type] && (isFormSubmitted)">
-                        {{ 'LABEL.NAME' | translate }} {{ validation.message | translate }}
+            <div class="section-add-department" (scroll)="scrollHandler($event)">
+                <div class="m-5">
+                    <!-- Name -->
+                    <div class="mt-6 ">
+                        <!-- Input field custom component for icon and box styleing -->
+                        <app-input-field [icon]="svgs.type" [class]="'bg-neutral-100 dark:text-black'"
+                            [name]="'LABEL.NAME'"
+                            [isRequired]="_addDepartment['name'].hasValidator(constant.validators.required)"
+                            [error]="_addDepartment['name'].invalid && (isFormSubmitted)">
+                            <input class="ml-auto focus:outline-none w-full bg-neutral-100" formControlName="name"
+                                placeholder="{{ 'PLACE_HOLDER.NAME' | translate }}" type="text" />
+                        </app-input-field>
+                        <!-- Validation Message -->
+                        <ng-container *ngFor="let validation of validationMessages.name">
+                            <div class="text-red-500 text-xs italic mt-1"
+                                *ngIf="_addDepartment['name'].errors?.[validation.type] && (isFormSubmitted)">
+                                {{ 'LABEL.NAME' | translate }} {{ validation.message | translate }}
+                            </div>
+                        </ng-container>
                     </div>
-                </ng-container>
+
+                    <!-- Description -->
+                    <div class="mt-6">
+                        <!-- Input field custom component for icon and box styleing -->
+                        <app-input-field [icon]="svgs.description" [class]="'bg-neutral-100 dark:text-black'"
+                            [name]="'LABEL.DESCRIPTION'"
+                            [isRequired]="_addDepartment['description'].hasValidator(constant.validators.required)"
+                            [error]="_addDepartment['description'].invalid && (isFormSubmitted)">
+                            <input class="ml-auto focus:outline-none w-full bg-neutral-100"
+                                formControlName="description" placeholder="{{ 'PLACE_HOLDER.DESCRIPTION' | translate }}"
+                                type="text" />
+                        </app-input-field>
+                        <!-- Validation Message -->
+                        <ng-container *ngFor="let validation of validationMessages.description">
+                            <div class="text-red-500 text-xs italic mt-1"
+                                *ngIf="_addDepartment['description'].errors?.[validation.type] && (isFormSubmitted)">
+                                {{ 'LABEL.DESCRIPTION' | translate }} {{ validation.message | translate }}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
             </div>
 
-            <!-- Description -->
-            <div class="mt-6">
-                <label class="block text-sm">
-                    <span *ngIf="_addDepartment['description'].hasValidator(constant.validators.required)"
-                        class="text-red-500">&nbsp;*</span>
-                    {{ 'LABEL.DESCRIPTION' | translate }}
-                </label>
-                <!-- Input field custom component for icon and box styleing -->
-                <app-input-field [icon]="svgs.description" [class]="'bg-gray-200 dark:text-black'"
-                    [error]="_addDepartment['description'].invalid && (isFormSubmitted)">
-                    <input class="ml-auto focus:outline-none w-full bg-gray-200" formControlName="description"
-                        placeholder="{{ 'PLACE_HOLDER.DESCRIPTION' | translate }}" type="text" />
-                </app-input-field>
-                <!-- Validation Message -->
-                <ng-container *ngFor="let validation of validationMessages.description">
-                    <div class="text-red-500 text-xs italic mt-1"
-                        *ngIf="_addDepartment['description'].errors?.[validation.type] && (isFormSubmitted)">
-                        {{ 'LABEL.DESCRIPTION' | translate }} {{ validation.message | translate }}
-                    </div>
-                </ng-container>
-            </div>
-
+            <!-- Footer -->
             <!-- Add/Edit Button -->
-            <div class="text-center mt-10">
-                <app-button [name]="constant.editDepartmentIndex ? 'BUTTON.EDIT' : 'BUTTON.ADD'" text="3/4">
-                </app-button>
+            <div [ngClass]="((constant.sideBar.scrollTop + constant.sideBar.offsetHeight) != constant.sideBar.scrollHeight) && constant.sideBar.scrollTop ? 'top-shadow' : ''"
+                class="fixed bottom-0 border-t border-gray-300 dark:border-gray-600 w-full md:w-1/2">
+                <div class="flex gap-5 items-center justify-end m-5">
+                    <app-button class="button-bottom cancel" [type]="'button'" (click)="onClose()"
+                        [name]="'BUTTON.CANCEL'" text="w-1/8">
+                    </app-button>
+                    <app-button [type]="'submit'"
+                        [name]="isSpin ? '' : constant.editDepartmentIndex ? 'BUTTON.EDIT' : 'BUTTON.CREATE'"
+                        text="w-1/8">
+                        <svg-icon *ngIf="isSpin" [src]="svgs.spin"
+                            [svgClass]="'h-4 w-4 animate-spin mx-6 fill-white stroke-white'">
+                        </svg-icon>
+                    </app-button>
+                </div>
             </div>
         </form>
     </div>
