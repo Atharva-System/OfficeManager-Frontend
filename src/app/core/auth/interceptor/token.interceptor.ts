@@ -5,15 +5,15 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, finalize, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { CustomToastrService } from '../../shared/services/toastr/custom-toastr.service';
 import { CommonService } from '../../shared/services/common/common.service';
 import { ConstantClass } from 'src/app/shared/constants/constants';
 import { APIs } from 'src/app/shared/constants/apis';
-import { Router } from '@angular/router';
 import { AuthService } from '../service/auth/auth.service';
 import { LoginResponse } from '../models/user';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     public authService: AuthService,
     private commonService: CommonService,
     private customToastrService: CustomToastrService,
-    private router: Router
+    private spinner: NgxSpinnerService
   ) {}
 
   intercept(
@@ -42,7 +42,9 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
 
+    this.spinner.show();
     return next.handle(request).pipe(
+      finalize(() => this.spinner.hide()),
       map((res: any) => {
         return res;
       }),
