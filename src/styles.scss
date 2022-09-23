@@ -54,6 +54,7 @@
 .toast-container {
   .ngx-toastr {
     box-shadow: none;
+    background-size: auto;
   }
 
   .custom-toastr-success-class {
@@ -61,7 +62,7 @@
     background-color: #d6f5e8;
     color: black;
     background-image: url("assets/svg/check-circle.svg");
-    width: 425px !important;
+    width: 250px !important;
     box-sizing: content-box !important;
     display: flex;
     flex-direction: row-reverse;
@@ -71,7 +72,7 @@
     background-color: #fcdee4;
     color: black;
     background-image: url("assets/svg/x-circle-color.svg");
-    width: 425px !important;
+    width: 250px !important;
     box-sizing: content-box !important;
     display: flex;
     flex-direction: row-reverse;
@@ -81,7 +82,7 @@
     background-color: #d8eefe;
     color: black;
     background-image: url("assets/svg/info-color.svg");
-    width: 425px !important;
+    width: 250px !important;
     box-sizing: content-box !important;
     display: flex;
     flex-direction: row-reverse;
@@ -91,7 +92,7 @@
     background-color: #ffe7d6;
     color: black;
     background-image: url("assets/svg/alert-triangle-color.svg");
-    width: 425px !important;
+    width: 250px !important;
     box-sizing: content-box !important;
     display: flex;
     flex-direction: row-reverse;
@@ -155,5 +156,12 @@
   .bg-gray-600:hover {
     box-shadow: none;
     background-color: var(--black-btn-hover-bg) !important;
+  }
+}
+
+.big-btn {
+  .py-2\.5 {
+    padding-top: 1.23rem;
+    padding-bottom: 1.23rem;
   }
 }
