@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
+import { CommonService } from '../common/common.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomSweetalertService {
-  constructor() {}
+  constructor(private commonService : CommonService) {}
+
 
   sweetAlertMethod(
     title: string,
@@ -19,7 +21,7 @@ export class CustomSweetalertService {
     focusDeny?: boolean
   ) {
     Swal.fire({
-      title: title,
+      title: this.commonService.getTranslateData(title),
       showDenyButton: showDenyButton || true,
       denyButtonText: denyButtonText || 'NO',
       confirmButtonText: confirmButtonText || 'YES',
