@@ -1,5 +1,5 @@
 <!-- overflow-x-auto  -->
-<div class=" shadow-lg rounded-lg bg-white p-2 dark:bg-gray-800">
+<div class=" shadow-lg rounded-md bg-white p-2 dark:bg-gray-800">
 
     <!-- Component Header -->
     <div class="flex justify-between items-center pb-2 m-2">
@@ -30,20 +30,21 @@
     <!-- Table -->
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <!-- Header -->
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-600 dark:text-gray-300">
             <tr>
                 <!-- CheckBox -->
                 <th *ngIf="isCheckBox" scope="col" class="p-4">
                     <div class="flex items-center">
                         <input id="checkbox-all-search" type="checkbox"
-                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded"
-                            (change)="onHeaderCheckboxChange(isChecked)" [(ngModel)]="isChecked">
+                            class="w-4 h-4 cursor-pointer accent-gray-900 dark:accent-gray-100 rounded"
+                            (change)="onHeaderCheckboxChange(constant.table.isHeaderChecked)"
+                            [(ngModel)]="constant.table.isHeaderChecked">
                         <label for="checkbox-all-search" class="sr-only">checkbox</label>
                     </div>
                 </th>
                 <!-- All columns -->
                 <ng-container *ngFor="let column of columns; let i = index">
-                    <th scope="col" class="py-3 px-6" *ngIf="column.show" (click)="onSorting(i)">
+                    <th scope="col" class="py-3 px-6 cursor-pointer" *ngIf="column.show" (click)="onSorting(i)">
                         <span class="inline-block mr-1">{{ column?.title }}</span>
                         <span class="inline-block align-bottom">
                             <img class="h-5 w-4 icon-img" *ngIf="column.sortable && (column.sorting != 'none')"
@@ -62,13 +63,13 @@
         <tbody>
             <!-- All rows with respective cloumns -->
             <tr *ngFor="let rowData of rowsData | paginate: { itemsPerPage: itemsPerPage, currentPage: p , totalItems: totalCount }; let i1 = index"
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600">
                 <!-- CheckBox -->
                 <td *ngIf="isCheckBox" class="p-4 w-4">
                     <div class="flex items-center">
                         <input id="checkbox-table-search-{{i1}}" type="checkbox" [(ngModel)]="rowData.isChecked"
                             (change)="onCheckboxChange(i1)"
-                            class="w-4 h-4 accent-gray-900 dark:accent-gray-100 rounded">
+                            class="w-4 h-4 cursor-pointer accent-gray-900 dark:accent-gray-100 rounded">
                         <label for="checkbox-table-search-{{i1}}" class="sr-only">checkbox</label>
                     </div>
                 </td>
@@ -89,20 +90,21 @@
                             {{ rowData[column?.dataProperty] | date:'shortDate'}}
                         </span>
                     </td>
-                </ng-container> 
+                </ng-container>
                 <!-- Actions -->
                 <td class="py-4 px-6" *ngIf="actions.length">
                     <ng-container *ngFor="let action of actions; let i3 = index">
                         <!-- Text -->
                         <div class="inline-block" (click)="onAction(action.title, i1)">
                             <a *ngIf="!action.isIcon; else icon"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ action.title
+                                class="font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline">{{
+                                action.title
                                 }}</a>
                         </div>
                         <!-- Icon -->
                         <div class="inline-block" (click)="onAction(action.title, i1)">
                             <ng-template class="ml-auto" #icon>
-                                <img class="h-5 w-5 icon-img" [src]="action.icon" [alt]="action.title">
+                                <img class="cursor-pointer h-5 w-5 icon-img" [src]="action.icon" [alt]="action.title">
                             </ng-template>
                         </div>
                     </ng-container>
@@ -115,7 +117,7 @@
                     <!-- Search text found then clear filter button -->
                     <div class="mb-4" *ngIf="constant.table.searchText">
                         <app-button class="button-clear-filter" [type]="'button'" (click)="onClearFilter()"
-                            [name]="'BUTTON.CLEAR_FILTER'" text="w-1/3">
+                            [name]="'BUTTON.CLEAR_FILTER'" text="w-1/6">
                         </app-button>
                     </div>
                 </td>
@@ -125,18 +127,18 @@
 
     <!-- Pagination -->
     <div class="flex justify-center mt-2" *ngIf="rowsData?.length">
-        <div>
-            <!-- Dropdown Button -->
-            <button id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider" data-dropdown-placement="top"
-                (click)="toggleDropdown($event)"
+        <!-- <div> -->
+        <!-- Dropdown Button -->
+        <!-- <button id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider" data-dropdown-placement="top"
+                (click)="toggleDropdown($event)" 
                 class="text-black bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:text-white dark:focus:ring-4 dark:focus:outline-none dark:focus:ring-gray-800"
                 type="button">{{ itemsPerPage }}<svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg></button>
+                </svg></button> -->
 
-            <!-- Dropdown Items Per Pages -->
-            <div id="dropdownDivider" [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+        <!-- Dropdown Items Per Pages -->
+        <!-- <div id="dropdownDivider" [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
                 class="absolute dropDownBlock z-10 w-16 bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-800 dark:divide-gray-600">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
                     <li *ngFor="let page of itemsPerPageArr">
@@ -146,27 +148,31 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
+        <app-menu [menuItems]="itemsPerPageArr" (onItemClick)="onItemClick($event)" [title]="itemsPerPage"></app-menu>
         <!-- Pagination controls -->
-        <pagination-controls previousLabel="" nextLabel="" [responsive]="true" (pageChange)="onPageChange($event)">
+        <pagination-controls class="mt-2" previousLabel="" nextLabel="" [responsive]="true"
+            (pageChange)="onPageChange($event)">
         </pagination-controls>
     </div>
 </div>
 
 <!-- BulkBar -->
-<div class="flex w-full justify-evenly">
+<div class="flex justify-evenly" *ngIf="this.rowsData">
     <div [ngClass]="constant.table.selectedIds.length ? 'showBulkbar' : 'hideBulkbar' "
-        class="fixed bottom-8 z-50 flex gap-1 md:gap-2 justify-between items-center lg:w-6/12 md:w-8/12 w-10/12 md:text-sm text-xs md:m-5 m-2 py-4 md:px-6 px-3 rounded-full border border-gray-300 bg-white dark:bg-gray-800 shadow-xl">
+        class="fixed bottom-8 z-50 flex gap-1 justify-between items-center lg:w-1/3 md:w-1/2 w-10/12 text-xs md:m-3 m-1 py-2 md:px-5 px-1 rounded-full border border-gray-300 bg-white dark:bg-gray-800 shadow-xl">
         <!-- Show selected records and reset button -->
-        <div class="mr-1">{{ 'MESSAGE.SELECTED' | translate }} <strong class="mr-1">{{constant.table.selectedIds.length}}</strong>{{
+        <div class="mx-1">{{ 'MESSAGE.SELECTED' | translate }} <strong
+                class="mr-1">{{constant.table.selectedIds.length}}</strong>{{
             'MESSAGE.RECORD' | translate }}
             <button type="button" class=""><span
-                    class="md:ml-2 border border-gray-800 font-medium rounded-lg px-1 md:px-5 py-1 md:py-2 md:mr-2 mb-2 dark:border-gray-400"
+                    class="md:ml-2 border-2 border-gray-800 cursor-pointer font-medium rounded-sm px-1 md:px-2 py-1 md:mr-2 dark:border-gray-400"
                     (click)="onReset()">{{ 'BUTTON.RESET' | translate }}</span></button>
         </div>
         <!-- Button for delete selected records -->
         <div>
-            <button type="button" class="text-red-500"><span (click)="onDelete()">{{ 'MESSAGE.DELETE_SELECTED' |
+            <button type="button" class="text-red-500 hover:bg-red-100 rounded-sm p-2"><span (click)="onDelete()">{{
+                    'MESSAGE.DELETE_SELECTED' |
                     translate }} </span></button>
         </div>
     </div>
