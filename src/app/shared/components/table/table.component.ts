@@ -30,7 +30,7 @@ export class TableComponent {
   @Input() newRowsData: any;
   @Input() colspan!: number;
 
-  isChecked = false;
+  // isChecked = false;
   isSearch = true;
 
   dropdownPopoverShow = false;
@@ -72,6 +72,7 @@ export class TableComponent {
 
     this.onSortingEvent.emit(this.columns[index]);
     ConstantClass.table.selectedIds = [];
+    ConstantClass.table.isHeaderChecked = false;
   }
 
   //To change value according header checkbox
@@ -95,7 +96,9 @@ export class TableComponent {
 
   //To change value according rows checkbox
   onCheckboxChange(index: number) {
-    this.isChecked = this.rowsData.every((data: any) => data.isChecked);
+    ConstantClass.table.isHeaderChecked = this.rowsData.every(
+      (data: any) => data.isChecked
+    );
 
     let idTitle = this.columns.find((data: any) => data.title === 'Id');
 
@@ -120,20 +123,22 @@ export class TableComponent {
   onReset() {
     ConstantClass.table.selectedIds = [];
     this.rowsData.forEach((element: any) => (element.isChecked = false));
-    this.isChecked = false;
+    ConstantClass.table.isHeaderChecked = false;
   }
 
-  onItemClick(page: number) {
-    this.itemsPerPage = page;
+  onItemClick(page: any) {
+    this.itemsPerPage = page.item.name;
     this.onPageSizeChangeEvent.emit(this.itemsPerPage);
     this.dropdownPopoverShow = false;
     ConstantClass.table.selectedIds = [];
+    ConstantClass.table.isHeaderChecked = false;
   }
 
   onPageChange(event: any) {
     this.p = event;
     this.onPageChangeEvent.emit(this.p);
     ConstantClass.table.selectedIds = [];
+    ConstantClass.table.isHeaderChecked = false;
   }
 
   //To toggle DropDown
@@ -163,6 +168,7 @@ export class TableComponent {
     this.p = 1;
     this.onSearchingEvent.emit(ConstantClass.table.searchText);
     ConstantClass.table.selectedIds = [];
+    ConstantClass.table.isHeaderChecked = false;
   }
 
   onClearFilter() {
@@ -182,11 +188,11 @@ export class TableComponent {
     }
 
     this.customSweetalertService.sweetAlertMethod(
-      'Do you really want to delete the selected record?',
+      'MESSAGE.ON_DELETE_RECORD',
       () => {
         this.onDeleteEvent.emit(ids);
         ConstantClass.table.selectedIds = [];
-        this.isChecked = false;
+        ConstantClass.table.isHeaderChecked = false;
       }
     );
   }
@@ -205,5 +211,11 @@ export class TableComponent {
     if (action === ConstantClass.actions.delete) {
       this.onDelete([{ id: this.rowsData[index][idTitle.dataProperty] }]);
     }
+  }
+
+  ngOnDestroy(): void {
+    ConstantClass.table.isHeaderChecked = false;
+    ConstantClass.table.selectedIds = [];
+    ConstantClass.table.searchText = '';
   }
 }
