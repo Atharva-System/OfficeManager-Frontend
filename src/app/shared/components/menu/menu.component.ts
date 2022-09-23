@@ -23,14 +23,16 @@ export class MenuComponent implements AfterViewInit {
   menuItems!: IMenuItem[];
   @Input()
   isIcon!: string;
+  @Input()
+  title: any;
   @Output() onItemClick = new EventEmitter<any>();
 
   dropdownPopoverShow = false;
   public svgs;
 
-  @ViewChild('btnDropdownRef', { static: false })
+  @ViewChild('btnDropdownRef', { static: true })
   btnDropdownRef!: ElementRef;
-  @ViewChild('popoverDropdownRef', { static: false })
+  @ViewChild('popoverDropdownRef', { static: true })
   popoverDropdownRef!: ElementRef;
 
   constructor(private _eref: ElementRef) {
@@ -38,7 +40,10 @@ export class MenuComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    ConstantClass.placement = window.innerHeight < ConstantClass.innerWidth.sm ? ConstantClass.dropdownPosition.top : ConstantClass.dropdownPosition.bottom;
+    ConstantClass.placement =
+      window.innerHeight < ConstantClass.innerWidth.sm
+        ? ConstantClass.dropdownPosition.top
+        : ConstantClass.dropdownPosition.bottom;
 
     createPopper(
       this.btnDropdownRef.nativeElement,
