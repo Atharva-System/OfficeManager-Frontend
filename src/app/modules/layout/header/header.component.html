@@ -24,7 +24,7 @@
                     <!-- Icon of sun or moon according to theme -->
                     <li>
                         <div class="mt-3 mr-1">
-                            <img class="h-4 w-4 md:h-5 md:w-5 icon-img" (click)="onThemeChange()"
+                            <img class="h-4 w-4 md:h-5 md:w-5 icon-img cursor-pointer" (click)="onThemeChange()"
                                 [src]="layoutCommonService.isDarkTheme ? svgs.sun : svgs.moon" alt="theme">
                         </div>
                     </li>
@@ -32,7 +32,7 @@
                     <li>
                         <div class="ml-auto h-3 w-13 md:h-7 md:w-32">
                             <!-- custom menu component for dropdown with or without icon-->
-                            <app-menu [isIcon]="svgs.profile" [menuItems]="menuItems"
+                            <app-menu [isIcon]="svgs.profile" [title]="'MENU'" [menuItems]="menuItems"
                                 (onItemClick)="onItemClick($event)"></app-menu>
                         </div>
                     </li>
