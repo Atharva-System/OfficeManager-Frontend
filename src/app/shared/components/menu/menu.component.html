@@ -1,12 +1,12 @@
 <div class="w-full px-2">
-    <div class="relative inline-flex items-center" (click)="toggleDropdown($event)">
-        <span *ngIf="isIcon"  #btnDropdownRef><img class="rounded-full h-10 w-10"
-                [src]="isIcon" alt="profile"></span>
+    <div class="relative inline-flex items-center" (click)="toggleDropdown($event)" #btnDropdownRef>
+        <span *ngIf="isIcon"><img class="rounded-full h-10 w-10" [src]="isIcon" alt="profile"></span>
         <button
-            class="hidden md:flex text-black dark:text-white flex font-bold uppercase text-sm px-1 py-3 outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="hidden md:flex text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 flex uppercase text-sm px-2 py-2 my-1 outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button">
-            <span class="mr-1">{{ 'BUTTON.MENU' | translate }}</span>
-            <span class="ml-auto items-center mt-1"> <img [src]="dropdownPopoverShow ? svgs.arrowUp : svgs.arrowDown" class="h-4 w-4 icon-img" alt="arrow">
+            <span class="mr-2">{{ title || '-' }}</span>
+            <span class="ml-auto items-center mt-1"> <img [src]="dropdownPopoverShow ? svgs.arrowUp : svgs.arrowDown"
+                    class="h-3 w-3 icon-img" alt="arrow">
             </span>
         </button>
     </div>
@@ -14,7 +14,7 @@
 <div #popoverDropdownRef [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
     class="dropDownBlock text-sm text-black bg-white dark:text-white dark:bg-gray-800 absolute min-w-48 z-20 rounded-lg shadow-xl">
     <div *ngFor="let item of menuItems; let i = index" (click)="onClick(item, i)"
-        class="block items-center relative cursor-pointer hover:bg-slate-100 py-2 px-3">
+        class="block items-center relative cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 py-2 px-3">
         <div class="flex items-center">
             <span *ngIf="item?.isIcon" class="inline-flex justify-center items-center w-4 h-4">
                 <img class="icon-img" [src]="item?.icon || svgs.info" [alt]="item?.name">
