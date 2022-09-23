@@ -92,8 +92,6 @@ export class DepartmentListComponent implements OnInit {
   }
 
   onEditEvent(index: number) {
-    console.log(index);
-
     this.router.navigate([`./${RouterPathClass.addDepartment}`], {
       relativeTo: this.activatedRoute,
       queryParams: { i: index },
@@ -102,7 +100,5 @@ export class DepartmentListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.departmentSubscription.unsubscribe();
-    ConstantClass.table.searchText = '';
-    ConstantClass.table.selectedIds = [];
   }
 }
