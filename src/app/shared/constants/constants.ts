@@ -17,6 +17,7 @@ export class ConstantClass {
     click: 'document:click',
     keydown: 'document:keydown',
     resize: 'window:resize',
+    scroll: 'scroll',
   };
   static placement: any = 'bottom-start';
 
@@ -62,20 +63,44 @@ export class ConstantClass {
   static departmentTable = {
     isCheckBox: true,
     itemsPerPage: 5,
-    itemsPerPageArr: [5, 10, 15],
+    itemsPerPageArr: [
+      {
+        name: 5,
+        isIcon: false,
+      },
+      {
+        name: 10,
+        isIcon: false,
+      },
+      {
+        name: 15,
+        isIcon: false,
+      },
+    ],
     // searchText: '',
     sorting: '',
     sortingField: '',
   };
-  
+
   static table: {
     searchText: string;
     selectedIds: any[];
+    isHeaderChecked: boolean;
   } = {
     searchText: '',
     selectedIds: [],
+    isHeaderChecked: false,
   };
 
+  static indexEditUrl = 'i';
   static editDepartmentIndex: number | null;
   static idColumnTitle = 'Id';
+
+  static bodyNoScrollClass = 'noScroll';
+
+  static sideBar = {
+    scrollTop: 0,
+    scrollHeight: 0,
+    offsetHeight: 0,
+  };
 }
