@@ -16,6 +16,6 @@ export class ButtonComponent implements OnInit {
   ngOnInit(): void {}
 
   getStyles() {
-    return `w-${this.text}`;
+    return this.text;
   }
 }
