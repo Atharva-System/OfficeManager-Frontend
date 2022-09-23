@@ -30,6 +30,7 @@ export class SVGs {
   static description = 'assets/svg/description.svg';
   static key = 'assets/svg/key.svg';
   static type = 'assets/svg/type.svg';
+  static spin = 'assets/svg/spin-icon.svg';
 
   //Used in layout
   static atharvaLogo = 'assets/svg/atharv-icon.png';
