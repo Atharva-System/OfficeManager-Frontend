@@ -1,0 +1,10 @@
+.dropDownBlock {
+	transition: all 0.5s ease;
+	display: block;
+	opacity: 0;
+	visibility: hidden;
+	&.block {
+		opacity: 1;
+		visibility: visible;
+	}
+}

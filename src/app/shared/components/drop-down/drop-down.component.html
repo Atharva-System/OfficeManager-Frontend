@@ -1,0 +1,57 @@
+<!-- Designation -->
+<div class="mt-6 rounded-sm relative" clickOutside (clickOutside)="onClickedOutside()">
+    <!-- Input field custom component for icon and box styleing -->
+    <app-input-field [icon]="icon" [class]="'bg-neutral-100 bg-input-dark text-gray-400'" [name]="label"
+        [isRequired]="isRequired" [error]="error">
+        <button (click)="toggleDropdown($event)" data-dropdown-placement="bottom"
+            class="flex text-sm w-full items-center cursor-pointer dark:focus:outline-none">
+            <span *ngIf="!designation">{{ placeHolder | translate }}</span>
+            <span class="text-start text-black dark:text-black">{{ designation }}</span>
+            <div class="ml-auto flex">
+                <svg-icon *ngIf="designation" [svgClass]="'h-3 w-3 fill-gray-400 stroke-gray-400 cursor-pointer'"
+                    (click)="onCloseSelected()" [src]="svgs.close" alt="closeSelected">
+                </svg-icon>
+                <!-- <svg-icon [src]="dropdownPopoverShow ? svgs.upArrow : svgs.downArrow"
+                    [svgClass]="'ml-2 h-3 w-3 fill-gray-400 stroke-gray-400'">
+                </svg-icon> -->
+            </div>
+        </button>
+    </app-input-field>
+
+    <!-- Validation Message -->
+    <ng-container *ngFor="let validation of validationMessages">
+        <div class="text-red-500 text-xs italic mt-1" *ngIf="showError?.[validation.type] && (isFormSubmitted)">
+            {{ label | translate }} {{ validation.message | translate }}
+        </div>
+    </ng-container>
+
+    <!-- Dropdown menu -->
+    <div [ngClass]="dropdownPopoverShow ? 'block' : 'hidden'"
+        class="dropDownBlock absolute divide-y-2 divide-neutral-100 dark:divide-gray-600 z-10 w-full bg-white dark:bg-gray-800 rounded-sm border-4 border-neutral-100 border-dark">
+        <div *ngIf="(items?.length || 0) > 5">
+            <label for="input-group-search" class="sr-only">Search</label>
+            <div class="relative">
+                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <svg-icon [svgClass]="'h-5 w-4 text-gray-500 dark:text-gray-400'" [src]="svgs.search" alt="search">
+                    </svg-icon>
+                </div>
+                <input type="text" id="input-group-search"
+                    class="block p-2 pl-10 w-full text-sm text-gray-900 dark:text-gray-100 dark:bg-gray-800"
+                    placeholder="Search..." autocomplete="off" [(ngModel)]="searchAttribute"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <ul class="overflow-y-auto max-h-40 text-sm p-1 text-sm text-slate-700 dark:text-slate-300">
+            <ng-container *ngIf="( items | filter: searchAttribute : ['name'] ) as result">
+                <li *ngFor="let item of result ; let i = index ">
+                    <div class="flex items-center p-2 cursor-pointer rounded-sm hover:bg-gray-600"
+                        (click)="onClick(item?.name)">
+                        {{ item?.name || '-' }}
+                    </div>
+                </li>
+                <p class="flex items-center p-2 cursor-pointer rounded-sm hover:bg-gray-600" *ngIf="!result.length">{{
+                    'MESSAGE.No_RECORDS' | translate }}</p>
+            </ng-container>
+        </ul>
+    </div>
+</div>
