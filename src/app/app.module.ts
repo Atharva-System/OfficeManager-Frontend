@@ -19,9 +19,18 @@ import { SharedModule } from './shared/shared.module';
 import { GuiGridModule } from '@generic-ui/ngx-grid';
 import { TokenInterceptor } from './core/auth/interceptor/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { FlatpickrModule } from 'angularx-flatpickr'
+import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
+
+FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin, timeGridPlugin, momentTimezonePlugin]);
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -48,6 +57,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       closeButton: true,
     }),
     AngularSvgIconModule.forRoot(),
+    FullCalendarModule,
+    FlatpickrModule.forRoot(),
   ],
   providers: [
     {
