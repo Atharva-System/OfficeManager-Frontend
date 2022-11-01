@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -13,9 +13,30 @@ import { DepartmentListComponent } from './department-list/department-list.compo
 import { AddDepartmentComponent } from './department-list/add-department/add-department.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { FullCalendarComponent1 } from './full-calendar/full-calendar.component';
+import { ManageEventComponent } from './manage-event/manage-event.component';
+import { FlatpickrModule } from 'angularx-flatpickr';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin,
+  timeGridPlugin,
+]);
 
 @NgModule({
-  declarations: [ DashboardComponent, EmployeeListComponent, AddEmployeeComponent, DepartmentListComponent, AddDepartmentComponent ],
+  declarations: [
+    DashboardComponent,
+    EmployeeListComponent,
+    AddEmployeeComponent,
+    DepartmentListComponent,
+    AddDepartmentComponent,
+    FullCalendarComponent1,
+    ManageEventComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -26,7 +47,10 @@ import { TranslateModule } from '@ngx-translate/core';
     SharedModule,
     AngularSvgIconModule,
     TranslateModule.forChild(),
+    FullCalendarModule,
+    FlatpickrModule
   ],
-  schemas : [CUSTOM_ELEMENTS_SCHEMA]
+  exports: [ManageEventComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class DashboardModule { }
+export class DashboardModule {}
