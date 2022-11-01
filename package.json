@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postinstall": "node remove-css-imports.js"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +19,13 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
+    "@fullcalendar/angular": "^5.11.2",
+    "@fullcalendar/core": "^6.0.0-beta.1",
+    "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/interaction": "^5.11.3",
+    "@fullcalendar/moment-timezone": "^5.11.3",
+    "@fullcalendar/resource-timeline": "^6.0.0-beta.1",
+    "@fullcalendar/timegrid": "^5.11.3",
     "@generic-ui/fabric": "^0.18.1",
     "@generic-ui/hermes": "^0.18.1",
     "@generic-ui/ngx-grid": "^0.18.1",
@@ -25,6 +33,9 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "@popperjs/core": "^2.11.6",
     "angular-svg-icon": "^14.0.0",
+    "angularx-flatpickr": "^7.0.0",
+    "flatpickr": "^4.6.13",
+    "moment": "^2.29.4",
     "ngx-pagination": "^6.0.2",
     "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.0.0",
