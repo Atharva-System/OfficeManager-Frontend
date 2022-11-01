@@ -25,7 +25,6 @@ export class SVGs {
   //Used in employee list
   static delete = 'assets/svg/delete.svg';
 
-
   //Used in department list
   static description = 'assets/svg/description.svg';
   static key = 'assets/svg/key.svg';
@@ -57,4 +56,9 @@ export class SVGs {
   static ascending = 'assets/svg/ascending.svg';
   static descending = 'assets/svg/descending.svg';
   static x = 'assets/svg/x.svg';
+
+  static happySmile = 'assets/svg/happy-smile.svg';
+  static monthlyCalendar = 'assets/svg/monthly-calendar.svg';
+  static weeklyCalendar = 'assets/svg/weekly-calendar.svg';
+  static dailyCalendar = 'assets/svg/daily-calendar.svg';
 }
