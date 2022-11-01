@@ -1,0 +1,27 @@
+.overlay-close {
+  position: absolute;
+  right: 100%;
+  border-radius: 50% 0 0 50%;
+  width: 25px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0.5;
+  z-index: 10px;
+  cursor: pointer;
+}
+
+.section-add-department {
+  overflow-y: auto;
+  height: calc(100vh - 147px);
+}
+
+.top-shadow {
+  box-shadow: 0 -7px 5px #0000000d;
+}
+
+.bottom-shadow {
+  box-shadow: 0 7px 5px #0000000d;
+}
