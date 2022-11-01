@@ -1,0 +1,10 @@
+<button (click)="toggleWeekends()">toggle weekends</button>
+<div class="bg-white dark:bg-gray-800">
+    <full-calendar #calendar id="external" [options]="calendarOptions"></full-calendar>
+</div>
+
+<div class="container">
+    <div [ngClass]="isAdd ? 'overlay' : ''"></div>
+    <app-manage-event [currentDate]="currentDate" [editable]="true" [isEditEvent]="isEditEvent" (closeEvent)="onClose()"
+        (addEvent)="onAddEvent($event)" (deleteEvent)="onDelete($event)" *ngIf="isAdd"></app-manage-event>
+</div>
