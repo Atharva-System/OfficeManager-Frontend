@@ -28,9 +28,9 @@ export class LayoutComponent implements OnInit {
       isIcon: true,
     },
     {
-      name: 'fffdettttttttttt',
+      name: 'FullCalendar',
       icon: SVGs.inbox,
-      routerLink: '',
+      routerLink: RouterPathClass.fullCalendar,
       isIcon: true,
     },
     {
