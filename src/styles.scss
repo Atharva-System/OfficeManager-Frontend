@@ -5,11 +5,16 @@
 @import "tailwindcss/utilities";
 @import "~ngx-toastr/toastr";
 @import "~ngx-spinner/animations/timer.css";
+@import "~@fullcalendar/common/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";
+@import "flatpickr";
 
 :root {
   --color-black: #000;
   --color-white: #fff;
   --white-btn-bg: #f9fafb;
+  --white-btn-shadow-bg: #d1d5db;
   --white-btn-hover-bg: #e5e7eb;
   --black-btn-bg: #4b5563;
   --black-btn-hover-bg: #6b7280;
@@ -20,6 +25,7 @@
   --color-black: #fff;
   --color-white: #000;
   --white-btn-bg: #1f2937;
+  --white-btn-shadow-bg: #374151;
   --white-btn-hover-bg: #4b5563;
   --black-btn-bg: #f9fafb;
   --black-btn-hover-bg: #e5e7eb;
@@ -164,4 +170,116 @@
     padding-top: 1.23rem;
     padding-bottom: 1.23rem;
   }
+}
+
+.fc-daygrid-day-events {
+  .fc-daygrid-event-harness {
+    padding: 9px;
+    .fc-daygrid-event {
+      box-shadow: none !important;
+      .fc-event-main {
+        border: none !important;
+        .fc-event-main-frame {
+          margin: 3px !important;
+          .fc-event-title-container {
+            padding: 0px 3px;
+            .fc-event-title {
+              text-overflow: ellipsis;
+            }
+          }
+        }
+      }
+    }
+  }
+  .fc-daygrid-day-bottom {
+    text-align: center;
+  }
+}
+
+.fc-timegrid-col-events {
+  .fc-timegrid-event-harness-inset {
+    padding: 3px;
+    .fc-timegrid-event {
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      .fc-event-main {
+        border: none !important;
+        padding: 3px !important;
+        text-overflow: ellipsis !important;
+        .fc-event-main-frame {
+          align-items: flex-start;
+          justify-content: center;
+          padding-left: 3px;
+          padding-right: 3px;
+          display: flex;
+          flex-direction: column-reverse;
+          .fc-event-title-container {
+            flex-grow: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.fc-timegrid-col {
+  overflow: hidden;
+}
+
+.fc-popover {
+  background-color: var(--white-btn-bg) !important;
+  border-color: var(--white-btn-bg) !important;
+  .fc-popover-header {
+    background-color: var(--white-btn-hover-bg) !important;
+  }
+}
+
+.event-color-red {
+  .fc-event-main {
+    .fc-event-main-frame {
+      border-left-width: 3px !important;
+      border-left-color: #ef4444 !important;
+    }
+  }
+}
+
+.event-color-green {
+  .fc-event-main {
+    .fc-event-main-frame {
+      border-left-width: 3px !important;
+      border-left-color: #16a34a !important;
+    }
+  }
+}
+
+.event-color-blue {
+  .fc-event-main {
+    .fc-event-main-frame {
+      border-left-width: 3px !important;
+      border-left-color: #0ea5e9 !important;
+    }
+  }
+}
+
+.main-event-div {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: var(--white-btn-bg);
+  width: auto;
+  box-shadow: 0px 8px 16px 0px var(--white-btn-shadow-bg);
+  z-index: 20;
+  margin-left: -26px !important;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.width-fit{
+  width: -webkit-fill-available !important;
 }
