@@ -13,12 +13,39 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { DashboardHeaderComponent } from './components/dashboard-header/dashboard-header.component';
 import { RouterModule } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { DropDownComponent } from './components/drop-down/drop-down.component';
 
 @NgModule({
-  declarations: [MenuComponent, FilterComponent, FilterPipe, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent, DashboardHeaderComponent],
-  imports: [CommonModule, TranslateModule.forChild(), AngularSvgIconModule, FormsModule, ReactiveFormsModule, NgxPaginationModule, RouterModule],
-  exports: [MenuComponent, FilterComponent, Filter2Component, ButtonComponent, InputFieldComponent, TableComponent, DashboardHeaderComponent],
-  schemas : [CUSTOM_ELEMENTS_SCHEMA]
-
+  declarations: [
+    MenuComponent,
+    FilterComponent,
+    DropDownComponent,
+    FilterPipe,
+    Filter2Component,
+    ButtonComponent,
+    InputFieldComponent,
+    TableComponent,
+    DashboardHeaderComponent,
+  ],
+  imports: [
+    CommonModule,
+    TranslateModule.forChild(),
+    AngularSvgIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    RouterModule,
+  ],
+  exports: [
+    MenuComponent,
+    FilterComponent,
+    Filter2Component,
+    DropDownComponent,
+    ButtonComponent,
+    InputFieldComponent,
+    TableComponent,
+    DashboardHeaderComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SharedModule { }
+export class SharedModule {}
