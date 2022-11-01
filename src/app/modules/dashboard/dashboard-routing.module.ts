@@ -6,6 +6,7 @@ import { AddDepartmentComponent } from './department-list/add-department/add-dep
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { AddEmployeeComponent } from './employee-list/add-employee/add-employee.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { FullCalendarComponent1 } from './full-calendar/full-calendar.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,13 @@ const routes: Routes = [
             },
           },
         ],
+      },
+      {
+        path: RouterPathClass.fullCalendar,
+        component: FullCalendarComponent1,
+        data: {
+          breadcrumb: RouterPathClass.breadcrumb.fullCalendar,
+        },
       },
     ],
   },
