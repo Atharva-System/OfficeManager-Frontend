@@ -12,11 +12,15 @@ export class RouterPathClass {
   static departmentList = 'department-list';
   static addDepartment = 'add-department';
 
+  //Calendar
+  static fullCalendar = 'full-calendar';
+
   static breadcrumb = {
     dashboard: 'Dashboard',
     employee: 'Employee',
     addEmployee: '',
     department: 'Department',
     addDepartment: '',
+    fullCalendar: 'FullCalendar',
   };
 }
