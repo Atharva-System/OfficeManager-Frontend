@@ -1,0 +1,179 @@
+<div class="fixed top-0 right-0 z-50 w-full md:w-1/2 flex flex-col">
+    <div class="min-h-screen text-black bg-white dark:text-white dark:bg-gray-800 shadow-lg">
+
+        <!-- Add department form -->
+        <form [formGroup]="constant.addEventForm" (ngSubmit)="onSubmit(constant.addEventForm.value)"
+            class="text-black dark:text-white">
+
+            <!-- Header -->
+            <div class="z-10 p-5" [ngClass]="constant.sideBar.scrollTop ? 'bottom-shadow' : ''">
+                <div class="flex">
+                    <div class="overlay-close bg-gray-900 dark:bg-gray-100 hover:bg-gray-800 hover:dark:bg-gray-200"
+                        (click)="onClose()">
+                        <svg-icon [src]="svgs.x"
+                            [svgClass]="'h-4 w-4 fill-white dark:fill-black stroke-white dark:stroke-black'">
+                        </svg-icon>
+                    </div>
+                </div>
+                <!-- Title -->
+                <div class="flex">
+                    <div class="text-xl font-bold text-black dark:text-white"> {{ isEditEvent ? 'Edit Event' : 'New
+                        Event'}}
+                    </div>
+                    <div class="ml-auto" *ngIf="isEditEvent">
+                        <svg-icon [src]="svgs.delete" (click)="onDelete()"
+                            [svgClass]="'h-5 w-5 icon-img animate-bounce cursor-pointer'">
+                        </svg-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section -->
+            <!-- Title -->
+            <div class="section-add-department" (scroll)="scrollHandler($event)">
+                <div class="m-5">
+                    <!-- Title -->
+                    <div class="mt-6 ">
+                        <!-- Input field custom component for icon and box styleing -->
+                        <app-input-field [icon]="svgs.type" [class]="'bg-neutral-100 bg-input-dark dark:text-black'"
+                            [name]="'LABEL.NAME'"
+                            [isRequired]="_addEventForm['title'].hasValidator(constant.validators.required)"
+                            [error]="_addEventForm['title'].invalid && (isFormSubmitted)">
+                            <input class="ml-auto focus:outline-none w-full bg-neutral-100" formControlName="title"
+                                placeholder="{{ 'PLACE_HOLDER.NAME' | translate }}" type="text" />
+                        </app-input-field>
+                        <!-- Validation Message -->
+                        <ng-container *ngFor="let validation of validationMessages.title">
+                            <div class="text-red-500 text-xs italic mt-1"
+                                *ngIf="_addEventForm['title'].errors?.[validation.type] && (isFormSubmitted)">
+                                {{ 'LABEL.NAME' | translate }} {{ validation.message | translate }}
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <!-- StartDate -->
+                    <div class="mt-6 flex gap-3">
+                        <!-- Input field custom component for icon and box styleing -->
+                        <app-input-field [icon]="svgs.type" class="width-fit"
+                            [class]="'bg-neutral-100 bg-input-dark dark:text-black'" [name]="'Start Date'"
+                            [isRequired]="_addEventForm['start'].hasValidator(constant.validators.required)"
+                            [error]="_addEventForm['start'].invalid && (isFormSubmitted)">
+                            <input type="text" id="first"
+                                class="ml-auto focus:outline-none w-full bg-neutral-100 bg-input-dark" mwlFlatpickr
+                                formControlName="start" placeholder="--Start Date--" [monthSelectorType]="'dropdown'"
+                                (flatpickrChange)="onChangeStartDate($event)" [dateFormat]="'Y-m-d'" [minDate]="nowDate"
+                                [convertModelValue]="true" />
+                        </app-input-field>
+                        <!-- Validation Message -->
+                        <ng-container *ngFor="let validation of validationMessages.start">
+                            <div class="text-red-500 text-xs italic mt-1"
+                                *ngIf="_addEventForm['start'].errors?.[validation.type] && (isFormSubmitted)">
+                                StartDate {{ validation.message | translate }}
+                            </div>
+                        </ng-container>
+
+                        <div class="-mt-5 width-fit" *ngIf="!_addEventForm['allDay'].value">
+                            <app-drop-down [icon]="svgs.type"
+                                [isRequired]="_addEventForm['startTime'].hasValidator(constant.validators.required)"
+                                [label]="'Start Time'" [error]="_addEventForm['startTime'].invalid && (isFormSubmitted)"
+                                [placeHolder]="'--Select Time--'" [designation]="_addEventForm['startTime'].value"
+                                [validationMessages]="validationMessages.start"
+                                [showError]="_addEventForm['startTime'].errors" [isFormSubmitted]="isFormSubmitted"
+                                [items]="startTime" (onSelectEvent)="onClick($event, 'startTime')"
+                                (onCloseSelectedEvent)="onCloseSelected('startTime')"></app-drop-down>
+                        </div>
+
+                        <!-- Input field custom component for icon and box styleing
+                        <app-input-field [icon]="svgs.type" class="width-fit"
+                            [class]="'bg-neutral-100 bg-input-dark dark:text-black'" [name]="'Start Date'"
+                            [isRequired]="_addEventForm['start'].hasValidator(constant.validators.required)"
+                            [error]="_addEventForm['start'].invalid && (isFormSubmitted)">
+                            <input type="text" id="first2" [noCalendar]="true" [dateFormat]="'H:i'" [minuteIncrement]="30"
+                                class="ml-auto focus:outline-none w-full bg-neutral-100 bg-input-dark" mwlFlatpickr
+                                formControlName="start" placeholder="--Start Date--" [allowInput]="true"
+                                [enableTime]="_addEventForm['allDay'].value ? false : true" [time24hr]="true" 
+                                [plugins]="plugins" (flatpickrChange)="onChangeStartDate($event)"
+                                [convertModelValue]="true" />
+
+                        </app-input-field> -->
+                        <!-- Validation Message -->
+                        <!-- <ng-container *ngFor="let validation of validationMessages.start">
+                            <div class="text-red-500 text-xs italic mt-1"
+                                *ngIf="_addEventForm['start'].errors?.[validation.type] && (isFormSubmitted)">
+                                StartDate {{ validation.message | translate }}
+                            </div>
+                        </ng-container> -->
+                    </div>
+
+                    <!-- EndDate -->
+                    <div class="mt-6  flex gap-3">
+                        <!-- Input field custom component for icon and box styleing -->
+                        <app-input-field [icon]="svgs.type" class="width-fit"
+                            [class]="'bg-neutral-100 bg-input-dark dark:text-black w-full'" [name]="'End Date'"
+                            [isRequired]="_addEventForm['end'].hasValidator(constant.validators.required)"
+                            [error]="_addEventForm['end'].invalid && (isFormSubmitted)">
+                            <input type="text" id="second"
+                                class="ml-auto focus:outline-none w-full bg-neutral-100 bg-input-dark" mwlFlatpickr
+                                formControlName="end" placeholder="--End Date--" [dateFormat]="'Y-m-d'"
+                                [minDate]="defaultEndDate" [convertModelValue]="true" />
+                        </app-input-field>
+
+                        <div class="-mt-5 width-fit" *ngIf="!_addEventForm['allDay'].value">
+                            <app-drop-down [icon]="svgs.type"
+                                [isRequired]="_addEventForm['endTime'].hasValidator(constant.validators.required)"
+                                [label]="'End Time'" [error]="_addEventForm['endTime'].invalid && (isFormSubmitted)"
+                                [placeHolder]="'--Select Time--'" [designation]="_addEventForm['endTime'].value"
+                                [validationMessages]="validationMessages.end"
+                                [showError]="_addEventForm['endTime'].errors" [isFormSubmitted]="isFormSubmitted"
+                                [items]="endTime" (onSelectEvent)="onClick($event, 'endTime')"
+                                (onCloseSelectedEvent)="onCloseSelected('endTime')"></app-drop-down>
+                        </div>
+
+                        <!-- Input field custom component for icon and box styleing -->
+                        <!-- <app-input-field [icon]="svgs.type" class="width-fit"
+                            [class]="'bg-neutral-100 bg-input-dark dark:text-black w-full'" [name]="'End Date'"
+                            [isRequired]="_addEventForm['end'].hasValidator(constant.validators.required)"
+                            [error]="_addEventForm['end'].invalid && (isFormSubmitted)">
+                            <input type="text" id="second"
+                                class="ml-auto focus:outline-none w-full bg-neutral-100 bg-input-dark" mwlFlatpickr
+                                formControlName="end" placeholder="--End Date--"
+                                [enableTime]="_addEventForm['allDay'].value ? false : true"
+                                [dateFormat]=" _addEventForm['allDay'].value ? 'Y-m-d' : 'Y-m-d H:i' "
+                                [minDate]="defaultEndDate" [convertModelValue]="true" />
+                        </app-input-field> -->
+                    </div>
+
+                    <app-drop-down [icon]="svgs.description"
+                        [isRequired]="_addEventForm['color'].hasValidator(constant.validators.required)"
+                        [label]="'Color'" [error]="_addEventForm['color'].invalid && (isFormSubmitted)"
+                        [placeHolder]="'--Select Color--'" [designation]="_addEventForm['color'].value"
+                        [validationMessages]="validationMessages.color" [showError]="_addEventForm['color'].errors"
+                        [isFormSubmitted]="isFormSubmitted" [items]="colors" (onSelectEvent)="onClick($event, 'color')"
+                        (onCloseSelectedEvent)="onCloseSelected('color')"></app-drop-down>
+
+
+                    <input type="text" id="third" mwlFlatpickr [monthSelectorType]="'dropdown'"
+                        (flatpickrChange)="onChangeStartDate($event)" [dateFormat]="'Y-m-d'"
+                        [convertModelValue]="true" />
+                        
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <!-- Add/Edit Button -->
+            <div [ngClass]="((constant.sideBar.scrollTop + constant.sideBar.offsetHeight) != constant.sideBar.scrollHeight) && constant.sideBar.scrollTop ? 'top-shadow' : ''"
+                class="fixed bottom-0 border-t border-gray-300 dark:border-gray-600 w-full md:w-1/2">
+                <div class="flex gap-5 items-center justify-end m-5">
+                    <app-button class="button-bottom cancel" [type]="'button'" (click)="onClose()"
+                        [name]="'BUTTON.CANCEL'" text="w-1/8">
+                    </app-button>
+                    <app-button [type]="'submit'" [name]="isEditEvent ? 'BUTTON.EDIT' : 'BUTTON.CREATE'" text="w-1/8">
+                        <svg-icon *ngIf="isSpin" [src]="svgs.spin"
+                            [svgClass]="'h-4 w-4 animate-spin mx-6 fill-white stroke-white'">
+                        </svg-icon>
+                    </app-button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
